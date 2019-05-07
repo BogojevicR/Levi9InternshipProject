@@ -1,0 +1,6 @@
+INSERT INTO category (id,name) VALUES (1,"Romance");
+INSERT INTO category (id,name) VALUES (2,"Kids");
+INSERT INTO category (id,name) VALUES (3,"History");
+INSERT INTO category (id,name) VALUES (4,"Fantasy");
+INSERT INTO category (id,name) VALUES (5,"Drama");
+INSERT INTO category (id,name) VALUES (6,"Comics");
