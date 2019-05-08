@@ -1,32 +1,42 @@
 package internship.ShoppingCartService.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
+
 
 @Entity
-public class CartItem {
-	
+public class ReceiptItem {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ManyToOne
 	private Book book;
+	@Column(nullable = false)
 	private int quantity;
+	@Column(nullable = false)
 	private double total;
 	
-	public CartItem() {
+	public ReceiptItem() {
 		super();
 	}
 
-	public CartItem(Book book, int quantity) {
+	public ReceiptItem(Book book, int quantity) {
 		super();
 		this.book = book;
 		this.quantity = quantity;
 		this.total = book.getPrice() * quantity;
+	}
+
+	public ReceiptItem(CartItem i) {
+		this.book = i.getBook();
+		this.quantity = i.getQuantity();
+		this.total = i.getTotal();
 	}
 
 	public Long getId() {
@@ -63,9 +73,7 @@ public class CartItem {
 
 	@Override
 	public String toString() {
-		return "CartItem [id=" + id + ", book=" + book + ", quantity=" + quantity + ", total=" + total + "]";
+		return "ReceiptItem [id=" + id + ", book=" + book + ", quantity=" + quantity + ", total=" + total + "]";
 	}
 	
-	
-		
 }

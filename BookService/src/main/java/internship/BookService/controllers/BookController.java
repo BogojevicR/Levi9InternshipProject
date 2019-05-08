@@ -40,7 +40,7 @@ public class BookController {
 		return bookService.disable(id);
 	}
 	
-	@RequestMapping(value = "getTopTen", method=RequestMethod.GET)
+	@RequestMapping(value = "getTopTen", method = RequestMethod.GET)
 	public ArrayList<Book> getTopTen(){
 		return bookService.getTopTen();
 	}
