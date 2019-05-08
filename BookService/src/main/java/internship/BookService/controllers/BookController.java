@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import internship.BookService.models.Book;
-import internship.BookService.services.BookService;
+import internship.BookService.services.BookServiceImpl;
 
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
 	
 	@Autowired
-	public BookService bookService;
+	public BookServiceImpl bookService;
 	
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public boolean save(@RequestBody Book book) {

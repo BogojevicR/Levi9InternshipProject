@@ -1,4 +1,4 @@
-package internship.BookService.models;
+package internship.ShoppingCartService.models;
 
 import java.util.List;
 

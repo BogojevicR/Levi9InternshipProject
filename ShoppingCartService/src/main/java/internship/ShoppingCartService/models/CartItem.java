@@ -1,4 +1,4 @@
-package internship.BookService.models;
+package internship.ShoppingCartService.models;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

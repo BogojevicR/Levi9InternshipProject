@@ -1,4 +1,4 @@
-package internship.BookService.repositories;
+package internship.ShoppingCartService.repositories;
 
 import java.util.ArrayList;
 
@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import internship.BookService.models.Book;
+import internship.ShoppingCartService.models.Book;
+
+
 
 public interface BookRepository extends CrudRepository<Book, Long> {
 	Book findByTitle(String title);
