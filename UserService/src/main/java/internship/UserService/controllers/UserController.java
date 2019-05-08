@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import internship.UserService.DTOmodels.UserToLogDTO;
-import internship.UserService.converter.LogInUserConverter;
 import internship.UserService.model.User;
 import internship.UserService.services.UserService;
 
