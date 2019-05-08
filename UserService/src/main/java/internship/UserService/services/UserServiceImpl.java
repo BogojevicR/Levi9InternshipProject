@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.model.User;
 import internship.UserService.repositories.UserRepository;
 
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User logInUser(User u) {
+	public User logInUser(UserToLogDTO u) {
 		User userToLog = userRepository.logInUser(u.getEmail(), u.getPassword());
 		if (userToLog != null) {
 			return userToLog;

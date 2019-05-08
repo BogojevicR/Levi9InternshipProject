@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
+import internship.UserService.DTOmodels.UserToLogDTO;
+import internship.UserService.converter.LogInUserConverter;
 import internship.UserService.model.User;
 import internship.UserService.services.UserService;
 
@@ -43,15 +44,23 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> login(@RequestBody User u, HttpSession http){
-		User userToLog = userService.logInUser(u);
+	public ResponseEntity<Boolean> login(@RequestBody UserToLogDTO uDTO, HttpSession http){
+		User userToLog = userService.logInUser(uDTO);
 		if (userToLog.getId() != null) {
 			http.setAttribute("loged", userToLog);
-			String role = userService.getRoleById(u.getId());
+			String role = userService.getRoleById(userToLog.getId());
 			http.setAttribute("role", role);
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 		return new ResponseEntity<Boolean>(false, HttpStatus.NO_CONTENT);
 	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public ResponseEntity<Boolean> logOut(HttpSession http) {
+		http.removeAttribute("logged");
+		http.removeAttribute("role");
+		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+	}
+	
 	
 }
