@@ -32,19 +32,19 @@ public class ShoppingCartController {
 	}
 	
 	@RequestMapping(value = "addItem/{cartId}/{quantity}/{bookId}", method = RequestMethod.POST)
-	public boolean addItem(@PathVariable Long cartId,@PathVariable int quantity,@PathVariable Long bookId) {
-		return cartService.addItem(cartId,quantity,bookId);
+	public boolean addItem(@PathVariable Long cartId, @PathVariable int quantity, @PathVariable Long bookId) {
+		return cartService.addItem(cartId, quantity, bookId);
 	}
 	
 	@RequestMapping(value = "removeItem/{cartId}/{cartItemId}", method = RequestMethod.DELETE)
-	public boolean removeItem(@PathVariable Long cartId,@PathVariable Long cartItemId) {
-		return cartService.removeItem(cartId,cartItemId);
+	public boolean removeItem(@PathVariable Long cartId, @PathVariable Long cartItemId) {
+		return cartService.removeItem(cartId, cartItemId);
 	}
 	
 	
 	@RequestMapping(value = "changeQuantity/{quantity}/{itemId}", method = RequestMethod.PUT)
-	public boolean changeQuantity(@PathVariable int quantity,@PathVariable Long itemId) {
-		return cartService.changeQuantity(quantity,itemId);
+	public boolean changeQuantity(@PathVariable int quantity, @PathVariable Long itemId) {
+		return cartService.changeQuantity(quantity, itemId);
 	}
 	
 	@RequestMapping(value = "emptyCart/{cartId}", method = RequestMethod.DELETE)

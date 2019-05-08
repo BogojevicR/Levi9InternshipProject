@@ -41,7 +41,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			return false;
 		}
 		Optional<Book> b = bookRep.findById(bookId);
-		CartItem item = new CartItem(b.get(), quantity, b.get().getPrice()*quantity);
+		CartItem item = new CartItem(b.get(), quantity);
 		cartItemRep.save(item);
 		cart.getItemList().add(item);
 		cartRep.save(cart);

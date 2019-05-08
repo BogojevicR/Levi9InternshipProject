@@ -1,5 +1,6 @@
 package internship.BookService.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,18 +16,20 @@ public class CartItem {
 	private Long id;
 	@ManyToOne
 	private Book book;
+	@Column(nullable = false)
 	private int quantity;
+	@Column(nullable = false)
 	private double total;
 	
 	public CartItem() {
 		super();
 	}
 
-	public CartItem(Book book, int quantity, double total) {
+	public CartItem(Book book, int quantity) {
 		super();
 		this.book = book;
 		this.quantity = quantity;
-		this.total = total;
+		this.total = book.getPrice() * quantity;
 	}
 
 	public Long getId() {

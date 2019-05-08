@@ -117,6 +117,11 @@ public class Book {
 		this.soldAmount = book.getSoldAmount();
 	}
 	
+	public void payBook(int quantity) {
+		this.quantity -= quantity;
+		this.soldAmount += quantity;
+	}
+	
 	
 	
 }

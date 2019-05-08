@@ -1,3 +1,4 @@
+**** Category  ****
 INSERT INTO category (id,name) VALUES (1,"Romance");
 INSERT INTO category (id,name) VALUES (2,"Kids");
 INSERT INTO category (id,name) VALUES (3,"History");
