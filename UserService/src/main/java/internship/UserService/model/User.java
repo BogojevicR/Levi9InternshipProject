@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User implements Serializable {
@@ -38,10 +39,13 @@ public class User implements Serializable {
 	@Column (nullable = false)
 	private String password;
 	
+	@OneToOne
+	private ShoppingCart shoppingCart;
+	
 	
 	public User () {}
 	
-	public User (Long id, String name, String surname, String email, Role role, String password) {
+	public User (Long id, String name, String surname, String email, Role role, String password, ShoppingCart shoppingCart) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -49,6 +53,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.role = role;
 		this.password = password;
+		this.shoppingCart = shoppingCart;
 		
 	}
 
