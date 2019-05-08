@@ -40,6 +40,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 			receiptItemRep.save(item);
 			Receipt r = new Receipt();
 			r.getItemList().add(item);
+			r.calculateTotalPrice();
 			receiptRep.save(r);
 			u.getReceipts().add(r);
 			userRep.save(u);
@@ -72,6 +73,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 		}
 		s.getItemList().clear();
 		shoppingCartRep.save(s);
+		r.calculateTotalPrice();
 		receiptRep.save(r);
 		u.getReceipts().add(r);
 		userRep.save(u);
