@@ -1,4 +1,4 @@
-package internship.UserService.model;
+package internship.ShoppingCartService.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;

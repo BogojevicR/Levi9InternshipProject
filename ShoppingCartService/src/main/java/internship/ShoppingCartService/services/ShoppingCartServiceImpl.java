@@ -52,6 +52,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public boolean changeQuantity(int quantity, Long itemId) {
 		CartItem item = cartItemRep.findById(itemId).get();
 		item.setQuantity(quantity);
+		item.setTotal(quantity * item.getBook().getPrice());
 		cartItemRep.save(item);
 		return true;
 	}

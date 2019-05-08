@@ -1,5 +1,7 @@
 package internship.UserService.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,11 @@ public class UserController {
 	public  ResponseEntity<User>  save(@RequestBody User user) {
 		userService.save(user);
 		return new ResponseEntity<User> (user, HttpStatus.OK); 
+	}
+	
+	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
+	public ResponseEntity<List<User>> getAll(){
+		return new ResponseEntity<List<User>> (userService.findAll(),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/getRole/{id}",  method = RequestMethod.GET)

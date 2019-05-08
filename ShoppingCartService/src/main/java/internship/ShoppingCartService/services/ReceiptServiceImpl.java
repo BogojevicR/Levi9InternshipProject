@@ -8,10 +8,12 @@ import internship.ShoppingCartService.models.CartItem;
 import internship.ShoppingCartService.models.Receipt;
 import internship.ShoppingCartService.models.ReceiptItem;
 import internship.ShoppingCartService.models.ShoppingCart;
+import internship.ShoppingCartService.models.User;
 import internship.ShoppingCartService.repositories.BookRepository;
 import internship.ShoppingCartService.repositories.ReceiptItemRepository;
 import internship.ShoppingCartService.repositories.ReceiptRepository;
 import internship.ShoppingCartService.repositories.ShoppingCartRepository;
+import internship.ShoppingCartService.repositories.UserRepository;
 @Service
 public class ReceiptServiceImpl implements ReceiptService {
 	
@@ -23,9 +25,13 @@ public class ReceiptServiceImpl implements ReceiptService {
 	BookRepository bookRep;
 	@Autowired
 	ShoppingCartRepository shoppingCartRep;
+	@Autowired
+	UserRepository userRep;
 
 	@Override
-	public Receipt buyNow(int quantity, Long bookId) {
+	public Receipt buyNow(Long userId,int quantity, Long bookId) {
+		User u = userRep.getOne(userId);
+		
 		Book b = bookRep.findById(bookId).get();
 		if(b.getQuantity() >= quantity) {
 			b.payBook(quantity);
@@ -35,6 +41,9 @@ public class ReceiptServiceImpl implements ReceiptService {
 			Receipt r = new Receipt();
 			r.getItemList().add(item);
 			receiptRep.save(r);
+			u.getReceipts().add(r);
+			userRep.save(u);
+
 			return r;
 		}
 
@@ -42,8 +51,10 @@ public class ReceiptServiceImpl implements ReceiptService {
 	}
 
 	@Override
-	public Receipt buyCart(Long cartId) {
-		ShoppingCart s = shoppingCartRep.findById(cartId).get();
+	public Receipt buyCart(Long userId) {
+		User u = userRep.getOne(userId);
+
+		ShoppingCart s = u.getShoppingCart();
 		Receipt r = new Receipt();
 		
 		for(CartItem i : s.getItemList()) {
@@ -62,6 +73,8 @@ public class ReceiptServiceImpl implements ReceiptService {
 		s.getItemList().clear();
 		shoppingCartRep.save(s);
 		receiptRep.save(r);
+		u.getReceipts().add(r);
+		userRep.save(u);
 		
 		return r;
 	}
