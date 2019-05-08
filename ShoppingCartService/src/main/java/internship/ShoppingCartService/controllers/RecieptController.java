@@ -17,14 +17,14 @@ public class RecieptController {
 	@Autowired
 	public ReceiptServiceImpl receiptService;
 	
-	@RequestMapping(value = "buyNow/{quantity}/{bookId}", method = RequestMethod.POST)
-	public Receipt buyNow(@PathVariable int quantity, @PathVariable Long bookId) {
-		return receiptService.buyNow(quantity, bookId);
+	@RequestMapping(value = "buyNow/{userId}/{quantity}/{bookId}", method = RequestMethod.POST)
+	public Receipt buyNow(@PathVariable Long userId,@PathVariable int quantity, @PathVariable Long bookId) {
+		return receiptService.buyNow(userId,quantity, bookId);
 	}
 	
-	@RequestMapping(value = "buyCart/{cartId}", method = RequestMethod.POST)
-	public Receipt buyNow( @PathVariable Long cartId) {
-		return receiptService.buyCart(cartId);
+	@RequestMapping(value = "buyCart/{userId}", method = RequestMethod.POST)
+	public Receipt buyNow( @PathVariable Long userId) {
+		return receiptService.buyCart(userId);
 	}
 
 }

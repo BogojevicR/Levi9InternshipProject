@@ -4,7 +4,7 @@ import internship.ShoppingCartService.models.Receipt;
 
 public interface ReceiptService {
 	
-	Receipt buyNow(int quantity, Long bookId);
+	Receipt buyNow(Long userId,int quantity, Long bookId);
 	Receipt buyCart(Long cartId);
 
 }

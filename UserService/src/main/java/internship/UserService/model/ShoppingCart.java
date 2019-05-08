@@ -1,5 +1,6 @@
 package internship.UserService.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -7,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 @Entity
 public class ShoppingCart {
 
@@ -15,7 +15,7 @@ public class ShoppingCart {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	@ElementCollection
-	private List<CartItem> itemList;
+	private List<CartItem> itemList = new ArrayList<CartItem>();
 
 	
 	public ShoppingCart() {

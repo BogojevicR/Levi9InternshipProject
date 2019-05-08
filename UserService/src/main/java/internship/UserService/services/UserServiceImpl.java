@@ -1,11 +1,13 @@
 package internship.UserService.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import internship.UserService.DTOmodels.UserToLogDTO;
+import internship.UserService.model.ShoppingCart;
 import internship.UserService.model.User;
 import internship.UserService.repositories.UserRepository;
 
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private ShoppingCartRepository cartRepository;
+	
 	@Override
 	public List<User> findAll() {
 		List<User> allUsers = userRepository.findAll();
@@ -24,6 +29,9 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean save(User u) {
 		if (userRepository.findByEmail(u.getEmail()) == null){
+			ShoppingCart s = new ShoppingCart();
+			cartRepository.save(s);
+			u.setShoppingCart(s);			
 			userRepository.save(u);
 			return true;
 		}
@@ -44,6 +52,8 @@ public class UserServiceImpl implements UserService{
 		
 		return new User();
 	}
+
+	
 	
 	
 	
