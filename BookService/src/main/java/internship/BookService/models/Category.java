@@ -22,6 +22,11 @@ public class Category {
 		super();
 		this.name = name;
 	}
+	public Category(Long id, String string) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
 	public Long getId() {
 		return id;
 	}

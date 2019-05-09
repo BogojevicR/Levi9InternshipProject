@@ -43,6 +43,18 @@ public class Book {
 		this.quantity = quantity;
 		this.soldAmount = 0;
 	}
+	
+	public Book(Long id,String title, String author, Category category, double price, State state, int quantity) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.author = author;
+		this.category = category;
+		this.price = price;
+		this.state = state;
+		this.quantity = quantity;
+		this.soldAmount = 0;
+	}
 
 	public Long getId() {
 		return id;

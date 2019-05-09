@@ -1,11 +1,11 @@
 package internship.ShoppingCartService.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import internship.ShoppingCartService.models.Category;
 
 
-public interface CategoryRepository extends CrudRepository<Category,Long>{
+public interface CategoryRepository extends JpaRepository<Category,Long>{
  
 	Category findByName(String name);
 }

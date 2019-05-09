@@ -1,17 +1,12 @@
 package internship.BookService.services;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import internship.BookService.models.Book;
-import internship.BookService.models.Book.State;
 import internship.BookService.models.Category;
 import internship.BookService.repositories.BookRepository;
 import internship.BookService.repositories.CategoryRepository;
@@ -35,21 +30,21 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public boolean disable(Long id) {
-		Optional<Book> b = bookRep.findById(id);
+		Book b = bookRep.getOne(id);
 		if(b == null)
 			return false;
-		b.get().setState(Book.State.DELETED);
-		bookRep.save(b.get());
+		b.setState(Book.State.DELETED);
+		bookRep.save(b);
 		return true;
 	}
 	
 	@Override
 	public boolean edit(Book book) {
-		Optional<Book> b = bookRep.findById(book.getId());
+		Book b = bookRep.getOne(book.getId());
 		if(b == null)
 			return false;
-		b.get().edit(book);
-		bookRep.save(b.get());
+		b.edit(book);
+		bookRep.save(b);
 		return true;
 	}
 
@@ -74,13 +69,11 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public ArrayList<Book> sort(String input) {
-		return (ArrayList<Book>) bookRep.findLike(input);
-		
+		return (ArrayList<Book>) bookRep.findLike(input);	
 	}
 
 	@Override
 	public boolean addCategory(String name) {
-		System.out.println(name);
 		if(categoryRep.findByName(name) != null)
 			return false;
 		categoryRep.save(new Category(name));

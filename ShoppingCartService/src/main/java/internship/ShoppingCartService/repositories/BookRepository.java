@@ -2,15 +2,15 @@ package internship.ShoppingCartService.repositories;
 
 import java.util.ArrayList;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import internship.ShoppingCartService.models.Book;
 
 
 
-public interface BookRepository extends CrudRepository<Book, Long> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 	Book findByTitle(String title);
 
 	@Query("SELECT b FROM Book b WHERE b.author LIKE %:input% OR b.title LIKE %:input%")

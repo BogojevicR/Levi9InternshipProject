@@ -1,9 +1,9 @@
 package internship.ShoppingCartService.repositories;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import internship.ShoppingCartService.models.ReceiptItem;
 
-public interface ReceiptItemRepository extends CrudRepository<ReceiptItem, Long> {
+public interface ReceiptItemRepository extends JpaRepository<ReceiptItem, Long> {
 
 }

@@ -1,7 +1,6 @@
 package internship.ShoppingCartService.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +39,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		if(cart.checkBook(bookId)) {
 			return false;
 		}
-		Optional<Book> b = bookRep.findById(bookId);
-		CartItem item = new CartItem(b.get(), quantity);
+		Book b = bookRep.getOne(bookId);
+		CartItem item = new CartItem(b, quantity);
 		cartItemRep.save(item);
 		cart.getItemList().add(item);
 		cartRep.save(cart);

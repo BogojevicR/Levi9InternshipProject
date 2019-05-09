@@ -18,8 +18,8 @@ public class RecieptController {
 	public ReceiptServiceImpl receiptService;
 	
 	@RequestMapping(value = "buyNow/{userId}/{quantity}/{bookId}", method = RequestMethod.POST)
-	public Receipt buyNow(@PathVariable Long userId,@PathVariable int quantity, @PathVariable Long bookId) {
-		return receiptService.buyNow(userId,quantity, bookId);
+	public Receipt buyNow(@PathVariable Long userId, @PathVariable int quantity, @PathVariable Long bookId) {
+		return receiptService.buyNow(userId, quantity, bookId);
 	}
 	
 	@RequestMapping(value = "buyCart/{userId}", method = RequestMethod.POST)
