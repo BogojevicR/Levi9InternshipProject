@@ -9,6 +9,7 @@ import internship.ShoppingCartService.models.Receipt;
 import internship.ShoppingCartService.models.ReceiptItem;
 import internship.ShoppingCartService.models.ShoppingCart;
 import internship.ShoppingCartService.models.User;
+import internship.ShoppingCartService.models.User.Role;
 import internship.ShoppingCartService.repositories.BookRepository;
 import internship.ShoppingCartService.repositories.ReceiptItemRepository;
 import internship.ShoppingCartService.repositories.ReceiptRepository;
@@ -31,7 +32,8 @@ public class ReceiptServiceImpl implements ReceiptService {
 	@Override
 	public Receipt buyNow(Long userId,int quantity, Long bookId) {
 		User u = userRep.getOne(userId);
-		
+		if(u.getRole() == Role.ADMIN)
+			return null;
 		Book b = bookRep.findById(bookId).get();
 		if(b.getQuantity() >= quantity) {
 			b.payBook(quantity);
@@ -54,7 +56,8 @@ public class ReceiptServiceImpl implements ReceiptService {
 	@Override
 	public Receipt buyCart(Long userId) {
 		User u = userRep.getOne(userId);
-
+		if(u.getRole() == Role.ADMIN)
+			return null;
 		ShoppingCart s = u.getShoppingCart();
 		Receipt r = new Receipt();
 		if(s.getItemList().size() == 0) {

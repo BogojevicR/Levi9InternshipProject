@@ -63,7 +63,12 @@ public class BookServiceImpl implements BookService {
 		//TODO: Uradi preko querryija TopTen
 		ArrayList<Book> books = (ArrayList<Book>) bookRep.findAll();
 		books.sort(Comparator.comparing(Book::getSoldAmount).reversed());
-		books = new ArrayList<>(books.subList(0,10));
+		if(books.size() >= 10) {
+			books = new ArrayList<>(books.subList(0,10));
+		}else {
+			books = new ArrayList<>(books.subList(0,books.size()));
+		}
+			
 		return books;
 	}
 

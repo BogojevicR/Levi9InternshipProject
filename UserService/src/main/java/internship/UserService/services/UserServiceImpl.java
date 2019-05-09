@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import internship.UserService.DTOmodels.UserToLogDTO;
+import internship.UserService.model.Receipt;
 import internship.UserService.model.ShoppingCart;
 import internship.UserService.model.User;
 import internship.UserService.repositories.UserRepository;
@@ -29,9 +30,13 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean save(User u) {
 		if (userRepository.findByEmail(u.getEmail()) == null){
-			ShoppingCart s = new ShoppingCart();
-			cartRepository.save(s);
-			u.setShoppingCart(s);			
+			if(u.getRole() == User.Role.CUSTOMER) {
+				ShoppingCart s = new ShoppingCart();
+				cartRepository.save(s);
+				u.setShoppingCart(s);	
+				u.setReceipts( new ArrayList<Receipt>());
+			}
+					
 			userRepository.save(u);
 			return true;
 		}

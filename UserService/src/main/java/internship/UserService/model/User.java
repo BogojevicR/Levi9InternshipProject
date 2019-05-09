@@ -48,7 +48,7 @@ public class User implements Serializable {
 	private ShoppingCart shoppingCart;
 	
 	@ElementCollection
-	private List<Receipt> receipts = new ArrayList<Receipt>();
+	private List<Receipt> receipts;
 	
 	public User () {}
 	
