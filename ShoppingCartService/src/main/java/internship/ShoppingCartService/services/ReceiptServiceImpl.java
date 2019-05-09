@@ -57,7 +57,9 @@ public class ReceiptServiceImpl implements ReceiptService {
 
 		ShoppingCart s = u.getShoppingCart();
 		Receipt r = new Receipt();
-		
+		if(s.getItemList().size() == 0) {
+			return null;
+		}
 		for(CartItem i : s.getItemList()) {
 			if(i.getBook().getQuantity() < i.getQuantity()) {
 				return null;	
