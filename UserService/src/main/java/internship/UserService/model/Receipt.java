@@ -17,13 +17,16 @@ public class Receipt {
 	private Long id;
 	@ElementCollection
 	private List<ReceiptItem> itemList = new ArrayList<ReceiptItem>();
+	private double totalPrice;
 	
 	public Receipt() {
 		super();
+		this.totalPrice = 0;
 	}
 	public Receipt(List<ReceiptItem> itemList) {
 		super();
 		this.itemList = itemList;
+		this.totalPrice = 0;
 	}
 	public Long getId() {
 		return id;
@@ -37,9 +40,25 @@ public class Receipt {
 	public void setItemList(List<ReceiptItem> itemList) {
 		this.itemList = itemList;
 	}
+	
+	public double getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+	public void calculateTotalPrice() {
+		for(ReceiptItem i : this.itemList) {
+			totalPrice += i.getTotal();
+		}
+	}
+	
 	@Override
 	public String toString() {
-		return "Receipt [id=" + id + ", itemList=" + itemList + "]";
+		return "Receipt [id=" + id + ", itemList=" + itemList + ", totalPrice=" + totalPrice + "]";
 	}
+	
+	
 	
 }
