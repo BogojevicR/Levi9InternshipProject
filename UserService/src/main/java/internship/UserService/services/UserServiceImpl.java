@@ -10,6 +10,7 @@ import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.model.Receipt;
 import internship.UserService.model.ShoppingCart;
 import internship.UserService.model.User;
+import internship.UserService.repositories.ShoppingCartRepository;
 import internship.UserService.repositories.UserRepository;
 
 @Service

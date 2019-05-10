@@ -1,4 +1,4 @@
-package internship.UserService.services;
+package internship.UserService.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
