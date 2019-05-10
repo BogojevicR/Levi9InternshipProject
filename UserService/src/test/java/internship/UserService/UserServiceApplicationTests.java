@@ -57,6 +57,7 @@ public class UserServiceApplicationTests {
         
         assertEquals(5, usersServ.size());
         Mockito.verify(userRepository, Mockito.times(1)).findAll();
+  
 	}
 	
 	  @Test
@@ -81,6 +82,8 @@ public class UserServiceApplicationTests {
 		  System.out.println(logged.getEmail() + logged.getName() + logged.getSurname() + logged.getPassword());
 		  
 		  assertEquals(user, logged);
+		  
+		 
 	  }
 	  
 	  @Test

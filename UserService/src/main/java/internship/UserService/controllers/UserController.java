@@ -3,7 +3,6 @@ package internship.UserService.controllers;
 import java.util.List;
 
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import internship.UserService.DTOmodels.UserToLogDTO;
+
 import internship.UserService.model.User;
 import internship.UserService.model.User.Role;
 import internship.UserService.services.UserService;
@@ -51,8 +50,9 @@ public class UserController {
 		return new ResponseEntity<String> (rola, HttpStatus.OK); 
 	}
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> login(@RequestBody UserToLogDTO uDTO, HttpSession http){
+	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ResponseEntity<Boolean> login(HttpServletRequest request, @RequestBody UserToLogDTO uDTO){
+		HttpSession http = request.getSession();
 		User userToLog = userService.logInUser(uDTO);
 		if (userToLog.getId() != null) {
 			http.setAttribute("loged", userToLog);
@@ -68,7 +68,7 @@ public class UserController {
 		http.removeAttribute("logged");
 		http.removeAttribute("role");
 		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-	}
+	}*/
 	
 	
 }
