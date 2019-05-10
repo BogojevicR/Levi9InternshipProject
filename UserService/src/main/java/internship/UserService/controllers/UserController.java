@@ -2,6 +2,7 @@ package internship.UserService.controllers;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.model.User;
+import internship.UserService.model.User.Role;
 import internship.UserService.services.UserService;
 
 @Controller
@@ -38,7 +40,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/getRole/{id}",  method = RequestMethod.GET)
 	public  ResponseEntity<String>  getRole(@PathVariable Long id) {
-		String role = userService.getRoleById(id);
+		Role role = userService.getRoleById(id);
 		String rola;
 		if (role.equals("0")) {
 			rola = "ADMIN";
@@ -54,7 +56,7 @@ public class UserController {
 		User userToLog = userService.logInUser(uDTO);
 		if (userToLog.getId() != null) {
 			http.setAttribute("loged", userToLog);
-			String role = userService.getRoleById(userToLog.getId());
+			Role role = userService.getRoleById(userToLog.getId());
 			http.setAttribute("role", role);
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}

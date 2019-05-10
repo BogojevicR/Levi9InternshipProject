@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import internship.UserService.model.User;
+import internship.UserService.model.User.Role;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
@@ -11,7 +12,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	User findByEmail (String email);
 	
 	@Query(value = "SELECT role FROM user u WHERE u.id = ?1", nativeQuery = true)
-	String getRole(Long id);
+	Role getRole(Long id);
 	
 	@Query(value = "SELECT * FROM user u WHERE u.email = ?1 and u.password = ?2", nativeQuery = true)
 	User logInUser(String email, String password);

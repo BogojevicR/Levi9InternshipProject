@@ -10,6 +10,7 @@ import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.model.Receipt;
 import internship.UserService.model.ShoppingCart;
 import internship.UserService.model.User;
+import internship.UserService.model.User.Role;
 import internship.UserService.repositories.ShoppingCartRepository;
 import internship.UserService.repositories.UserRepository;
 
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public String getRoleById(Long id) {
+	public Role getRoleById(Long id) {
 		return userRepository.getRole(id);
 	}
 
