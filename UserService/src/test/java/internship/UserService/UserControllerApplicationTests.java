@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
 
 import com.google.gson.Gson;
 
+import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.controllers.UserController;
 import internship.UserService.model.User;
 import internship.UserService.services.UserService;
@@ -32,6 +33,17 @@ public class UserControllerApplicationTests {
     @MockBean
     private UserService userService;
 
+    @Test
+    public void saveTest() throws Exception {
+    	
+    	User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+    	
+    	Mockito.verify(userService, Mockito.times(1)).save(user);
+    	
+    	this.mockMvc.perform(MockMvcRequestBuilders.get("/user/save")).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
+ 
+    }
+    
     @Test
     public void getAllTest() throws Exception {
     	
@@ -56,6 +68,31 @@ public class UserControllerApplicationTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/user/getAll")).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().json(jsonUsers));
 		
+    }
+    
+    @Test
+    public void loginUserTestWhenExists() throws Exception {
+    	
+    	  User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+    	  UserToLogDTO userDTO = new UserToLogDTO("krasicsara1@gmail.com", "saki"); 
+    	  
+    	  Mockito.when(userService.logInUser(userDTO)).thenReturn(user);
+    	  
+    	  this.mockMvc.perform(MockMvcRequestBuilders.get("/user/save")).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+          .andExpect(MockMvcResultMatchers.content().string("true"));
+    	
+    }
+    
+    @Test
+    public void loginUserTestWhenNotExists() throws Exception {
+    	
+    	  UserToLogDTO userDTO = null;
+    	  
+    	  Mockito.when(userService.logInUser(userDTO)).thenReturn(new User());
+    	  
+    	  this.mockMvc.perform(MockMvcRequestBuilders.get("/user/save")).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+          .andExpect(MockMvcResultMatchers.content().string("false"));
+    	
     }
     
 }
