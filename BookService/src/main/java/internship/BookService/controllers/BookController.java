@@ -3,7 +3,9 @@ package internship.BookService.controllers;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +23,8 @@ public class BookController {
 	public BookServiceImpl bookService;
 	
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public boolean save(@RequestBody Book book) {
-		return bookService.save(book);
+	public ResponseEntity<Book> save(@RequestBody Book book) {
+		return new ResponseEntity<Book>(bookService.save(book), HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "edit", method = RequestMethod.PUT)
@@ -36,7 +38,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "disable/{id}", method = RequestMethod.PUT )
-	public boolean disable(@PathVariable Long id) {
+	public Book disable(@PathVariable Long id) {
 		return bookService.disable(id);
 	}
 	
