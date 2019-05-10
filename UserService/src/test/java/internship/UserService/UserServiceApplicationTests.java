@@ -13,8 +13,9 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-
+import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.model.User;
+import internship.UserService.model.User.Role;
 import internship.UserService.repositories.UserRepository;
 import internship.UserService.services.UserServiceImpl;
 
@@ -56,17 +57,46 @@ public class UserServiceApplicationTests {
         
         assertEquals(5, usersServ.size());
         Mockito.verify(userRepository, Mockito.times(1)).findAll();
+  
 	}
 	
 	  @Test
-	    public void saveUserTest()
-	    {
-	        User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+	  public void saveUserTest() {
+	      
+		  User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
 	         
-	        userService.save(user);
+	      userService.save(user);
 	         
-	        Mockito.verify(userRepository, Mockito.times(1)).save(user);
-	    }
+	      Mockito.verify(userRepository, Mockito.times(1)).save(user);
+	  }
+	  
+	  @Test
+	  public void loginUserTest() {
+		  
+		  User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+		  UserToLogDTO userDTO = new UserToLogDTO("krasicsara1@gmail.com", "saki");
+		  
+		  Mockito.when(userRepository.logInUser("krasicsara1@gmail.com", "saki")).thenReturn(user);
+		  
+		  User logged = userService.logInUser(userDTO);
+		  System.out.println(logged.getEmail() + logged.getName() + logged.getSurname() + logged.getPassword());
+		  
+		  assertEquals(user, logged);
+		  
+		 
+	  }
+	  
+	  @Test
+	  public void getRoleByIdTest() {
+		  
+		  User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+		  
+		  Mockito.when(userRepository.getRole(new Long(user.getId()))).thenReturn(user.getRole());
+		  
+		  Role role = userService.getRoleById(user.getId());
+		  
+		  assertEquals(role, user.getRole());
+	  }
 	
 
 }
