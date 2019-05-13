@@ -46,7 +46,7 @@ public class UserControllerApplicationTests {
        this.mockMvc.perform(MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(user))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
        .andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(user)));
        
-      // Mockito.verify(userService, true);
+       Mockito.verify(userService).save(user);
     }
     
     @Test

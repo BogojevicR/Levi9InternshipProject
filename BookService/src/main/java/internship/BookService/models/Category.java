@@ -5,13 +5,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+/**
+ * Represents enity of book category.
+ * @author r.bogojevic
+ *
+ */
 @Entity
 public class Category {
-	
+	/**
+	 * Auto-generated, unique key for a book category.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	/**
+	 * Name of book category in text value.
+	 */
 	@Column(nullable = false)
 	private String name;
 	
