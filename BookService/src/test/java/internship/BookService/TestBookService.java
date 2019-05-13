@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import internship.BookService.models.Book;
@@ -24,7 +25,7 @@ import internship.BookService.services.BookServiceImpl;
 public class TestBookService {
 	
 	@InjectMocks
-	BookServiceImpl service;
+	BookServiceImpl bookService;
 	
 	@Mock
 	BookRepository bookRep;
@@ -36,7 +37,7 @@ public class TestBookService {
 	@Test
 	public void saveTest(){
 		Book book = new Book("title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
-	    service.save(book);
+	    bookService.save(book);
 	    verify(bookRep, times(1)).save(book);
 	    verify(bookRep).save(book);
 	 }
@@ -44,9 +45,9 @@ public class TestBookService {
 	@Test
 	public void saveBookWithSameTitleTest() {
 		Book book = new Book("title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
-		service.save(book);
+		bookService.save(book);
 		when(bookRep.findByTitle(book.getTitle())).thenReturn(book);
-		service.save(book);
+		bookService.save(book);
 		verify(bookRep, times(1)).save(book);
 		verify(bookRep).save(book);
 	}
@@ -55,13 +56,13 @@ public class TestBookService {
 	public void disableTest() {
 		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
 		when(bookRep.getOne(book.getId())).thenReturn(book);
-		service.disable(book.getId());
+		bookService.disable(book.getId());
 		assertEquals(book.getState(), Book.State.DELETED);
 		
 		//Book doesnt exist test
 		when(bookRep.getOne(book.getId())).thenReturn(null);
-//		boolean response = service.disable(book.getId());
-	//	assertEquals(false, response);
+		Book response = bookService.disable(book.getId());
+		verify(bookRep,times(1)).save(book);
 	}
 
 	
@@ -70,7 +71,7 @@ public class TestBookService {
 		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
 		Book edit = new Book(new Long(1),"t", "A", new Category("c"), 1, Book.State.DELETED, 1);
 		when(bookRep.getOne(book.getId())).thenReturn(book);
-		service.edit(edit);
+		bookService.edit(edit);
 		assertEquals(book.getTitle(), edit.getTitle());
 		assertEquals(book.getAuthor(), edit.getAuthor());
 		assertEquals(book.getCategory(), edit.getCategory());
@@ -81,7 +82,7 @@ public class TestBookService {
 
 		//Book doesnt exist text
 		when(bookRep.getOne(book.getId())).thenReturn(null);
-		boolean response = service.edit(edit);
+		boolean response = bookService.edit(edit);
 		assertEquals(false, response);
 	}
 	
@@ -101,7 +102,7 @@ public class TestBookService {
          
 
          
-        assertEquals(3, service.getAll().size());
+        assertEquals(3, bookService.getAll().size());
         verify(bookRep, times(1)).findAll();
 	}
 	
@@ -143,7 +144,7 @@ public class TestBookService {
 		resultList.add(book1);
 		//When list have less than 10 books
 		when(bookRep.findAll()).thenReturn(list);	     
-	    assertEquals(resultList, service.getTopTen());
+	    assertEquals(resultList, bookService.getTopTen());
 
 	    list.add(book10);
 		list.add(book11);
@@ -153,8 +154,22 @@ public class TestBookService {
 		resultList.remove(10);
 		//When list have more than 10 books
 		when(bookRep.findAll()).thenReturn(list);
-		assertEquals(resultList, service.getTopTen());
+		assertEquals(resultList, bookService.getTopTen());
 		
+	}
+	
+	@Test
+	public void sortTest() {
+		List<Book> resultList = new ArrayList<Book>();
+		Category c = new Category(new Long(1),"name");
+		Book book1 = new Book(new Long(1), "title1", "Author1", c, 10, Book.State.ACTIVE, 10, 10);
+		Book book3 = new Book(new Long(3), "title1", "Author1", c, 10, Book.State.ACTIVE, 30, 30);
+
+		resultList.add(book1);
+		resultList.add(book3);
+		
+		when(bookRep.findLike("title1")).thenReturn((ArrayList<Book>) resultList);
+		assertEquals(resultList, bookService.sort("title1"));
 	}
 	
 	
@@ -162,13 +177,13 @@ public class TestBookService {
 	public void addCategoryTest() {
 		Category c = new Category("name");
 		when(categoryRep.findByName(c.getName())).thenReturn(null);
-		service.addCategory(c.getName());
-		boolean response = service.addCategory(c.getName());
+		bookService.addCategory(c.getName());
+		boolean response = bookService.addCategory(c.getName());
 		assertEquals(true, response);
 
 		//Category allready exists
 		when(categoryRep.findByName(c.getName())).thenReturn(c);
-	    response = service.addCategory(c.getName());
+	    response = bookService.addCategory(c.getName());
 		assertEquals(false, response);
 	}
 	
@@ -178,14 +193,14 @@ public class TestBookService {
 		Category c = new Category(new Long(1),"name");
 		Book book1 = new Book("title1", "Author1", c, 10, Book.State.ACTIVE, 10);
 		Book book2 = new Book("title2", "Author2", c, 20, Book.State.ACTIVE, 20);
-		Book book3 = new Book("title2", "Author2", new Category (new Long(2),"name2"), 20, Book.State.ACTIVE, 20);
+
 		list.add(book1);
 		list.add(book2);
-	//	list.add(book3);
+
 		
 		 when(bookRep.findByCategoryId(c.getId())).thenReturn((ArrayList<Book>) list);
 		 
-		 assertEquals(2, service.getByCategoryId(c.getId()).size());
+		 assertEquals(2, bookService.getByCategoryId(c.getId()).size());
 		
 	}
 		

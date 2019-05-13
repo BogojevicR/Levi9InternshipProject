@@ -22,7 +22,7 @@ public class Category {
 		super();
 		this.name = name;
 	}
-	public Category(Long id, String string) {
+	public Category(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;

@@ -24,7 +24,9 @@ public class BookController {
 	
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public ResponseEntity<Book> save(@RequestBody Book book) {
-		return new ResponseEntity<Book>(bookService.save(book), HttpStatus.OK);
+		System.out.println(book);
+		Book response = bookService.save(book);
+		return new ResponseEntity<Book>(response, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "edit", method = RequestMethod.PUT)
@@ -33,32 +35,32 @@ public class BookController {
 	}
 	
 	@RequestMapping(value = "getAll", method = RequestMethod.GET)
-	public ArrayList<Book> getAll(){
-		return bookService.getAll();
+	public ResponseEntity<ArrayList<Book>> getAll(){
+		return new ResponseEntity<ArrayList<Book>>(bookService.getAll(),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "disable/{id}", method = RequestMethod.PUT )
-	public Book disable(@PathVariable Long id) {
-		return bookService.disable(id);
+	public ResponseEntity<Book> disable(@PathVariable Long id) {
+		return new ResponseEntity<Book>(bookService.disable(id),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "getTopTen", method = RequestMethod.GET)
-	public ArrayList<Book> getTopTen(){
-		return bookService.getTopTen();
+	public ResponseEntity<ArrayList<Book>> getTopTen(){
+		return new ResponseEntity<ArrayList<Book>>(bookService.getTopTen(),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "sort/{input}", method = RequestMethod.GET )
-	public ArrayList<Book> sort(@PathVariable String input){
-		return bookService.sort(input);
+	public ResponseEntity<ArrayList<Book>> sort(@PathVariable String input){
+		return new ResponseEntity<ArrayList<Book>>(bookService.sort(input),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "addCategory/{name}", method = RequestMethod.POST )
-	public boolean addCategory(@PathVariable String name) {
-		return bookService.addCategory(name);
+	public ResponseEntity<Boolean> addCategory(@PathVariable String name) {
+		return new ResponseEntity<Boolean>(bookService.addCategory(name),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "getByCategory/{id}", method = RequestMethod.GET )
-	public ArrayList<Book> getByCategoryId(@PathVariable Long id){
-		return bookService.getByCategoryId(id);
+	public ResponseEntity<ArrayList<Book>> getByCategoryId(@PathVariable Long id){
+		return new ResponseEntity<ArrayList<Book>>(bookService.getByCategoryId(id),HttpStatus.OK);
 	}
 }

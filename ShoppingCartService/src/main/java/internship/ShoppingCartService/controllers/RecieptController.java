@@ -1,6 +1,8 @@
 package internship.ShoppingCartService.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,13 +20,21 @@ public class RecieptController {
 	public ReceiptServiceImpl receiptService;
 	
 	@RequestMapping(value = "buyNow/{userId}/{quantity}/{bookId}", method = RequestMethod.POST)
-	public Receipt buyNow(@PathVariable Long userId, @PathVariable int quantity, @PathVariable Long bookId) {
-		return receiptService.buyNow(userId, quantity, bookId);
+	public ResponseEntity<Receipt> buyNow(@PathVariable Long userId, @PathVariable int quantity, @PathVariable Long bookId) {
+		Receipt response = receiptService.buyNow(userId, quantity, bookId);
+		if(response != null)
+			return new ResponseEntity<Receipt>(response, HttpStatus.OK);
+		return new ResponseEntity<Receipt>(response, HttpStatus.BAD_REQUEST);
 	}
 	
 	@RequestMapping(value = "buyCart/{userId}", method = RequestMethod.POST)
-	public Receipt buyNow( @PathVariable Long userId) {
-		return receiptService.buyCart(userId);
+	public ResponseEntity<Receipt> buyCart( @PathVariable Long userId) {
+		Receipt response = receiptService.buyCart(userId);
+		if(response != null)
+			return new ResponseEntity<Receipt>(response, HttpStatus.OK);
+		return new ResponseEntity<Receipt>(response, HttpStatus.BAD_REQUEST);
+		
+	
 	}
 
 }

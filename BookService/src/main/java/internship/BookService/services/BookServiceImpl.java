@@ -38,10 +38,6 @@ public class BookServiceImpl implements BookService {
 		return b;
 	}
 	
-	public Book findByTitle(String title) {
-		return bookRep.findByTitle(title);
-	}
-	
 	@Override
 	public boolean edit(Book book) {
 		Book b = bookRep.getOne(book.getId());
