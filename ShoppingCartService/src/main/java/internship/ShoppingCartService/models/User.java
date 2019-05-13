@@ -26,14 +26,14 @@ public class User implements Serializable {
 	/** 
 	 * 
 	 * @author s.krasic
-	 * @param Role - represents role of the user that can be ADMIN or CUSTOMER.
-	 * @param id is generated value that is value to do identification of user.
-	 * @param name represents name of the user.
-	 * @param surname represents surname of the user.
-	 * @param email represents email of the user.
-	 * @param password represents password of the user.
-	 * @param shoppingCart represents shopping cart for users shopping.
-	 * @param receipts represents list of the receipts that user made by each purchase.
+	 * Role - represents role of the user that can be ADMIN or CUSTOMER.
+	 * id is generated value that is value to do identification of user.
+	 * name represents name of the user.
+	 * surname represents surname of the user.
+	 * email represents email of the user.
+	 * password represents password of the user.
+	 * shoppingCart represents shopping cart for users shopping.
+	 * receipts represents list of the receipts that user made by each purchase.
 	 *
 	 */
 	

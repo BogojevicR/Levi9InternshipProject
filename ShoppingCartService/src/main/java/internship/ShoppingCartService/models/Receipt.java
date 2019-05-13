@@ -22,9 +22,9 @@ public class Receipt {
 	/** 
 	 * 
 	 * @author s.krasic
-	 * @param id is generated value that is value to do identification of receipt.
-	 * @param itemList represents list of items (book and number of copies of book and price) that person wants to buy.
-	 * @param totalPrice represents final amount on receipt that person must pay.
+	 * id is generated value that is value to do identification of receipt.
+	 * itemList represents list of items (book and number of copies of book and price) that person wants to buy.
+	 * totalPrice represents final amount on receipt that person must pay.
 	 *
 	 */
 	
