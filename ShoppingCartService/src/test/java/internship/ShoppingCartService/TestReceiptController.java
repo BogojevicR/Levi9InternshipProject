@@ -63,6 +63,7 @@ public class TestReceiptController {
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/reciept/buyNow/{userId}/{quantity}/{bookId}",u.getId(), 5, b.getId()).contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+		
 		Mockito.verify(receiptService).buyNow(u.getId(), 5, b.getId());
 	}
 	
@@ -83,6 +84,7 @@ public class TestReceiptController {
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/reciept/buyNow/{userId}/{quantity}/{bookId}",u.getId(), 5, b.getId()))
 		.andExpect(MockMvcResultMatchers.status().isBadRequest());
+		
 		Mockito.verify(receiptService).buyNow(u.getId(), 5, b.getId());
 	}
 	
@@ -103,6 +105,7 @@ public class TestReceiptController {
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/reciept/buyCart/{userId}",u.getId()).contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+		
 		Mockito.verify(receiptService).buyCart(u.getId());
 	}
 	
@@ -123,6 +126,7 @@ public class TestReceiptController {
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/reciept/buyCart/{userId}",u.getId()).contentType(MediaType.APPLICATION_JSON_UTF8))
 		.andExpect(MockMvcResultMatchers.status().isBadRequest());
+		
 		Mockito.verify(receiptService).buyCart(u.getId());
 	}
 	

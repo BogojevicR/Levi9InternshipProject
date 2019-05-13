@@ -46,8 +46,11 @@ public class TestBookService {
 	public void saveBookWithSameTitleTest() {
 		Book book = new Book("title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
 		bookService.save(book);
+		
 		when(bookRep.findByTitle(book.getTitle())).thenReturn(book);
+		
 		bookService.save(book);
+		
 		verify(bookRep, times(1)).save(book);
 		verify(bookRep).save(book);
 	}
@@ -61,7 +64,6 @@ public class TestBookService {
 		
 		//Book doesnt exist test
 		when(bookRep.getOne(book.getId())).thenReturn(null);
-		Book response = bookService.disable(book.getId());
 		verify(bookRep,times(1)).save(book);
 	}
 
@@ -70,8 +72,10 @@ public class TestBookService {
 	public void editTest() {
 		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
 		Book edit = new Book(new Long(1),"t", "A", new Category("c"), 1, Book.State.DELETED, 1);
+		
 		when(bookRep.getOne(book.getId())).thenReturn(book);
 		bookService.edit(edit);
+		
 		assertEquals(book.getTitle(), edit.getTitle());
 		assertEquals(book.getAuthor(), edit.getAuthor());
 		assertEquals(book.getCategory(), edit.getCategory());
@@ -82,8 +86,11 @@ public class TestBookService {
 
 		//Book doesnt exist text
 		when(bookRep.getOne(book.getId())).thenReturn(null);
+		
 		boolean response = bookService.edit(edit);
+		
 		assertEquals(false, response);
+		verify(bookRep,times(2)).getOne(book.getId());
 	}
 	
 	
@@ -170,6 +177,7 @@ public class TestBookService {
 		
 		when(bookRep.findLike("title1")).thenReturn((ArrayList<Book>) resultList);
 		assertEquals(resultList, bookService.sort("title1"));
+		verify(bookRep,times(1)).findLike("title1");
 	}
 	
 	
@@ -185,6 +193,7 @@ public class TestBookService {
 		when(categoryRep.findByName(c.getName())).thenReturn(c);
 	    response = bookService.addCategory(c.getName());
 		assertEquals(false, response);
+		
 	}
 	
 	@Test
@@ -201,6 +210,7 @@ public class TestBookService {
 		 when(bookRep.findByCategoryId(c.getId())).thenReturn((ArrayList<Book>) list);
 		 
 		 assertEquals(2, bookService.getByCategoryId(c.getId()).size());
+		 verify(bookRep,times(1)).findByCategoryId(c.getId());
 		
 	}
 		
