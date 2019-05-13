@@ -7,11 +7,25 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-
+/**
+ * This class represents entity of receiptItem (book and number of copies of book and price).
+ * @author s.krasic
+ *
+ */
 
 @Entity
 public class ReceiptItem {
 
+	/** 
+	 * 
+	 * @author s.krasic
+	 * @param id is generated value that is value to do identification of receipt item.
+	 * @param book represents book that person wants to buy.
+	 * @param quantity represents number of copies that person wants to buy.
+	 * @param total represents price for total number of copies.
+	 *
+	 */
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

@@ -185,6 +185,15 @@ public class Book {
 		this.soldAmount = book.getSoldAmount();
 	}
 	
+	/**
+	 * Simulate payment for books. Removes bought quantity from stock and adds it to sold amount.
+	 * @param quantity quantity of book
+	 */
+	public void payBook(int quantity) {
+		this.quantity -= quantity;
+		this.soldAmount += quantity;
+	}
+	
 	
 	
 }

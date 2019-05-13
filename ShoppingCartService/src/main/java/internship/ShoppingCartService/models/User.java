@@ -1,7 +1,6 @@
 package internship.ShoppingCartService.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -12,15 +11,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-
+/**
+ * This class represents entity of user who is buying books.
+ * @author s.krasic
+ *
+ */
 
 @Entity
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+
+	/** 
+	 * 
+	 * @author s.krasic
+	 * @param Role - represents role of the user that can be ADMIN or CUSTOMER.
+	 * @param id is generated value that is value to do identification of user.
+	 * @param name represents name of the user.
+	 * @param surname represents surname of the user.
+	 * @param email represents email of the user.
+	 * @param password represents password of the user.
+	 * @param shoppingCart represents shopping cart for users shopping.
+	 * @param receipts represents list of the receipts that user made by each purchase.
+	 *
+	 */
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
@@ -64,6 +79,18 @@ public class User implements Serializable {
 		
 	}
 
+	
+	public User (Long id, String name, String surname, String email, Role role, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.role = role;
+		this.password = password;
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}

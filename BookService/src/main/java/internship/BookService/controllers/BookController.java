@@ -23,9 +23,7 @@ import internship.BookService.services.BookServiceImpl;
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
-	/**
-	 * Implemented BookService.
-	 */
+
 	@Autowired
 	public BookServiceImpl bookService;
 	/**

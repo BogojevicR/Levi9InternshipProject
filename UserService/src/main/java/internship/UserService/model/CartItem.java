@@ -1,32 +1,56 @@
 package internship.UserService.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
-
+import javax.persistence.OneToMany;
+/**
+ * Represents entity of item in shopping cart.
+ * @author r.bogojevic
+ *
+ */
 @Entity
 public class CartItem {
-	
+	/**
+	 * Auto-generated,unique key for each Cart Item.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	/**
+	 * Book which will be bought.
+	 */
 	@ManyToOne
 	private Book book;
+	/**
+	 * Number of books for purchase.
+	 */
+	@Column(nullable = false)
 	private int quantity;
+	/**
+	 * Total price for current cart item. Quantity * Book price.
+	 */
+	@Column(nullable = false)
 	private double total;
 	
 	public CartItem() {
 		super();
 	}
 
-	public CartItem(Book book, int quantity, double total) {
+	public CartItem(Book book, int quantity) {
 		super();
 		this.book = book;
 		this.quantity = quantity;
-		this.total = total;
+		this.total = book.getPrice() * quantity;
+	}
+
+	public CartItem(Long long1, Book book1, int i) {
+		this.id = long1;
+		this.quantity = i;
+		this.book = book1;
 	}
 
 	public Long getId() {
