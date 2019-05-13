@@ -11,8 +11,8 @@ public class UserToLogDTO {
 	/** 
 	 * 
 	 * @author s.krasic
-	 * @param email represents email of the user.
-	 * @param password represents password of the user.
+	 * email represents email of the user.
+	 * password represents password of the user.
 	 *
 	 */
 	

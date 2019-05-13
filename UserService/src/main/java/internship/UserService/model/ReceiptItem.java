@@ -19,10 +19,10 @@ public class ReceiptItem {
 	/** 
 	 * 
 	 * @author s.krasic
-	 * @param id is generated value that is value to do identification of receipt item.
-	 * @param book represents book that person wants to buy.
-	 * @param quantity represents number of copies that person wants to buy.
-	 * @param total represents price for total number of copies.
+	 * id is generated value that is value to do identification of receipt item.
+	 * book represents book that person wants to buy.
+	 * quantity represents number of copies that person wants to buy.
+	 * total represents price for total number of copies.
 	 *
 	 */
 	
