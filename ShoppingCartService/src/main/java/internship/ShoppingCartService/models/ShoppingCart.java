@@ -34,6 +34,10 @@ public class ShoppingCart {
 		this.itemList = itemList;
 	}
 
+	public ShoppingCart(Long long1) {
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -6,8 +6,8 @@ import internship.BookService.models.Book;
 
 public interface BookService {
 
-	boolean save(Book book);
-	boolean disable(Long id);
+	Book save(Book book);
+	Book disable(Long id);
 	boolean edit(Book book);
 	ArrayList<Book> getAll();
 	ArrayList<Book> getTopTen();

@@ -20,22 +20,22 @@ public class BookServiceImpl implements BookService {
 	public CategoryRepository categoryRep;
 	
 	@Override
-	public boolean save(Book book) {
+	public Book save (Book book) {
 		if(bookRep.findByTitle(book.getTitle()) == null) {
 			bookRep.save(book);
-			return true;
+			return book;
 		}
-		return false;
+		return null;
 	}
 	
 	@Override
-	public boolean disable(Long id) {
+	public Book disable(Long id) {
 		Book b = bookRep.getOne(id);
 		if(b == null)
-			return false;
+			return null;
 		b.setState(Book.State.DELETED);
 		bookRep.save(b);
-		return true;
+		return b;
 	}
 	
 	@Override

@@ -36,8 +36,9 @@ public class Book {
 		this.quantity = quantity;
 		this.soldAmount = 0;
 	}
-	
-	public Book(long id, String title, String author, Category category, double price, State state, int quantity) {
+
+	public Book(Long id, String title, String author, Category category, double price, State state, int quantity) {
+
 		super();
 		this.id = id;
 		this.title = title;

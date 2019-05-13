@@ -34,7 +34,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 		User u = userRep.getOne(userId);
 		if(u.getRole() == Role.ADMIN)
 			return null;
-		Book b = bookRep.findById(bookId).get();
+		Book b = bookRep.getOne(bookId);
 		if(b.getQuantity() >= quantity) {
 			b.payBook(quantity);
 			bookRep.save(b);
