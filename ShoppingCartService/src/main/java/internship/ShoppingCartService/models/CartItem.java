@@ -28,6 +28,14 @@ public class CartItem {
 		this.quantity = quantity;
 		this.total = book.getPrice() * quantity;
 	}
+	
+	public CartItem(Long id, Book book, int quantity) {
+		super();
+		this.id = id;
+		this.book = book;
+		this.quantity = quantity;
+		this.total = book.getPrice() * quantity;
+	}
 
 	public Long getId() {
 		return id;

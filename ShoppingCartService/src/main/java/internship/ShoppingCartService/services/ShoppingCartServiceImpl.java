@@ -35,10 +35,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	
 	@Override
 	public boolean addItem(Long cartId, int quantity, Long bookId) {
-		ShoppingCart cart = cartRep.findById(cartId).get();
-		if(cart.checkBook(bookId)) {
-			return false;
+		ShoppingCart cart = cartRep.getOne(cartId);
+		
+		if(cart.getItemList().size() != 0) {
+			if(cart.checkBook(bookId)) {
+				return false;
+			}
 		}
+		
 		Book b = bookRep.getOne(bookId);
 		CartItem item = new CartItem(b, quantity);
 		cartItemRep.save(item);
@@ -49,7 +53,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Override
 	public boolean changeQuantity(int quantity, Long itemId) {
-		CartItem item = cartItemRep.findById(itemId).get();
+		CartItem item = cartItemRep.getOne(itemId);
 		item.setQuantity(quantity);
 		item.setTotal(quantity * item.getBook().getPrice());
 		cartItemRep.save(item);
@@ -59,7 +63,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public boolean emptyCart(Long cartId) {
 		
-		ShoppingCart cart = cartRep.findById(cartId).get();
+		ShoppingCart cart = cartRep.getOne(cartId);
 		for(CartItem item : cart.getItemList()) {
 			cartItemRep.delete(item);
 		}
@@ -71,7 +75,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Override
 	public boolean removeItem(Long cartId, Long cartItemId) {
-		ShoppingCart cart = cartRep.findById(cartId).get();
+		ShoppingCart cart = cartRep.getOne(cartId);
 		cart.removeItemById(cartItemId);
 		cartItemRep.deleteById(cartItemId);
 		return true;

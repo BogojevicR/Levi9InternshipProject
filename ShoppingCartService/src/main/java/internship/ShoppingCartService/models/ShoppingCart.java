@@ -27,6 +27,12 @@ public class ShoppingCart {
 		super();
 		this.itemList = itemList;
 	}
+	
+	public ShoppingCart(Long id, List<CartItem> itemList) {
+		super();
+		this.id = id;
+		this.itemList = itemList;
+	}
 
 	public Long getId() {
 		return id;
@@ -68,6 +74,11 @@ public class ShoppingCart {
 				return;
 		}
 		
+	}
+
+	@Override
+	public String toString() {
+		return "ShoppingCart [id=" + id + ", itemList=" + itemList + "]";
 	}
 	
 }
