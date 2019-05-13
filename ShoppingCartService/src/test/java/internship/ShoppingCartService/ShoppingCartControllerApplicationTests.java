@@ -48,7 +48,7 @@ public class ShoppingCartControllerApplicationTests {
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/cart/getCart/{cartId}", shopingCart.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 	        	.andExpect(MockMvcResultMatchers.content().json(jsonCart));
 		
-		
+		Mockito.verify(shoppingCartService).getCart(shopingCart.getId());
 	
 	}
 	
@@ -70,6 +70,8 @@ public class ShoppingCartControllerApplicationTests {
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/cart/getCartItems/{cartId}", shopingCart.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 		.andExpect(MockMvcResultMatchers.content().json(jsonCartItems));
+		
+		Mockito.verify(shoppingCartService).getCartItems(shopingCart.getId());
 	
 	}
 	
@@ -86,6 +88,8 @@ public class ShoppingCartControllerApplicationTests {
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/cart/addItem/{cartId}/{quantity}/{bookId}", shopingCart.getId(), 5, book1.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 	        	.andExpect(MockMvcResultMatchers.content().string("true"));
+		
+		Mockito.verify(shoppingCartService).addItem(cI1.getId(), 5, book1.getId());
 	
 	}
 	
@@ -102,6 +106,8 @@ public class ShoppingCartControllerApplicationTests {
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/cart/removeItem/{cartId}/{cartItemId}", shopingCart.getId(), cI1.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string("true"));
+		
+		Mockito.verify(shoppingCartService).removeItem(shopingCart.getId(), cI1.getId());
 	
 	}
 	
@@ -117,6 +123,8 @@ public class ShoppingCartControllerApplicationTests {
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.put("/api/cart/changeQuantity/{quantity}/{itemId}", 5, cI1.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string("true"));
+		
+		Mockito.verify(shoppingCartService).changeQuantity(5, cI1.getId());
 	
 	}
 	
@@ -136,6 +144,8 @@ public class ShoppingCartControllerApplicationTests {
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/cart/emptyCart/{cartId}", shopingCart.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.content().string("true"));
+		
+		Mockito.verify(shoppingCartService).emptyCart(shopingCart.getId());
 	
 	}
 	
