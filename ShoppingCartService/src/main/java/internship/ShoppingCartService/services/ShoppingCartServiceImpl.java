@@ -12,6 +12,12 @@ import internship.ShoppingCartService.repositories.BookRepository;
 import internship.ShoppingCartService.repositories.CartItemRepository;
 import internship.ShoppingCartService.repositories.ShoppingCartRepository;
 
+/**
+ * This class represents service for shopping cart.
+ * @author s.krasic
+ *
+ */
+
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
@@ -22,16 +28,37 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Autowired
 	public BookRepository bookRep;
 	
+	/**
+	 * This method is method to get shopping cart.
+	 * @param cartId represents id for cart that we want to  get.
+	 * @return shopping cart.
+	 */
+	
 	@Override
 	public ShoppingCart getCart(Long cartId) {	
 		return cartRep.findById(cartId).get();
 	}
+	
+	/**
+	 * This method is method to get shopping cart items that person wants to buy.
+	 * @param cartId represents id for cart that we want to get it's items.
+	 * @return list of shopping cart items.
+	 */
 	
 	@Override
 	public List<CartItem> getCartItems(Long cartId) {
 		return  cartRep.findById(cartId).get().getItemList();
 		
 	}
+	
+	/**
+	 * This method is method to add item to shopping cart.
+	 * @param cartId represents shopping cart in which person wants to add item.
+	 * @param quantity represents number of copies of book that person wants to add to shopping cart.
+	 * @param bookId represents id of the book that person wants to add to shopping cart.
+	 * @return true value when cart item don't exist or false when cart item already exists.
+	 * 
+	 */
 	
 	@Override
 	public boolean addItem(Long cartId, int quantity, Long bookId) {
@@ -50,6 +77,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		cartRep.save(cart);
 		return true;
 	}
+	
+	/**
+	 * This method is method to change quantity of the book.
+	 * @param quantity represents number of copies of book that person wants to add to shopping cart.
+	 * @param itemId represents id of the item that person wants to add to shopping cart.
+	 * @return true value.
+	 * 
+	 */
 
 	@Override
 	public boolean changeQuantity(int quantity, Long itemId) {
@@ -59,6 +94,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		cartItemRep.save(item);
 		return true;
 	}
+	
+	/**
+	 * This method is method to empty shopping cart.
+	 * @param cartId represents id of the shopping cart that person wants to empty.
+	 * @return true value.
+	 * 
+	 */
 
 	@Override
 	public boolean emptyCart(Long cartId) {
@@ -72,6 +114,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		
 		return true;
 	}
+	
+	/**
+	 * This method is method to remove one item from shopping cart.
+	 * @param cartId represents id of the shopping cart.
+	 * @param cartItemId represents id of cart item that person wants to remove from shopping cart.
+	 * @return true value.
+	 * 
+	 */
 
 	@Override
 	public boolean removeItem(Long cartId, Long cartItemId) {
