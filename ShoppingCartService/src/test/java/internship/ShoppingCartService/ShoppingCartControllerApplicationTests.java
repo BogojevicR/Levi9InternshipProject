@@ -47,6 +47,8 @@ public class ShoppingCartControllerApplicationTests {
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/cart/getCart/{cartId}", shopingCart.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 	        	.andExpect(MockMvcResultMatchers.content().json(jsonCart));
+		
+		
 	
 	}
 	
