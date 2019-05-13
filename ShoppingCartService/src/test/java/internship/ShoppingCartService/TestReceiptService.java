@@ -58,17 +58,17 @@ public class TestReceiptService {
 		u.setReceipts(new ArrayList<Receipt>());
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		when(bookRep.getOne(new Long(3))).thenReturn(b);
-			
+		// Cart has items	
 		assertNotNull(receiptService.buyNow(u.getId(),20,b.getId()));
 		
-		
+		// Cart item have more quantity than stock
 		assertNull(receiptService.buyNow(u.getId(),30,b.getId()));
 		
 		u = new User(new Long(2),"Radovan","Bogojevic","rale@gmail.com",Role.ADMIN,"rale",cart);
-		
 		when(userRep.getOne(new Long(2))).thenReturn(u);
-		 
+		// User is Admin
 		assertNull(receiptService.buyNow(u.getId(),20,b.getId()));
+		
 	}
 	
 	@Test

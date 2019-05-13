@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.verify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -45,8 +46,9 @@ public class TestBookController {
 		when(bookService.save(b)).thenReturn(b);
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/book/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(b))).andDo(MockMvcResultHandlers.print())
-		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
-		Mockito.verify(bookService).save(b);
+		.andExpect(MockMvcResultMatchers.status().isOk());
+		
+		verify(bookService).save(b);
 	} 
 	
 	@Test
@@ -61,26 +63,35 @@ public class TestBookController {
         String json = new Gson().toJson(list );
      
         when(bookService.getAll()).thenReturn((ArrayList<Book>) list);
+        
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/book/getAll")).andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().json(json));;
+        .andExpect(MockMvcResultMatchers.content().json(json));
+        
+        verify(bookService).getAll();
 	} 
 	
 	@Test
 	public void disableShouldSetBookToDisabled() throws Exception {
 		Book book = new Book(new Long(1), "title1", "Author1", new Category(new Long(1),"category1"), 10, Book.State.ACTIVE, 10);
 		Book response = new Book(new Long(1), "title1", "Author1", new Category(new Long(1),"category1"), 10, Book.State.DELETED, 10);
-        when(bookService.disable(book.getId())).thenReturn(response);
+        
+		when(bookService.disable(book.getId())).thenReturn(response);
+        
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/book/disable/{id}",book.getId())).andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(response)));
 	}
 
-/*	@Test
+	@Test
 	public void editBookShouldReturnTrue() throws Exception {
+		
 		Book edit = new Book(new Long(1),"t", "A", new Category("c"), 1, Book.State.DELETED, 1);
 		when(bookService.edit(edit)).thenReturn(true);
+		
 		this.mockMvc.perform(MockMvcRequestBuilders.put("/api/book/edit").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(edit)))
-		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().string("true"));
-	}    */
+		.andExpect(MockMvcResultMatchers.status().isOk());
+		
+		verify(bookService).edit(edit);
+	}    
 	
 	@Test
 	public void getTopTenShouldReturnNineBooks() throws Exception{
@@ -111,6 +122,7 @@ public class TestBookController {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/book/getTopTen")).andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(resultList)));;
 		
+        verify(bookService).getTopTen();
 		
 	}
 	
@@ -148,6 +160,7 @@ public class TestBookController {
         this.mockMvc.perform(MockMvcRequestBuilders.get("/api/book/getTopTen"))
         .andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(resultList)));;
 		
+        verify(bookService).getTopTen();
 	}
 	
 	@Test
@@ -164,6 +177,8 @@ public class TestBookController {
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/book/sort/{input}","title"))
 		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(resultList)));;
+	
+		verify(bookService).sort("title");
 	}
 	
 	@Test
@@ -173,6 +188,8 @@ public class TestBookController {
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/book/addCategory/{name}","category1"))
 		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().string("true"));
+	
+		verify(bookService).addCategory("category1");
 	}
 	
 	@Test
@@ -187,9 +204,10 @@ public class TestBookController {
 		
 		when(bookService.getByCategoryId(c.getId())).thenReturn((ArrayList<Book>) resultList);	    
 		
-
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/book/getByCategory/{id}",c.getId()))
 		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(resultList)));
+	
+		verify(bookService).getByCategoryId(c.getId());
 	}
 	
 	
