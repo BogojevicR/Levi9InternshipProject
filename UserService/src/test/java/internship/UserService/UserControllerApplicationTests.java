@@ -33,20 +33,24 @@ public class UserControllerApplicationTests {
 	
     @MockBean
     private UserService userService;
+    
 
     @Test
     public void saveTest() throws Exception {
     	
-    	User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+    	User user1 = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
     	
     	//Mockito.verify(userService, Mockito.times(1)).save(user);
     	
-    	Mockito.when(userService.save(user)).thenReturn(true);
+       Mockito.when(userService.save(user1)).thenReturn(true);
     	
-       this.mockMvc.perform(MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(user))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
-       .andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(user)));
+       this.mockMvc.perform(MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(user1))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+       .andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(user1)));
        
-       Mockito.verify(userService).save(user);
+       //Mockito.verify(userService).save(user1);
+       
+
+
     }
     
     @Test
@@ -72,6 +76,8 @@ public class UserControllerApplicationTests {
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/user/getAll")).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().json(jsonUsers));
+		
+		 Mockito.verify(userService).findAll();
 		
     }
     
