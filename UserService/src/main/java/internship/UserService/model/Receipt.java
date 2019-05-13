@@ -9,8 +9,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * This class represents entity of receipt.
+ * @author s.krasic
+ *
+ */
+
+
 @Entity
 public class Receipt {
+	
+	/** 
+	 * 
+	 * @author s.krasic
+	 * @param id is generated value that is value to do identification of receipt.
+	 * @param itemList represents list of items (book and number of copies of book and price) that person wants to buy.
+	 * @param totalPrice represents final amount on receipt that person must pay.
+	 *
+	 */
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

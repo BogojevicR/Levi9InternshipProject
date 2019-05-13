@@ -1,7 +1,21 @@
 package internship.UserService.DTOmodels;
 
+/**
+ * This class represents entity of user who is login to his profile.
+ * @author s.krasic
+ *
+ */
+
 public class UserToLogDTO {
 
+	/** 
+	 * 
+	 * @author s.krasic
+	 * @param email represents email of the user.
+	 * @param password represents password of the user.
+	 *
+	 */
+	
 	private String email;
 	private String password;
 

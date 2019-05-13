@@ -11,15 +11,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-
+/**
+ * This class represents entity of user who is buying books.
+ * @author s.krasic
+ *
+ */
 
 @Entity
 public class User implements Serializable {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+
+	/** 
+	 * 
+	 * @author s.krasic
+	 * @param Role - represents role of the user that can be ADMIN or CUSTOMER.
+	 * @param id is generated value that is value to do identification of user.
+	 * @param name represents name of the user.
+	 * @param surname represents surname of the user.
+	 * @param email represents email of the user.
+	 * @param password represents password of the user.
+	 * @param shoppingCart represents shopping cart for users shopping.
+	 * @param receipts represents list of the receipts that user made by each purchase.
+	 *
+	 */
 	
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)

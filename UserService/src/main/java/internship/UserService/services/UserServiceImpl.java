@@ -14,6 +14,12 @@ import internship.UserService.model.User.Role;
 import internship.UserService.repositories.ShoppingCartRepository;
 import internship.UserService.repositories.UserRepository;
 
+/**
+ * This class represents service for user.
+ * @author s.krasic
+ *
+ */
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -23,11 +29,23 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private ShoppingCartRepository cartRepository;
 	
+	/**
+	 * This method is method to get all users.
+	 * @return list of all users.
+	 */
+	
 	@Override
 	public List<User> findAll() {
 		List<User> allUsers = userRepository.findAll();
 		return allUsers;
 	}
+	
+	/**
+	 * This method is method to save current user.
+	 * @param user represents user who we want to save.
+	 * @return true value when user don't exist or false when user that we want to save already exists.
+	 * 
+	 */
 
 	@Override
 	public boolean save(User u) {
@@ -45,11 +63,25 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
+	/**
+	 * This method is method to get role of the user.
+	 * @param id represents id of the user which role we want to get.
+	 * @return role of the user.
+	 * 
+	 */
+	
 	@Override
 	public Role getRoleById(Long id) {
 		return userRepository.getRole(id);
 	}
 
+	/**
+	 * This method is method for user login.
+	 * @param u represents user that is loging in.
+	 * @return loged user.
+	 * 
+	 */
+	
 	@Override
 	public User logInUser(UserToLogDTO u) {
 		User userToLog = userRepository.logInUser(u.getEmail(), u.getPassword());

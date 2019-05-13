@@ -6,8 +6,29 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+
+/**
+ * This class represents entity of book.
+ * @author s.krasic
+ *
+ */
+
 @Entity
 public class Book {
+	
+	/** 
+	 * 
+	 * @author s.krasic
+	 * @param State - represents state of the book that can be ACTIVE or DELETED.
+	 * @param id is generated value that is value to do identification of book.
+	 * @param title represents title of the book.
+	 * @param autor represents name of person that wrote book.
+	 * @param category represents category of book.
+	 * @param price is price of the book.
+	 * @param quantity represents number of books that exists in shop that person can buy.
+	 * @param soldAmount represents number of books that are sold.
+	 *
+	 */
 	
 	public enum State { ACTIVE, DELETED }
 	@Id
@@ -107,6 +128,12 @@ public class Book {
 				+ price + ", state=" + state + ", quantity=" + quantity + ", soldAmount=" + soldAmount + "]";
 	}
 
+	/**
+	 * This method is metod to edit some fields of book.
+	 * @param book is an entity of book which parameters we want to edit.
+	 * @return nothing.
+	 */
+	
 	public void edit(Book book) {
 		this.title = book.getTitle();
 		this.author = book.getAuthor();
