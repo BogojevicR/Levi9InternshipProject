@@ -7,17 +7,32 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+/**
+ * Represents entity of item in shopping cart.
+ * @author r.bogojevic
+ *
+ */
 @Entity
 public class CartItem {
-	
+	/**
+	 * Auto-generated,unique key for each Cart Item.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	/**
+	 * Book which will be bought.
+	 */
 	@ManyToOne
 	private Book book;
+	/**
+	 * Number of books for purchase.
+	 */
 	@Column(nullable = false)
 	private int quantity;
+	/**
+	 * Total price for current cart item. Quantity * Book price.
+	 */
 	@Column(nullable = false)
 	private double total;
 	

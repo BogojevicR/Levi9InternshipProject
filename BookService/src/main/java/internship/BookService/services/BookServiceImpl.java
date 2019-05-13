@@ -10,7 +10,11 @@ import internship.BookService.models.Book;
 import internship.BookService.models.Category;
 import internship.BookService.repositories.BookRepository;
 import internship.BookService.repositories.CategoryRepository;
-
+/**
+ * Represents service for BookApplication. Implementation of BookService.
+ * @author r.bogojevic
+ *
+ */
 @Service
 public class BookServiceImpl implements BookService {
 
@@ -18,7 +22,7 @@ public class BookServiceImpl implements BookService {
 	public BookRepository bookRep;
 	@Autowired
 	public CategoryRepository categoryRep;
-	
+
 	@Override
 	public Book save (Book book) {
 		if(bookRep.findByTitle(book.getTitle()) == null) {
@@ -27,7 +31,7 @@ public class BookServiceImpl implements BookService {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Book disable(Long id) {
 		Book b = bookRep.getOne(id);
