@@ -1,4 +1,4 @@
-package internship.ShoppingCartService.security;
+package internship.UserService.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,9 +29,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-        			.antMatchers(HttpMethod.GET,"/api/cart/**").hasAuthority("CUSTOMER")
-        			.antMatchers(HttpMethod.POST,"/api/cart/**").hasAuthority("CUSTOMER")
-        			.antMatchers(HttpMethod.PUT,"/api/reciept/**").hasAuthority("CUSTOMER")
+        			.antMatchers(HttpMethod.GET,"/user/**").hasAuthority("CUSTOMER")
         			.and().httpBasic().and().csrf().disable();
         
 
