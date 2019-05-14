@@ -55,6 +55,7 @@
 		</dependency>
 
 		<dependency>
+<<<<<<< HEAD
  		   <groupId>org.springframework.boot</groupId>
  		   <artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
@@ -63,6 +64,12 @@
     		<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+=======
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		
+>>>>>>> b30a872e2a757422f22d0c953e2668b3dc331185
 	</dependencies>
 	
 	

@@ -1,5 +1,7 @@
 package internship.BookService.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,14 +9,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * Book is main entity in BookService. It is used for representation of the book.
  * 
  * @author r.bogojevic
  */
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
-public class Book {
+public class Book implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Represents state of the book, whether its active for buying or not.
 	 * @author r.bogojevic
