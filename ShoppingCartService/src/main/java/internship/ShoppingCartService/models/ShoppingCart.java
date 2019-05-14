@@ -1,5 +1,6 @@
 package internship.ShoppingCartService.models;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -13,7 +14,11 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class ShoppingCart {
+public class ShoppingCart implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Auto-generated, unique key for a shopping cart.
 	 */

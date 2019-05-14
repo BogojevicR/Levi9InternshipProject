@@ -17,7 +17,7 @@ public interface ReceiptService {
 	Receipt buyNow(Long userId,int quantity, Long bookId);
 	/**
 	 * Buys current cart of selected user.
-	 * @param userId id of user who is buying.
+	 * @param cartId id of user who is buying.
 	 * @return receipt that is created.
 	 */
 	Receipt buyCart(Long cartId);

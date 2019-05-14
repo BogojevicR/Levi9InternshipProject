@@ -13,7 +13,7 @@ public abstract class LogInUserConverter extends AbstractConverter {
 	
 	/**
 	 * This method is method to convert original entity User to DTO entity of user.
-	 * @param user that we need to be converted.
+	 * @param e that we need to be converted.
 	 * @return DTO entity (newUserToLogDTO).
 	 */
 
@@ -26,7 +26,7 @@ public abstract class LogInUserConverter extends AbstractConverter {
 	
 	/**
 	 * This method is method to convert DTO entity of user to original entity.
-	 * @param user DTO that we need to be converted.
+	 * @param d DTO that we need to be converted.
 	 * @return original entity (user).
 	 */
 

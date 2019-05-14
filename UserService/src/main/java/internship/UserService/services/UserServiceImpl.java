@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import internship.UserService.DTOmodels.UserToLogDTO;
@@ -25,7 +26,6 @@ public class UserServiceImpl implements UserService{
 
 	@Autowired
 	private UserRepository userRepository;
-
 	@Autowired
 	private ShoppingCartRepository cartRepository;
 	
@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService{
 	
 	/**
 	 * This method is method to save current user.
-	 * @param user represents user who we want to save.
+	 * @param u represents user who we want to save.
 	 * @return true value when user don't exist or false when user that we want to save already exists.
 	 * 
 	 */
@@ -55,8 +55,7 @@ public class UserServiceImpl implements UserService{
 				cartRepository.save(s);
 				u.setShoppingCart(s);	
 				u.setReceipts( new ArrayList<Receipt>());
-			}
-					
+			}	
 			userRepository.save(u);
 			return true;
 		}

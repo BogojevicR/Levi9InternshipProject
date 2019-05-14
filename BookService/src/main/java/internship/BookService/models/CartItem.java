@@ -1,5 +1,7 @@
 package internship.BookService.models;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,7 +15,11 @@ import javax.persistence.OneToMany;
  *
  */
 @Entity
-public class CartItem {
+public class CartItem implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Auto-generated,unique key for each Cart Item.
 	 */
