@@ -91,6 +91,12 @@ public class UserServiceImpl implements UserService{
 		return new User();
 	}
 
+	@Override
+	public User getById(long id) {
+		User u = userRepository.getOne(id);
+		return u;
+	}
+
 	
 	
 	
