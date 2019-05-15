@@ -99,9 +99,11 @@ public class ShoppingCart implements Serializable {
 	 */
 	public void removeItemById(Long cartItemId) {
 		for(CartItem i : this.itemList) {
-			if(i.getId() == cartItemId)
+			if(i.getId().longValue() == cartItemId.longValue()) {
 				this.itemList.remove(i);
 				return;
+			}
+				
 		}
 		
 	}

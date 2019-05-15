@@ -32,11 +32,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     {
         authentication.inMemoryAuthentication()
                 .withUser("admin")
-                .password(passwordEncoder().encode("rale123"))
+                .password(passwordEncoder().encode("123"))
                 .authorities("ADMIN");
         authentication.inMemoryAuthentication()
 		        .withUser("rale")
-		        .password(passwordEncoder().encode("rale123"))
+		        .password(passwordEncoder().encode("123"))
 		        .authorities("CUSTOMER");
     }
 

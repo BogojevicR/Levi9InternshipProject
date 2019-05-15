@@ -19,7 +19,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	
 
 	@Autowired
-	PurchaseRepository orderRep;
+	PurchaseRepository purchaseRep;
 	@Autowired
 	BookRepository bookRep;
 	@Autowired
@@ -44,7 +44,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			purchase.setUserInfo(u.getUserInfo());
 			purchase.getItemList().add(item);
 			purchase.calculateTotalPrice();
-			orderRep.save(purchase);
+			purchaseRep.save(purchase);
 			u.getPurchases().add(purchase);
 			userRep.save(u);
 
@@ -79,7 +79,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		shoppingCartRep.save(s);
 		purchase.calculateTotalPrice();
 		purchase.setUserInfo(u.getUserInfo());
-		orderRep.save(purchase);
+		purchaseRep.save(purchase);
 		u.getPurchases().add(purchase);
 		userRep.save(u);
 		
