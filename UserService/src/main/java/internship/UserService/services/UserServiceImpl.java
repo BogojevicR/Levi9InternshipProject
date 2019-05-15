@@ -7,11 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import internship.UserService.DTOmodels.UserToLogDTO;
+import internship.UserService.model.Adress;
+import internship.UserService.model.CartItem;
 import internship.UserService.model.Purchase;
 import internship.UserService.model.ShoppingCart;
 import internship.UserService.model.User;
 import internship.UserService.model.User.Role;
+import internship.UserService.model.UserInfo;
+import internship.UserService.repositories.AdressRepository;
 import internship.UserService.repositories.ShoppingCartRepository;
+import internship.UserService.repositories.UserInfoRepository;
 import internship.UserService.repositories.UserRepository;
 
 /**
@@ -27,6 +32,10 @@ public class UserServiceImpl implements UserService{
 	private UserRepository userRepository;
 	@Autowired
 	private ShoppingCartRepository cartRepository;
+	@Autowired
+	private AdressRepository adressRepository;
+	@Autowired
+	private UserInfoRepository userInfoRepository;
 	
 	/**
 	 * This method is method to get all users.
@@ -51,11 +60,15 @@ public class UserServiceImpl implements UserService{
 		if (userRepository.findByUsername(u.getUsername()) == null){
 			if(u.getRole() == User.Role.CUSTOMER) {
 				ShoppingCart s = new ShoppingCart();
+				s.setItemList(new ArrayList<CartItem>());
 				cartRepository.save(s);
 				u.setShoppingCart(s);	
 				u.setPurchases( new ArrayList<Purchase>());
+				UserInfo ui = u.getUserInfo();
+				Adress a = ui.getAdress();
+				adressRepository.save(a);
+				userInfoRepository.save(ui);
 				
-
 			}	
 			userRepository.save(u);
 			return true;
