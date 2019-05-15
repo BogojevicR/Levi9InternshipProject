@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  * This class represents entity of receipt.
@@ -18,7 +19,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Order implements Serializable {
+public class Purchase implements Serializable {
 	
 	/**
 	 * 
@@ -37,17 +38,20 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ElementCollection
-	private List<ReceiptItem> itemList = new ArrayList<ReceiptItem>();
+	private List<CartItem> itemList = new ArrayList<CartItem>();
 	private double totalPrice;
+	@ManyToOne
+	private UserInfo userInfo;
 	
-	public Order() {
+	public Purchase() {
 		super();
 		this.totalPrice = 0;
 	}
-	public Order(List<ReceiptItem> itemList) {
+	public Purchase(List<CartItem> itemList, UserInfo userInfo) {
 		super();
 		this.itemList = itemList;
 		this.totalPrice = 0;
+		this.userInfo = userInfo;
 	}
 	public Long getId() {
 		return id;
@@ -55,10 +59,10 @@ public class Order implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public List<ReceiptItem> getItemList() {
+	public List<CartItem> getItemList() {
 		return itemList;
 	}
-	public void setItemList(List<ReceiptItem> itemList) {
+	public void setItemList(List<CartItem> itemList) {
 		this.itemList = itemList;
 	}
 	
@@ -70,14 +74,22 @@ public class Order implements Serializable {
 	}
 	
 	public void calculateTotalPrice() {
-		for(ReceiptItem i : this.itemList) {
+		for(CartItem i : this.itemList) {
 			totalPrice += i.getTotal();
 		}
+	}
+		
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 	
 	@Override
 	public String toString() {
-		return "Receipt [id=" + id + ", itemList=" + itemList + ", totalPrice=" + totalPrice + "]";
+		return "Order [id=" + id + ", itemList=" + itemList + ", totalPrice=" + totalPrice + ", userInfo=" + userInfo
+				+ "]";
 	}
 	
 	

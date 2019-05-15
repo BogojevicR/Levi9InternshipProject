@@ -54,14 +54,11 @@ public class User implements Serializable {
 	@OneToOne
 	private ShoppingCart shoppingCart;
 	
-	@ElementCollection
-	private List<Order> receipts;
-
 	@OneToOne
 	private UserInfo userInfo;
 
 	@ElementCollection
-	private List<Order> orders;
+	private List<Purchase> purchases;
 
 	public User () {}
 	
@@ -77,7 +74,17 @@ public class User implements Serializable {
 	}
 
 	
-	public User (Long id, String name, String surname, String username, Role role, String password) {
+	public User (Long id, String username, Role role, String password, ShoppingCart shoppingCart) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.role = role;
+		this.password = password;
+		this.shoppingCart = shoppingCart;
+		
+	}
+	
+	public User (Long id, String username, Role role, String password) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -93,8 +100,6 @@ public class User implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	
 
 	public String getUsername() {
 		return username;
@@ -129,33 +134,32 @@ public class User implements Serializable {
 		this.shoppingCart = shoppingCart;
 	}
 
-	public List<Order> getReceipts() {
-		return receipts;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
-	public void setReceipts(List<Order> receipts) {
-		this.receipts = receipts;
-	}
-	
-	public List<Order> getOrders() {
-		return orders;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
 
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
-				+ ", shoppingCart=" + shoppingCart + ", orders=" + orders + "]";
+				+ ", shoppingCart=" + shoppingCart + ", userInfo=" + userInfo + ", purchases=" + purchases + "]";
 	}
 
 	
-	
-	
-	
+
+
+
 	
 	
 }

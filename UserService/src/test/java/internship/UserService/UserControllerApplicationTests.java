@@ -38,7 +38,7 @@ public class UserControllerApplicationTests {
     @Test
     public void saveTest() throws Exception {
     	
-    	User user1 = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+    	User user1 = new User(new Long(17),"sara", User.Role.ADMIN, "saki",null);
     	
     	//Mockito.verify(userService, Mockito.times(1)).save(user);
     	
@@ -58,11 +58,11 @@ public class UserControllerApplicationTests {
     	
     	List<User> users = new ArrayList<User>();
 		
-		User userOne = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
-		User userTwo = new User(new Long(19),"Rada","Radic","radic@gmail.com", User.Role.CUSTOMER, "rada");
-		User userThree = new User(new Long(21),"Pera","Peric","peric@gmail.com", User.Role.CUSTOMER, "pera");
-		User userFour = new User(new Long(23),"Mika","Mikic","mikic@gmail.com", User.Role.CUSTOMER, "mika");
-		User userFive = new User(new Long(25),"Jova","Jovic","jovic@gmail.com", User.Role.CUSTOMER, "jova");
+    	User userOne = new User(new Long(17),"sara", User.Role.ADMIN, "saki");
+		User userTwo = new User(new Long(19),"radic@gmail.com", User.Role.CUSTOMER, "rada");
+		User userThree = new User(new Long(21),"peric@gmail.com", User.Role.CUSTOMER, "pera");
+		User userFour = new User(new Long(23),"mikic@gmail.com", User.Role.CUSTOMER, "mika");
+		User userFive = new User(new Long(25),"jovic@gmail.com", User.Role.CUSTOMER, "jova");
 		
 		users.add(userOne);
 		users.add(userTwo);

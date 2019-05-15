@@ -28,8 +28,6 @@ public class User implements Serializable {
 	 * @author s.krasic
 	 * Role - represents role of the user that can be ADMIN or CUSTOMER.
 	 * id is generated value that is value to do identification of user.
-	 * name represents name of the user.
-	 * surname represents surname of the user.
 	 * email represents email of the user.
 	 * password represents password of the user.
 	 * shoppingCart represents shopping cart for users shopping.
@@ -44,35 +42,31 @@ public class User implements Serializable {
 
 	public enum Role { ADMIN, CUSTOMER }
 	
-	@Column(nullable = false)
-	private String name;
-	
-	@Column(nullable = false)
-	private String surname;
-	
 	@Column (nullable = false, unique = true )
-	private String email;
-	
-	@Column (nullable = false)
-	private Role role;
+	private String username;
 	
 	@Column (nullable = false)
 	private String password;
 	
+	@Column (nullable = false)
+	private Role role;
+	
 	@OneToOne
 	private ShoppingCart shoppingCart;
 	
+	@OneToOne
+	private UserInfo userInfo;
+
 	@ElementCollection
-	private List<Order> receipts;
-	
+	private List<Purchase> purchases;
+
 	public User () {}
 	
-	public User (Long id, String name, String surname, String email, Role role, String password, ShoppingCart shoppingCart) {
+	public User (Long id, String username, Role role, String password,UserInfo userInfo, ShoppingCart shoppingCart) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.surname = surname;
-		this.email = email;
+		this.username = username;
+		this.userInfo = userInfo;
 		this.role = role;
 		this.password = password;
 		this.shoppingCart = shoppingCart;
@@ -80,14 +74,13 @@ public class User implements Serializable {
 	}
 
 	
-	public User (Long id, String name, String surname, String email, Role role, String password) {
+	public User (Long id, String username, Role role, String password, ShoppingCart shoppingCart) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.surname = surname;
-		this.email = email;
+		this.username = username;
 		this.role = role;
 		this.password = password;
+		this.shoppingCart = shoppingCart;
 		
 	}
 	
@@ -99,28 +92,12 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Role getRole() {
@@ -148,22 +125,32 @@ public class User implements Serializable {
 		this.shoppingCart = shoppingCart;
 	}
 
-	public List<Order> getReceipts() {
-		return receipts;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
-	public void setReceipts(List<Order> receipts) {
-		this.receipts = receipts;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", role=" + role
-				+ "]";
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
+				+ ", shoppingCart=" + shoppingCart + ", userInfo=" + userInfo + ", purchases=" + purchases + "]";
 	}
+
 	
-	
-	
+
+
+
 	
 	
 }

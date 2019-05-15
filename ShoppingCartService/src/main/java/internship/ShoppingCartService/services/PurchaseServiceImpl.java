@@ -5,32 +5,32 @@ import org.springframework.stereotype.Service;
 
 import internship.ShoppingCartService.models.Book;
 import internship.ShoppingCartService.models.CartItem;
-import internship.ShoppingCartService.models.Order;
-import internship.ShoppingCartService.models.ReceiptItem;
+import internship.ShoppingCartService.models.Purchase;
 import internship.ShoppingCartService.models.ShoppingCart;
 import internship.ShoppingCartService.models.User;
 import internship.ShoppingCartService.models.User.Role;
 import internship.ShoppingCartService.repositories.BookRepository;
-import internship.ShoppingCartService.repositories.ReceiptItemRepository;
+import internship.ShoppingCartService.repositories.CartItemRepository;
 import internship.ShoppingCartService.repositories.OrderRepository;
 import internship.ShoppingCartService.repositories.ShoppingCartRepository;
 import internship.ShoppingCartService.repositories.UserRepository;
 @Service
-public class OrderServiceImpl implements OrderService {
+public class PurchaseServiceImpl implements PurchaseService {
 	
+
 	@Autowired
-	ReceiptItemRepository receiptItemRep;
-	@Autowired
-	OrderRepository receiptRep;
+	OrderRepository orderRep;
 	@Autowired
 	BookRepository bookRep;
+	@Autowired
+	CartItemRepository cartItemRep;
 	@Autowired
 	ShoppingCartRepository shoppingCartRep;
 	@Autowired
 	UserRepository userRep;
 
 	@Override
-	public Order buyNow(Long userId,int quantity, Long bookId) {
+	public Purchase buyNow(Long userId,int quantity, Long bookId) {
 		User u = userRep.getOne(userId);
 		if(u.getRole() == Role.ADMIN)
 			return null;
@@ -38,28 +38,29 @@ public class OrderServiceImpl implements OrderService {
 		if(b.getQuantity() >= quantity) {
 			b.payBook(quantity);
 			bookRep.save(b);
-			ReceiptItem item = new ReceiptItem(b, quantity);
-			receiptItemRep.save(item);
-			Order r = new Order();
-			r.getItemList().add(item);
-			r.calculateTotalPrice();
-			receiptRep.save(r);
-			u.getReceipts().add(r);
+			CartItem item = new CartItem(b, quantity);
+			cartItemRep.save(item);
+			Purchase purchase = new Purchase();
+			purchase.setUserInfo(u.getUserInfo());
+			purchase.getItemList().add(item);
+			purchase.calculateTotalPrice();
+			orderRep.save(purchase);
+			u.getPurchases().add(purchase);
 			userRep.save(u);
 
-			return r;
+			return purchase;
 		}
 
 		return null;
 	}
 
 	@Override
-	public Order buyCart(Long userId) {
+	public Purchase buyCart(Long userId) {
 		User u = userRep.getOne(userId);
 		if(u.getRole() == Role.ADMIN)
 			return null;
 		ShoppingCart s = u.getShoppingCart();
-		Order r = new Order();
+		Purchase purchase = new Purchase();
 		if(s.getItemList().size() == 0) {
 			return null;
 		}
@@ -72,18 +73,17 @@ public class OrderServiceImpl implements OrderService {
 		for(CartItem i : s.getItemList()) {
 			i.getBook().payBook(i.getQuantity());
 			bookRep.save(i.getBook());
-			ReceiptItem ri = new ReceiptItem(i);
-			receiptItemRep.save(ri);
-			r.getItemList().add(ri);
+			purchase.getItemList().add(i);
 		}
 		s.getItemList().clear();
 		shoppingCartRep.save(s);
-		r.calculateTotalPrice();
-		receiptRep.save(r);
-		u.getReceipts().add(r);
+		purchase.calculateTotalPrice();
+		purchase.setUserInfo(u.getUserInfo());
+		orderRep.save(purchase);
+		u.getPurchases().add(purchase);
 		userRep.save(u);
 		
-		return r;
+		return purchase;
 	}
 
 }

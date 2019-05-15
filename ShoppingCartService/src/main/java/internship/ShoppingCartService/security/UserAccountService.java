@@ -18,7 +18,7 @@ public class UserAccountService implements org.springframework.security.core.use
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRep.findByEmail(username);
+		User user = userRep.findByUsername(username);
 		if(user == null)
 			return null;
 		UserAccount userAcc = new UserAccount(user);

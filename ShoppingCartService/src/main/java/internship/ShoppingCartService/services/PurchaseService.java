@@ -1,12 +1,12 @@
 package internship.ShoppingCartService.services;
 
-import internship.ShoppingCartService.models.Order;
+import internship.ShoppingCartService.models.Purchase;
 /**
  * Interface for ReceiptService.
  * @author r.bogojevic
  *
  */
-public interface OrderService {
+public interface PurchaseService {
 	/**
 	 * Instant buying of selected book in chosen quantity.
 	 * @param userId id of user who is buying book.
@@ -14,12 +14,12 @@ public interface OrderService {
 	 * @param bookId id of the book which is he buying.
 	 * @return receipt that is created.
 	 */
-	Order buyNow(Long userId,int quantity, Long bookId);
+	Purchase buyNow(Long userId,int quantity, Long bookId);
 	/**
 	 * Buys current cart of selected user.
 	 * @param cartId id of user who is buying.
 	 * @return receipt that is created.
 	 */
-	Order buyCart(Long cartId);
+	Purchase buyCart(Long cartId);
 
 }

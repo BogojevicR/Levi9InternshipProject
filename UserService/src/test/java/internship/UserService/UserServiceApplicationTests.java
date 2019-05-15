@@ -39,11 +39,11 @@ public class UserServiceApplicationTests {
 		
 		List<User> users = new ArrayList<User>();
 		
-		User userOne = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
-		User userTwo = new User(new Long(19),"Rada","Radic","radic@gmail.com", User.Role.CUSTOMER, "rada");
-		User userThree = new User(new Long(21),"Pera","Peric","peric@gmail.com", User.Role.CUSTOMER, "pera");
-		User userFour = new User(new Long(23),"Mika","Mikic","mikic@gmail.com", User.Role.CUSTOMER, "mika");
-		User userFive = new User(new Long(25),"Jova","Jovic","jovic@gmail.com", User.Role.CUSTOMER, "jova");
+		User userOne = new User(new Long(17),"sara", User.Role.ADMIN, "saki");
+		User userTwo = new User(new Long(19),"radic@gmail.com", User.Role.CUSTOMER, "rada");
+		User userThree = new User(new Long(21),"peric@gmail.com", User.Role.CUSTOMER, "pera");
+		User userFour = new User(new Long(23),"mikic@gmail.com", User.Role.CUSTOMER, "mika");
+		User userFive = new User(new Long(25),"jovic@gmail.com", User.Role.CUSTOMER, "jova");
 		
 		users.add(userOne);
 		users.add(userTwo);
@@ -63,7 +63,7 @@ public class UserServiceApplicationTests {
 	  @Test
 	  public void saveUserTest() {
 	      
-		  User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+		  User user = new User(new Long(17),"krasicsara1@gmail.com", User.Role.ADMIN, "saki");
 	         
 	      userService.save(user);
 	         
@@ -73,7 +73,7 @@ public class UserServiceApplicationTests {
 	  @Test
 	  public void loginUserTest() {
 		  
-		  User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+		  User user = new User(new Long(17),"krasicsara1@gmail.com", User.Role.ADMIN, "saki");
 		  UserToLogDTO userDTO = new UserToLogDTO("krasicsara1@gmail.com", "saki");
 		  
 		  Mockito.when(userRepository.logInUser("krasicsara1@gmail.com", "saki")).thenReturn(user);
@@ -88,7 +88,7 @@ public class UserServiceApplicationTests {
 	  @Test
 	  public void getRoleByIdTest() {
 		  
-		  User user = new User(new Long(17),"Sara","Krasic","krasicsara1@gmail.com", User.Role.ADMIN, "saki");
+		  User user = new User(new Long(17),"krasicsara1@gmail.com", User.Role.ADMIN, "saki");
 		  
 		  Mockito.when(userRepository.getRole(new Long(user.getId()))).thenReturn(user.getRole());
 		  

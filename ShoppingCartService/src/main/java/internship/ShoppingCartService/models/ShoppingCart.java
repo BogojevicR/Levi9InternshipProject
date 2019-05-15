@@ -1,6 +1,7 @@
 package internship.ShoppingCartService.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -49,6 +50,7 @@ public class ShoppingCart implements Serializable {
 
 	public ShoppingCart(Long long1) {
 		this.id = long1;
+		this.itemList = new ArrayList<CartItem>();
 	}
 
 	public long getId() {
