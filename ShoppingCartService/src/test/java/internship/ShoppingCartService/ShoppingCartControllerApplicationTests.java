@@ -2,6 +2,7 @@ package internship.ShoppingCartService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -63,15 +64,18 @@ public class ShoppingCartControllerApplicationTests {
 		listOfItems.add(cI1);
 		listOfItems.add(cI2);
 		ShoppingCart shopingCart = new ShoppingCart(new Long(2), listOfItems);
+		
+		Optional<Long> id;
+		id = Optional.of(shopingCart.getId());
 	
-		Mockito.when(shoppingCartService.getCartItems(shopingCart.getId())).thenReturn(listOfItems);
+		Mockito.when(shoppingCartService.getCartItems(id)).thenReturn(listOfItems);
 	
 		String jsonCartItems = new Gson().toJson(listOfItems);
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/cart/getCartItems/{cartId}", shopingCart.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 		.andExpect(MockMvcResultMatchers.content().json(jsonCartItems));
 		
-		Mockito.verify(shoppingCartService).getCartItems(shopingCart.getId());
+		Mockito.verify(shoppingCartService).getCartItems(id);
 	
 	}
 	
