@@ -39,7 +39,7 @@ public class UserAccount implements org.springframework.security.core.userdetail
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return this.user.getEmail();
+		return this.user.getUsername();
 	}
 
 	@Override

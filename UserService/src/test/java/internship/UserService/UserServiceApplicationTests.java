@@ -79,7 +79,6 @@ public class UserServiceApplicationTests {
 		  Mockito.when(userRepository.logInUser("krasicsara1@gmail.com", "saki")).thenReturn(user);
 		  
 		  User logged = userService.logInUser(userDTO);
-		  System.out.println(logged.getEmail() + logged.getName() + logged.getSurname() + logged.getPassword());
 		  
 		  assertEquals(user, logged);
 		  

@@ -19,7 +19,7 @@ public abstract class LogInUserConverter extends AbstractConverter {
 
 	public static UserToLogDTO fromEntity (User e) {
 		UserToLogDTO newUserToLogDTO = new UserToLogDTO();
-		newUserToLogDTO.setEmail(e.getEmail());
+		newUserToLogDTO.setUsername(e.getUsername());
 		newUserToLogDTO.setPassword(e.getPassword());
 		return newUserToLogDTO;
 	}
@@ -33,7 +33,7 @@ public abstract class LogInUserConverter extends AbstractConverter {
 	
 	public static User toEntity (UserToLogDTO d) {
 		User user = new User(); 
-		user.setEmail(d.getEmail());
+		user.setUsername(d.getUsername());
 		user.setPassword(d.getPassword());
 		return user;
 		}
