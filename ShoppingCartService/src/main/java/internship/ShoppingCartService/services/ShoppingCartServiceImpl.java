@@ -1,6 +1,9 @@
 package internship.ShoppingCartService.services;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public ShoppingCartRepository cartRep;
 	@Autowired
 	public BookRepository bookRep;
+	
+	@Resource(name = "sessionScopedBean")
+	ShoppingCart sessionScopedBean;
 	
 	/**
 	 * This method is method to get shopping cart.
@@ -61,16 +67,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 */
 	
 	@Override
-	public boolean addItem(Long cartId, int quantity, Long bookId) {
-		ShoppingCart cart = cartRep.getOne(cartId);
+	public boolean addItem(Optional<Long> cartId, int quantity, Long bookId) {
 		
+		Book b = bookRep.getOne(bookId);
+		if(!cartId.isPresent()){
+			sessionScopedBean.getItemList().add(new CartItem(b, quantity));
+			System.out.println(sessionScopedBean.getItemList().toString());
+			return true;
+		}
+		ShoppingCart cart = cartRep.getOne(cartId.get());
 		if(cart.getItemList().size() != 0) {
 			if(cart.checkBook(bookId)) {
 				return false;
 			}
 		}
-		
-		Book b = bookRep.getOne(bookId);
+
 		CartItem item = new CartItem(b, quantity);
 		cartItemRep.save(item);
 		cart.getItemList().add(item);

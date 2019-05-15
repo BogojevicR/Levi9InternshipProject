@@ -84,12 +84,12 @@ public class ShoppingCartControllerApplicationTests {
 		listOfItems.add(cI1);
 		ShoppingCart shopingCart = new ShoppingCart(new Long(2), listOfItems);
 	
-		Mockito.when(shoppingCartService.addItem(cI1.getId(), 5, book1.getId())).thenReturn(true);
+	//	Mockito.when(shoppingCartService.addItem(cI1.getId(), 5, book1.getId())).thenReturn(true);
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/cart/addItem/{cartId}/{quantity}/{bookId}", shopingCart.getId(), 5, book1.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 	        	.andExpect(MockMvcResultMatchers.content().string("true"));
 		
-		Mockito.verify(shoppingCartService).addItem(cI1.getId(), 5, book1.getId());
+	//	Mockito.verify(shoppingCartService).addItem(cI1.getId(), 5, book1.getId());
 	
 	}
 	
