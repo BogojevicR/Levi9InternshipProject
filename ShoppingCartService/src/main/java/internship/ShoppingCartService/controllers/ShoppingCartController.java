@@ -109,7 +109,7 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@RequestMapping(value = { "emptyCart/{cartId}", "emptyCart/" } , method = RequestMethod.DELETE)
+	@RequestMapping(value = { "emptyCart/{cartId}", "emptyCart" } , method = RequestMethod.DELETE)
 	public boolean emptyCart(@PathVariable Optional<Long> cartId) {
 		return cartService.emptyCart(cartId);
 	}
