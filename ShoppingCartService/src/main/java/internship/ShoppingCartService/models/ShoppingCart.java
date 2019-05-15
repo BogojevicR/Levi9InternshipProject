@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * Represents the entity of the users shopping cart.
  * @author r.bogojevic
@@ -52,6 +54,11 @@ public class ShoppingCart implements Serializable {
 	public ShoppingCart(Long long1) {
 		this.id = long1;
 		this.itemList = new ArrayList<CartItem>();
+	}
+	
+	public ShoppingCart(ShoppingCart cart) {
+		this.id = cart.getId();
+		this.itemList = cart.getItemList();
 	}
 
 	public long getId() {

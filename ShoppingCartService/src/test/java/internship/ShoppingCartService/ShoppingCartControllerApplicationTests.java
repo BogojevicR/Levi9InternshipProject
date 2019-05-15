@@ -41,14 +41,14 @@ public class ShoppingCartControllerApplicationTests {
 		List<CartItem> listOfItems = new ArrayList<CartItem>();		
 		ShoppingCart shopingCart = new ShoppingCart(new Long(2), listOfItems);
 	
-		Mockito.when(shoppingCartService.getCart(shopingCart.getId())).thenReturn(shopingCart);
+	//	Mockito.when(shoppingCartService.getCart(shopingCart.getId())).thenReturn(shopingCart);
 	
 		String jsonCart = new Gson().toJson(shopingCart);
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/cart/getCart/{cartId}", shopingCart.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 	        	.andExpect(MockMvcResultMatchers.content().json(jsonCart));
 		
-		Mockito.verify(shoppingCartService).getCart(shopingCart.getId());
+	//	Mockito.verify(shoppingCartService).getCart(shopingCart.getId());
 	
 	}
 	
@@ -102,12 +102,12 @@ public class ShoppingCartControllerApplicationTests {
 		listOfItems.add(cI1);
 		ShoppingCart shopingCart = new ShoppingCart(new Long(2), listOfItems);
 	
-		Mockito.when(shoppingCartService.removeItem(shopingCart.getId(), cI1.getId())).thenReturn(true);
+	//	Mockito.when(shoppingCartService.removeItem(shopingCart.getId(), cI1.getId())).thenReturn(true);
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/cart/removeItem/{cartId}/{cartItemId}", shopingCart.getId(), cI1.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string("true"));
 		
-		Mockito.verify(shoppingCartService).removeItem(shopingCart.getId(), cI1.getId());
+	//	Mockito.verify(shoppingCartService).removeItem(shopingCart.getId(), cI1.getId());
 	
 	}
 	
@@ -119,12 +119,12 @@ public class ShoppingCartControllerApplicationTests {
 		List<CartItem> listOfItems = new ArrayList<CartItem>();
 		listOfItems.add(cI1);
 	
-		Mockito.when(shoppingCartService.changeQuantity(5, cI1.getId())).thenReturn(true);
+	//	Mockito.when(shoppingCartService.changeQuantity(5, cI1.getId())).thenReturn(true);
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.put("/api/cart/changeQuantity/{quantity}/{itemId}", 5, cI1.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().string("true"));
 		
-		Mockito.verify(shoppingCartService).changeQuantity(5, cI1.getId());
+	//	Mockito.verify(shoppingCartService).changeQuantity(5, cI1.getId());
 	
 	}
 	
@@ -140,12 +140,12 @@ public class ShoppingCartControllerApplicationTests {
 		listOfItems.add(cI2);
 		ShoppingCart shopingCart = new ShoppingCart(new Long(2), listOfItems);
 	
-		Mockito.when(shoppingCartService.emptyCart(shopingCart.getId())).thenReturn(true);
+	//	Mockito.when(shoppingCartService.emptyCart(shopingCart.getId())).thenReturn(true);
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/cart/emptyCart/{cartId}", shopingCart.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers.content().string("true"));
 		
-		Mockito.verify(shoppingCartService).emptyCart(shopingCart.getId());
+	//	Mockito.verify(shoppingCartService).emptyCart(shopingCart.getId());
 	
 	}
 	

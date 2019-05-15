@@ -3,8 +3,6 @@ package internship.ShoppingCartService.controllers;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -36,6 +34,7 @@ public class ShoppingCartController {
 	@Bean
 	@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public ShoppingCart sessionScopedBean() {
+		
 	    return new ShoppingCart();
 	}
 	
@@ -46,8 +45,8 @@ public class ShoppingCartController {
 	 */
 	
 	
-	@RequestMapping(value = "getCart/{cartId}", method = RequestMethod.GET)
-	public ShoppingCart getCart(@PathVariable Long cartId) {
+	@RequestMapping(value = { "getCart/{cartId}", "getCart" }, method = RequestMethod.GET)
+	public ShoppingCart getCart(@PathVariable Optional<Long> cartId) {
 		return cartService.getCart(cartId);
 		
 	}
@@ -85,8 +84,8 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@RequestMapping(value = "removeItem/{cartId}/{cartItemId}", method = RequestMethod.DELETE)
-	public boolean removeItem(@PathVariable Long cartId, @PathVariable Long cartItemId) {
+	@RequestMapping(value = { "removeItem/{cartId}/{cartItemId}", "removeItem/{cartItemId}" }, method = RequestMethod.DELETE)
+	public boolean removeItem(@PathVariable Optional<Long> cartId, @PathVariable Long cartItemId) {
 		return cartService.removeItem(cartId, cartItemId);
 	}
 
@@ -98,9 +97,9 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@RequestMapping(value = "changeQuantity/{quantity}/{itemId}", method = RequestMethod.PUT)
-	public boolean changeQuantity(@PathVariable int quantity, @PathVariable Long itemId) {
-		return cartService.changeQuantity(quantity, itemId);
+	@RequestMapping(value = { "changeQuantity/{cartId}/{quantity}/{itemId}", "changeQuantity/{quantity}/{itemId}"}, method = RequestMethod.PUT)
+	public boolean changeQuantity(@PathVariable Optional<Long> cartId,@PathVariable int quantity, @PathVariable Long itemId) {
+		return cartService.changeQuantity(cartId,quantity, itemId);
 	}
 	
 	/**
@@ -110,8 +109,8 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@RequestMapping(value = "emptyCart/{cartId}", method = RequestMethod.DELETE)
-	public boolean emptyCart(@PathVariable Long cartId) {
+	@RequestMapping(value = { "emptyCart/{cartId}", "emptyCart/" } , method = RequestMethod.DELETE)
+	public boolean emptyCart(@PathVariable Optional<Long> cartId) {
 		return cartService.emptyCart(cartId);
 	}
 	
