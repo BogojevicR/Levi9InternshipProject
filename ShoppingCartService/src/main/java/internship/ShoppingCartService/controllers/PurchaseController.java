@@ -17,7 +17,7 @@ import internship.ShoppingCartService.services.PurchaseServiceImpl;
  */
 
 @RestController
-@RequestMapping("/api/reciept")
+@RequestMapping("/api/purchase")
 public class PurchaseController {
 
 	@Autowired

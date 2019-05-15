@@ -59,8 +59,18 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 */
 	
 	@Override
-	public List<CartItem> getCartItems(Long cartId) {
-		return  cartRep.findById(cartId).get().getItemList();
+	public List<CartItem> getCartItems(Optional<Long> cartId) {
+	
+		if(!cartId.isPresent()){
+			List<CartItem> retList = sessionScopedBean.getItemList();
+			System.out.println("LISTA ITEMA NEAUTORIZOVANIH " + retList);
+			return retList;
+		}
+		
+		List<CartItem> retList = cartRep.getOne(cartId.get()).getItemList();
+		System.out.println("LISTA ITEMA AUTORIZOVANIH " + retList);
+		return  retList;
+
 	}
 	
 	/**

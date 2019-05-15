@@ -56,8 +56,8 @@ public class ShoppingCartController {
 	 * @return list of shopping cart items.
 	 */
 	
-	@RequestMapping(value = "getCartItems/{cartId}", method = RequestMethod.GET)
-	public List<CartItem> getCartItems(@PathVariable Long cartId){
+	@RequestMapping(value = {"getCartItems/{cartId}", "getCartItems"}, method = RequestMethod.GET)
+	public List<CartItem> getCartItems(@PathVariable Optional<Long> cartId){
 		return cartService.getCartItems(cartId);
 	}
 	
