@@ -11,7 +11,7 @@ import internship.ShoppingCartService.models.User;
 import internship.ShoppingCartService.models.User.Role;
 import internship.ShoppingCartService.repositories.BookRepository;
 import internship.ShoppingCartService.repositories.CartItemRepository;
-import internship.ShoppingCartService.repositories.OrderRepository;
+import internship.ShoppingCartService.repositories.PurchaseRepository;
 import internship.ShoppingCartService.repositories.ShoppingCartRepository;
 import internship.ShoppingCartService.repositories.UserRepository;
 @Service
@@ -19,7 +19,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	
 
 	@Autowired
-	OrderRepository orderRep;
+	PurchaseRepository orderRep;
 	@Autowired
 	BookRepository bookRep;
 	@Autowired

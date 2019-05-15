@@ -76,7 +76,7 @@ public class ShoppingCart implements Serializable {
 	 */
 	public boolean checkBook(Long id2) {
 		for(CartItem i : this.itemList) {
-			if(i.getBook().getId() == id2)
+			if(i.getBook().getId().longValue() == id2.longValue())
 				return true;
 		}
 		return false;
@@ -105,5 +105,12 @@ public class ShoppingCart implements Serializable {
 		}
 		
 	}
+
+	@Override
+	public String toString() {
+		return "ShoppingCart [id=" + id + ", itemList=" + itemList + "]";
+	}
+	
+	
 	
 }

@@ -50,13 +50,13 @@ public class ShoppingCartServiceApplicationTests {
 		Mockito.when(bookRep.getOne(book1.getId())).thenReturn(book1);
 		
 		System.out.println("VIDIIII" +  shopingCart.toString());
-		
+
 		soppingCartService.addItem(shopingCart.getId(), 5, book1.getId());
 		
 	    Mockito.verify(soppingCartRepository, Mockito.times(1)).save(shopingCart);
 	    
-	    //Book exixt in cart
-	    Mockito.when(bookRep.getOne(book1.getId())).thenReturn(null);
+	    //Book exist in cart
+	    Mockito.when(bookRep.getOne(book1.getId())).thenReturn(book1);
 	    
 	    boolean response = soppingCartService.addItem(shopingCart.getId(), 2, book2.getId());
 		assertEquals(false, response);

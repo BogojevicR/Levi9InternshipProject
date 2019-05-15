@@ -21,7 +21,8 @@ import internship.ShoppingCartService.models.ShoppingCart;
 import internship.ShoppingCartService.models.User;
 import internship.ShoppingCartService.models.User.Role;
 import internship.ShoppingCartService.repositories.BookRepository;
-import internship.ShoppingCartService.repositories.OrderRepository;
+import internship.ShoppingCartService.repositories.CartItemRepository;
+import internship.ShoppingCartService.repositories.PurchaseRepository;
 import internship.ShoppingCartService.repositories.ShoppingCartRepository;
 import internship.ShoppingCartService.repositories.UserRepository;
 import internship.ShoppingCartService.services.PurchaseServiceImpl;
@@ -30,16 +31,18 @@ import internship.ShoppingCartService.services.PurchaseServiceImpl;
 public class TestPurchaseService {
 
 	@InjectMocks
-	PurchaseServiceImpl purchaseRep;
+	PurchaseServiceImpl purchaseService;
 
 	@Mock
-	OrderRepository receiptRep;
+	PurchaseRepository purchaseRep;
 	@Mock
 	BookRepository bookRep;
 	@Mock
 	ShoppingCartRepository shoppingCartRep;
 	@Mock
 	UserRepository userRep;
+	@Mock
+	CartItemRepository cartItemRep;
 	
 	@Test
 	public void buyNowTest() {
@@ -51,15 +54,15 @@ public class TestPurchaseService {
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		when(bookRep.getOne(new Long(3))).thenReturn(b);
 		// Cart has items	
-		assertNotNull(purchaseRep.buyNow(u.getId(),20,b.getId()));
+		assertNotNull(purchaseService.buyNow(u.getId(),20,b.getId()));
 		
 		// Cart item have more quantity than stock
-		assertNull(purchaseRep.buyNow(u.getId(),30,b.getId()));
+		assertNull(purchaseService.buyNow(u.getId(),30,b.getId()));
 		
 		u = new User(new Long(2),"rale",Role.ADMIN,"rale",null);
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		// User is Admin
-		assertNull(purchaseRep.buyNow(u.getId(),20,b.getId()));
+		assertNull(purchaseService.buyNow(u.getId(),20,b.getId()));
 		
 	}
 	
@@ -73,14 +76,14 @@ public class TestPurchaseService {
 		
 		// Cart is Empty
 		when(userRep.getOne(new Long(2))).thenReturn(u);
-		assertNull(purchaseRep.buyCart(u.getId()));
+		assertNull(purchaseService.buyCart(u.getId()));
 		
 		//Cart has items
 		cart.getItemList().add(ci);
 		u  = new User(new Long(2),"rale",Role.CUSTOMER,"rale",cart);
 		u.setPurchases(new ArrayList<Purchase>());
 		when(userRep.getOne(new Long(2))).thenReturn(u);
-		assertNotNull(purchaseRep.buyCart(u.getId()));
+		assertNotNull(purchaseService.buyCart(u.getId()));
 		
 		//Cart item have more quantity than stock
 		ci.setQuantity(25);
@@ -88,12 +91,12 @@ public class TestPurchaseService {
 		u = new User(new Long(2),"rale",Role.CUSTOMER,"rale",cart);
 		u.setPurchases(new ArrayList<Purchase>());
 		when(userRep.getOne(new Long(2))).thenReturn(u);
-		assertNull(purchaseRep.buyCart(u.getId()));
+		assertNull(purchaseService.buyCart(u.getId()));
 		
 		// User is ADMIN
 		u = new User(new Long(2),"rale",Role.ADMIN,"rale",cart);
 		when(userRep.getOne(new Long(2))).thenReturn(u);
-		assertNull(purchaseRep.buyCart(u.getId()));
+		assertNull(purchaseService.buyCart(u.getId()));
 	}
 	
 }

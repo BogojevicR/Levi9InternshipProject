@@ -8,6 +8,6 @@ import internship.ShoppingCartService.models.Purchase;
  * @author r.bogojevic
  *
  */
-public interface OrderRepository extends JpaRepository<Purchase, Long> {
+public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
 
 }
