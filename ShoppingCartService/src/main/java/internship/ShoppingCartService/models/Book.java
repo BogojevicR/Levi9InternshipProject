@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * Book is main entity in BookService. It is used for representation of the book.
@@ -16,6 +18,7 @@ import javax.persistence.ManyToOne;
  * @author r.bogojevic
  */
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Book implements Serializable{
 	/**
 	 * 
