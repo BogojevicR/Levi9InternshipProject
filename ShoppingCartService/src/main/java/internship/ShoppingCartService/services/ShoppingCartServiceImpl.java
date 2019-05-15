@@ -106,6 +106,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public boolean emptyCart(Long cartId) {
 		
 		ShoppingCart cart = cartRep.getOne(cartId);
+		for(CartItem i : cart.getItemList()) {
+			cartItemRep.deleteById(i.getId());
+		}
+
 		cart.getItemList().clear();
 		cartRep.save(cart);
 		
@@ -124,7 +128,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public boolean removeItem(Long cartId, Long cartItemId) {
 		ShoppingCart cart = cartRep.getOne(cartId);
 		cart.removeItemById(cartItemId);
-
+		cartItemRep.deleteById(cartItemId);
 		cartRep.save(cart);
 		return true;
 	}
