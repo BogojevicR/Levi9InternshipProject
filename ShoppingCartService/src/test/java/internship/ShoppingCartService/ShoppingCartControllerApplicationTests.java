@@ -68,22 +68,21 @@ public class ShoppingCartControllerApplicationTests {
 		Optional<Long> id;
 		id = Optional.of(shopingCart.getId());
 	
-<<<<<<< HEAD
+
 		Mockito.when(shoppingCartService.getCartItems(id)).thenReturn(listOfItems);
-=======
+
 	//	Mockito.when(shoppingCartService.getCartItems(shopingCart.getId())).thenReturn(listOfItems);
->>>>>>> d6480361c934e83db7f0cc727f5510de050cbda1
+
 	
 		String jsonCartItems = new Gson().toJson(listOfItems);
 	
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/cart/getCartItems/{cartId}", shopingCart.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
 		.andExpect(MockMvcResultMatchers.content().json(jsonCartItems));
-		
-<<<<<<< HEAD
+
 		Mockito.verify(shoppingCartService).getCartItems(id);
-=======
+
 	//	Mockito.verify(shoppingCartService).getCartItems(shopingCart.getId());
->>>>>>> d6480361c934e83db7f0cc727f5510de050cbda1
+
 	
 	}
 	
