@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService{
 				cartRepository.save(s);
 				u.setShoppingCart(s);	
 				u.setPurchases( new ArrayList<Purchase>());
+				
 				UserInfo ui = u.getUserInfo();
 				Adress a = ui.getAdress();
 				adressRepository.save(a);
