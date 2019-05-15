@@ -57,6 +57,7 @@ public class CartItem implements Serializable {
 		this.id = long1;
 		this.quantity = i;
 		this.book = book1;
+		this.total = book.getPrice() * quantity;
 	}
 
 	public Long getId() {
@@ -81,14 +82,15 @@ public class CartItem implements Serializable {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+		this.total = quantity * this.book.getPrice();
 	}
 
 	public double getTotal() {
 		return total;
 	}
 
-	public void setTotal(double total) {
-		this.total = total;
+	public void setTotal() {
+		this.total = book.getPrice() * quantity;
 	}
 
 	@Override

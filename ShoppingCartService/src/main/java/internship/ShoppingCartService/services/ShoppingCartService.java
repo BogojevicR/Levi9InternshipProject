@@ -8,11 +8,16 @@ import internship.ShoppingCartService.models.ShoppingCart;
 
 public interface ShoppingCartService {
 
-	ShoppingCart getCart(Long cartId);
+
+	ShoppingCart getCart(Optional<Long> cartId);
 	List<CartItem> getCartItems(Optional <Long> cartId);
 	boolean addItem(Optional<Long> cartId, int quantity, Long bookId);
-	boolean changeQuantity(int quantity, Long itemId);
-	boolean emptyCart(Long cartId);
-	boolean removeItem(Long cartId, Long cartItemId);
+	boolean changeQuantity(Optional<Long> cartId, int quantity, Long itemId);
+	boolean emptyCart(Optional<Long> cartId);
+	boolean removeItem(Optional<Long> cartId, Long cartItemId);
+	
+	
+	
+	
 	
 }
