@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	 * @param email email of chosen user.
 	 * @return User with chosen email.
 	 */
-	User findByEmail (String email);
+	User findByUsername (String username);
 	/**
 	 * Gets role from selected user by his id.
 	 * @param id id of user.

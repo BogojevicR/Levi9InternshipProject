@@ -49,12 +49,13 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean save(User u) {
-		if (userRepository.findByEmail(u.getEmail()) == null){
+		if (userRepository.findByUsername(u.getUsername()) == null){
 			if(u.getRole() == User.Role.CUSTOMER) {
 				ShoppingCart s = new ShoppingCart();
 				cartRepository.save(s);
 				u.setShoppingCart(s);	
-				u.setReceipts( new ArrayList<Order>());
+				u.setOrders( new ArrayList<Order>());
+
 			}	
 			userRepository.save(u);
 			return true;
@@ -83,12 +84,18 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public User logInUser(UserToLogDTO u) {
-		User userToLog = userRepository.logInUser(u.getEmail(), u.getPassword());
+		User userToLog = userRepository.logInUser(u.getUsername(), u.getPassword());
 		if (userToLog != null) {
 			return userToLog;
 		}
 		
 		return new User();
+	}
+
+	@Override
+	public User getById(long id) {
+		User u = userRepository.getOne(id);
+		return u;
 	}
 
 	

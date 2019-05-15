@@ -12,5 +12,6 @@ public interface UserService {
 	boolean save(User u);
 	Role getRoleById(Long id);
 	User logInUser(UserToLogDTO u);
+	User getById(long id);
 	
 }

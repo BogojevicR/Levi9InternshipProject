@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -29,7 +28,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-        			.antMatchers(HttpMethod.GET,"/user/**").hasAuthority("CUSTOMER")
+        			.antMatchers(HttpMethod.GET,"/user/**").hasAuthority("ADMIN")
+        			.antMatchers(HttpMethod.POST,"/user/**").hasAuthority("ADMIN")
         			.and().httpBasic().and().csrf().disable();
         
 

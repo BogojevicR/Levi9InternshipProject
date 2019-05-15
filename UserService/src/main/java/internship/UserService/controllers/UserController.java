@@ -65,7 +65,9 @@ public class UserController {
 	public  ResponseEntity<String>  getRole(@PathVariable Long id) {
 		Role role = userService.getRoleById(id);
 		String rola;
-		if (role.equals("ADMIN")) {
+		User u = userService.getById(id);
+		System.out.println(u.getRole().toString());
+		if (u.getRole().toString().equals("ADMIN")) {
 			rola = "ADMIN";
 		}
 		else {

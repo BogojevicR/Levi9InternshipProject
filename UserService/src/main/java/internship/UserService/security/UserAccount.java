@@ -13,6 +13,8 @@ import internship.UserService.model.User;
 
 public class UserAccount implements org.springframework.security.core.userdetails.UserDetails {
 
+	private static final long serialVersionUID = 1L;
+	
 	private User user;
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() ;
 	
@@ -37,7 +39,7 @@ public class UserAccount implements org.springframework.security.core.userdetail
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return this.user.getEmail();
+		return this.user.getUsername();
 	}
 
 	@Override

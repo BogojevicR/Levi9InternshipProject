@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  * This class represents entity of receipt.
@@ -38,8 +39,10 @@ public class Order implements Serializable {
 	private Long id;
 	@ElementCollection
 	private List<ReceiptItem> itemList = new ArrayList<ReceiptItem>();
-	
+
 	private double totalPrice;
+	@OneToOne
+	private UserInfo userInfo;
 	
 	public Order() {
 		super();
@@ -76,10 +79,18 @@ public class Order implements Serializable {
 		}
 	}
 	
+	public UserInfo getUserInfo() {
+		return userInfo;
+	}
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
+	}
+	
 	@Override
 	public String toString() {
-		return "Receipt [id=" + id + ", itemList=" + itemList + ", totalPrice=" + totalPrice + "]";
+		return "Order [id=" + id + ", itemList=" + itemList + ", totalPrice=" + totalPrice + "]";
 	}
+	
 	
 	
 	
