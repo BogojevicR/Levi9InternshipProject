@@ -15,16 +15,16 @@ import javax.persistence.Id;
  */
 @Entity
 public class ShoppingCart implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Auto-generated, unique key for a shopping cart.
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	/**
 	 * List of current items in shopping cart.
 	 */

@@ -22,12 +22,12 @@ import internship.ShoppingCartService.models.Book;
 import internship.ShoppingCartService.models.Book.State;
 import internship.ShoppingCartService.models.CartItem;
 import internship.ShoppingCartService.models.Category;
-import internship.ShoppingCartService.models.Receipt;
+import internship.ShoppingCartService.models.Order;
 import internship.ShoppingCartService.models.ReceiptItem;
 import internship.ShoppingCartService.models.ShoppingCart;
 import internship.ShoppingCartService.models.User;
 import internship.ShoppingCartService.models.User.Role;
-import internship.ShoppingCartService.services.ReceiptServiceImpl;
+import internship.ShoppingCartService.services.OrderServiceImpl;
 import internship.ShoppingCartService.services.ShoppingCartServiceImpl;
 
 
@@ -41,7 +41,7 @@ public class TestReceiptController {
 	public MockMvc mockMvc;
 	
 	@MockBean
-	public ReceiptServiceImpl receiptService;
+	public OrderServiceImpl receiptService;
 	
 	@MockBean
 	public ShoppingCartServiceImpl cartService;
@@ -52,9 +52,9 @@ public class TestReceiptController {
 		ShoppingCart cart = new ShoppingCart(new Long(1));
 		User u = new User(new Long(2),"Radovan","Bogojevic","rale@gmail.com",Role.CUSTOMER,"rale",cart);
 		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, State.ACTIVE, 20);
-		u.setReceipts(new ArrayList<Receipt>());
+		u.setReceipts(new ArrayList<Order>());
 		CartItem ci= new CartItem(b, 5);
-		Receipt r = new Receipt();
+		Order r = new Order();
 		ReceiptItem item = new ReceiptItem(ci);
 		r.getItemList().add(item);
 		r.calculateTotalPrice();
@@ -73,9 +73,9 @@ public class TestReceiptController {
 		ShoppingCart cart = new ShoppingCart(new Long(1));
 		User u = new User(new Long(2),"Radovan","Bogojevic","rale@gmail.com",Role.CUSTOMER,"rale",cart);
 		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, State.ACTIVE, 20);
-		u.setReceipts(new ArrayList<Receipt>());
+		u.setReceipts(new ArrayList<Order>());
 		CartItem ci= new CartItem(b, 5);
-		Receipt r = new Receipt();
+		Order r = new Order();
 		ReceiptItem item = new ReceiptItem(ci);
 		r.getItemList().add(item);
 		r.calculateTotalPrice();
@@ -94,9 +94,9 @@ public class TestReceiptController {
 		ShoppingCart cart = new ShoppingCart(new Long(1));
 		User u = new User(new Long(2),"Radovan","Bogojevic","rale@gmail.com",Role.CUSTOMER,"rale",cart);
 		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, State.ACTIVE, 20);
-		u.setReceipts(new ArrayList<Receipt>());
+		u.setReceipts(new ArrayList<Order>());
 		CartItem ci= new CartItem(b, 5);
-		Receipt r = new Receipt();
+		Order r = new Order();
 		ReceiptItem item = new ReceiptItem(ci);
 		r.getItemList().add(item);
 		r.calculateTotalPrice();
@@ -115,9 +115,9 @@ public class TestReceiptController {
 		ShoppingCart cart = new ShoppingCart(new Long(1));
 		User u = new User(new Long(2),"Radovan","Bogojevic","rale@gmail.com",Role.CUSTOMER,"rale",cart);
 		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, State.ACTIVE, 20);
-		u.setReceipts(new ArrayList<Receipt>());
+		u.setReceipts(new ArrayList<Order>());
 		CartItem ci= new CartItem(b, 5);
-		Receipt r = new Receipt();
+		Order r = new Order();
 		ReceiptItem item = new ReceiptItem(ci);
 		r.getItemList().add(item);
 		r.calculateTotalPrice();

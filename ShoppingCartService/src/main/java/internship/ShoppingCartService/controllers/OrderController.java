@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import internship.ShoppingCartService.models.Receipt;
-import internship.ShoppingCartService.services.ReceiptServiceImpl;
+import internship.ShoppingCartService.models.Order;
+import internship.ShoppingCartService.services.OrderServiceImpl;
 /**
  * REST Controller for shopping cart application.
  * @author r.bogojevic
@@ -18,10 +18,10 @@ import internship.ShoppingCartService.services.ReceiptServiceImpl;
 
 @RestController
 @RequestMapping("/api/reciept")
-public class RecieptController {
+public class OrderController {
 
 	@Autowired
-	public ReceiptServiceImpl receiptService;
+	public OrderServiceImpl receiptService;
 	/**
 	 * Instant buying of selected book in chosen quantity.
 	 * @param userId id of user who is buying book.
@@ -30,11 +30,11 @@ public class RecieptController {
 	 * @return receipt that is created, together with HTTP status.
 	 */
 	@RequestMapping(value = "buyNow/{userId}/{quantity}/{bookId}", method = RequestMethod.POST)
-	public ResponseEntity<Receipt> buyNow(@PathVariable Long userId, @PathVariable int quantity, @PathVariable Long bookId) {
-		Receipt response = receiptService.buyNow(userId, quantity, bookId);
+	public ResponseEntity<Order> buyNow(@PathVariable Long userId, @PathVariable int quantity, @PathVariable Long bookId) {
+		Order response = receiptService.buyNow(userId, quantity, bookId);
 		if(response != null)
-			return new ResponseEntity<Receipt>(response, HttpStatus.OK);
-		return new ResponseEntity<Receipt>(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Order>(response, HttpStatus.OK);
+		return new ResponseEntity<Order>(response, HttpStatus.BAD_REQUEST);
 	}
 	/**
 	 * Buys current cart of selected user.
@@ -42,11 +42,11 @@ public class RecieptController {
 	 * @return receipt that is created, together with HTTP status.
 	 */
 	@RequestMapping(value = "buyCart/{userId}", method = RequestMethod.POST)
-	public ResponseEntity<Receipt> buyCart( @PathVariable Long userId) {
-		Receipt response = receiptService.buyCart(userId);
+	public ResponseEntity<Order> buyCart( @PathVariable Long userId) {
+		Order response = receiptService.buyCart(userId);
 		if(response != null)
-			return new ResponseEntity<Receipt>(response, HttpStatus.OK);
-		return new ResponseEntity<Receipt>(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Order>(response, HttpStatus.OK);
+		return new ResponseEntity<Order>(response, HttpStatus.BAD_REQUEST);
 		
 	
 	}

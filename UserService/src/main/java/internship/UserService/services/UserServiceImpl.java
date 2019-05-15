@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import internship.UserService.DTOmodels.UserToLogDTO;
-import internship.UserService.model.Receipt;
+import internship.UserService.model.Order;
 import internship.UserService.model.ShoppingCart;
 import internship.UserService.model.User;
 import internship.UserService.model.User.Role;
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
 				ShoppingCart s = new ShoppingCart();
 				cartRepository.save(s);
 				u.setShoppingCart(s);	
-				u.setReceipts( new ArrayList<Receipt>());
+				u.setReceipts( new ArrayList<Order>());
 			}	
 			userRepository.save(u);
 			return true;

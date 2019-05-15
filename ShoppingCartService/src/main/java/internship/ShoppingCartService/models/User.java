@@ -63,7 +63,7 @@ public class User implements Serializable {
 	private ShoppingCart shoppingCart;
 	
 	@ElementCollection
-	private List<Receipt> receipts;
+	private List<Order> receipts;
 	
 	public User () {}
 	
@@ -148,11 +148,11 @@ public class User implements Serializable {
 		this.shoppingCart = shoppingCart;
 	}
 
-	public List<Receipt> getReceipts() {
+	public List<Order> getReceipts() {
 		return receipts;
 	}
 
-	public void setReceipts(List<Receipt> receipts) {
+	public void setReceipts(List<Order> receipts) {
 		this.receipts = receipts;
 	}
 

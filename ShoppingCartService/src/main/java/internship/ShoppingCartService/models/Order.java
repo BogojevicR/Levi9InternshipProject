@@ -1,4 +1,4 @@
-package internship.UserService.model;
+package internship.ShoppingCartService.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Receipt implements Serializable {
+public class Order implements Serializable {
 	
 	/**
 	 * 
@@ -40,11 +40,11 @@ public class Receipt implements Serializable {
 	private List<ReceiptItem> itemList = new ArrayList<ReceiptItem>();
 	private double totalPrice;
 	
-	public Receipt() {
+	public Order() {
 		super();
 		this.totalPrice = 0;
 	}
-	public Receipt(List<ReceiptItem> itemList) {
+	public Order(List<ReceiptItem> itemList) {
 		super();
 		this.itemList = itemList;
 		this.totalPrice = 0;

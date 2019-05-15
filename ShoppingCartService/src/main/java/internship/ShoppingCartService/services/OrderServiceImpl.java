@@ -5,23 +5,23 @@ import org.springframework.stereotype.Service;
 
 import internship.ShoppingCartService.models.Book;
 import internship.ShoppingCartService.models.CartItem;
-import internship.ShoppingCartService.models.Receipt;
+import internship.ShoppingCartService.models.Order;
 import internship.ShoppingCartService.models.ReceiptItem;
 import internship.ShoppingCartService.models.ShoppingCart;
 import internship.ShoppingCartService.models.User;
 import internship.ShoppingCartService.models.User.Role;
 import internship.ShoppingCartService.repositories.BookRepository;
 import internship.ShoppingCartService.repositories.ReceiptItemRepository;
-import internship.ShoppingCartService.repositories.ReceiptRepository;
+import internship.ShoppingCartService.repositories.OrderRepository;
 import internship.ShoppingCartService.repositories.ShoppingCartRepository;
 import internship.ShoppingCartService.repositories.UserRepository;
 @Service
-public class ReceiptServiceImpl implements ReceiptService {
+public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	ReceiptItemRepository receiptItemRep;
 	@Autowired
-	ReceiptRepository receiptRep;
+	OrderRepository receiptRep;
 	@Autowired
 	BookRepository bookRep;
 	@Autowired
@@ -30,7 +30,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 	UserRepository userRep;
 
 	@Override
-	public Receipt buyNow(Long userId,int quantity, Long bookId) {
+	public Order buyNow(Long userId,int quantity, Long bookId) {
 		User u = userRep.getOne(userId);
 		if(u.getRole() == Role.ADMIN)
 			return null;
@@ -40,7 +40,7 @@ public class ReceiptServiceImpl implements ReceiptService {
 			bookRep.save(b);
 			ReceiptItem item = new ReceiptItem(b, quantity);
 			receiptItemRep.save(item);
-			Receipt r = new Receipt();
+			Order r = new Order();
 			r.getItemList().add(item);
 			r.calculateTotalPrice();
 			receiptRep.save(r);
@@ -54,12 +54,12 @@ public class ReceiptServiceImpl implements ReceiptService {
 	}
 
 	@Override
-	public Receipt buyCart(Long userId) {
+	public Order buyCart(Long userId) {
 		User u = userRep.getOne(userId);
 		if(u.getRole() == Role.ADMIN)
 			return null;
 		ShoppingCart s = u.getShoppingCart();
-		Receipt r = new Receipt();
+		Order r = new Order();
 		if(s.getItemList().size() == 0) {
 			return null;
 		}
