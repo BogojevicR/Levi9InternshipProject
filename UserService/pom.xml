@@ -64,7 +64,11 @@
     		<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-test</artifactId>
+		    <scope>test</scope>
+		</dependency>
 		
 
 	</dependencies>
@@ -78,6 +82,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			
+			<!-- plugin za bilovanje sonar cube-a -->
 			<plugin>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.1</version>
@@ -86,6 +91,28 @@
                 <executable>C:\Program Files\Java\jdk-11.0.2\bin\javac.exe</executable>
             </configuration>
         </plugin>
+        
+        <!-- plugin za uvezivanje testova na sonar cube -->
+        <plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.2</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<!-- attached to Maven test phase -->
+						<execution>
+							<id>report</id>
+							<phase>test</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
 			
 		</plugins>
 	</build>
