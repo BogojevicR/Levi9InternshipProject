@@ -5,6 +5,9 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import internship.ShoppingCartService.DTO.UserInfoDTO;
+import internship.ShoppingCartService.converters.AdressConverter;
+import internship.ShoppingCartService.converters.UserInfoConverter;
 import internship.ShoppingCartService.models.Adress;
 import internship.ShoppingCartService.models.Book;
 import internship.ShoppingCartService.models.CartItem;
@@ -106,7 +109,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 
-	public Purchase buyCartUnauth(UserInfo userInfo) {
+	public Purchase buyCartUnauth(UserInfoDTO userInfo) {
 		
 		if(sessionScopedBean.getItemList().size() == 0) {
 			return null;
@@ -119,8 +122,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 		}
 		
 		Purchase purchase = new Purchase();
-		adressRep.save(userInfo.getAdress());
-		userInfoRep.save(userInfo);
+		adressRep.save(AdressConverter.toEnity(userInfo.getAdress()));
+		userInfoRep.save(UserInfoConverter.toEntity(userInfo));
 		
 		for(CartItem i : sessionScopedBean.getItemList()) {
 			i.getBook().payBook(i.getQuantity());
@@ -131,13 +134,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 		}
 		sessionScopedBean.getItemList().clear();
 		purchase.calculateTotalPrice();
-		purchase.setUserInfo(userInfo);
+		purchase.setUserInfo(UserInfoConverter.toEntity(userInfo));
 		purchaseRep.save(purchase);
 
 		return purchase;
 	}
 
-	public Purchase buyNowUnauth(int quantity, Long bookId, UserInfo userInfo) {
+	public Purchase buyNowUnauth(int quantity, Long bookId, UserInfoDTO userInfo) {
 
 		Book b = bookRep.getOne(bookId);
 		if(b.getQuantity() >= quantity) {
@@ -146,9 +149,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 			CartItem item = new CartItem(b, quantity);
 			cartItemRep.save(item);
 			Purchase purchase = new Purchase();
-			adressRep.save(userInfo.getAdress());
-			userInfoRep.save(userInfo);
-			purchase.setUserInfo(userInfo);
+			adressRep.save(AdressConverter.toEnity(userInfo.getAdress()));
+			userInfoRep.save(UserInfoConverter.toEntity(userInfo));
+			purchase.setUserInfo(UserInfoConverter.toEntity(userInfo));
 			purchase.getItemList().add(item);
 			purchase.calculateTotalPrice();
 			purchaseRep.save(purchase);
