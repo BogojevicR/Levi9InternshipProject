@@ -6,13 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.model.Adress;
 import internship.UserService.model.CartItem;
 import internship.UserService.model.Purchase;
 import internship.UserService.model.ShoppingCart;
 import internship.UserService.model.User;
 import internship.UserService.model.User.Role;
+import internship.UserService.modelsDTO.UserToLogDTO;
 import internship.UserService.model.UserInfo;
 import internship.UserService.repositories.AdressRepository;
 import internship.UserService.repositories.ShoppingCartRepository;

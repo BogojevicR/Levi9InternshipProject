@@ -1,44 +1,21 @@
-package internship.UserService.model;
+package internship.UserService.modelsDTO;
 
-import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
-@Entity
-public class UserInfo implements Serializable{
+public class UserInfoDTO {
 	
-	
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(nullable = false)
 	private String name;
-	
-	@Column(nullable = false)
 	private String surname;
-	
-	@Column(nullable = false)
 	private String email;
-	
-	@Column(nullable = false)
 	private String phone;
+	private AdressDTO adress;
 	
-	@OneToOne
-	private Adress adress;
-
-	public UserInfo() {
+	public UserInfoDTO() {
 		super();
 	}
 
-	public UserInfo(Long id, String name, String surname, String email, String phone, Adress adress) {
+	public UserInfoDTO(Long id, String name, String surname, String email, String phone, AdressDTO adress) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -88,11 +65,11 @@ public class UserInfo implements Serializable{
 		this.phone = phone;
 	}
 
-	public Adress getAdress() {
+	public AdressDTO getAdress() {
 		return adress;
 	}
 
-	public void setAdress(Adress adress) {
+	public void setAdress(AdressDTO adress) {
 		this.adress = adress;
 	}
 
@@ -101,8 +78,5 @@ public class UserInfo implements Serializable{
 		return "UserInfo [id=" + id + ", name=" + name + ", surname=" + surname + ", email=" + email + ", phone="
 				+ phone + ", adress=" + adress + "]";
 	}
-	
-	
-	
 	
 }

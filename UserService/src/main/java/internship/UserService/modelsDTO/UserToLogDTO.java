@@ -1,4 +1,4 @@
-package internship.UserService.DTOmodels;
+package internship.UserService.modelsDTO;
 
 /**
  * This class represents entity of user who is login to his profile.

@@ -8,14 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
-
+import internship.UserService.converter.UserConverter;
 import internship.UserService.model.User;
-import internship.UserService.model.User.Role;
+import internship.UserService.modelsDTO.UserDTO;
 import internship.UserService.services.UserService;
 
 /**
@@ -38,10 +39,12 @@ public class UserController {
 	 * 
 	 */
 	
-	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public  ResponseEntity<User>  save(@RequestBody User user) {
-		userService.save(user);
-		return new ResponseEntity<User> (user, HttpStatus.OK); 
+	@PostMapping(value = "/save")
+	public  ResponseEntity<UserDTO>  save(@RequestBody UserDTO userDTO) {
+		User u = UserConverter.toEntity(userDTO); 
+		userService.save(u);
+		UserDTO user1DTO = UserConverter.fromEntity(u);
+		return new ResponseEntity<> (user1DTO, HttpStatus.OK); 
 	}
 	
 	/**
@@ -49,9 +52,9 @@ public class UserController {
 	 * @return list of all users.
 	 */
 	
-	@RequestMapping(value = "/getAll", method = RequestMethod.GET)
+	@GetMapping(value = "/getAll")
 	public ResponseEntity<List<User>> getAll(){
-		return new ResponseEntity<List<User>> (userService.findAll(),HttpStatus.OK);
+		return new ResponseEntity<> (userService.findAll(),HttpStatus.OK);
 	}
 	
 	/**
@@ -61,19 +64,17 @@ public class UserController {
 	 * 
 	 */
 	
-	@RequestMapping(value = "/getRole/{id}",  method = RequestMethod.GET)
+	@GetMapping(value = "/getRole/{id}")
 	public  ResponseEntity<String>  getRole(@PathVariable Long id) {
-		Role role = userService.getRoleById(id);
 		String rola;
 		User u = userService.getById(id);
-		System.out.println(u.getRole().toString());
 		if (u.getRole().toString().equals("ADMIN")) {
 			rola = "ADMIN";
 		}
 		else {
 			rola = "CUSTOMER";
 		}
-		return new ResponseEntity<String> (rola, HttpStatus.OK); 
+		return new ResponseEntity<> (rola, HttpStatus.OK); 
 	}
 	
 	/*@RequestMapping(value = "/login", method = RequestMethod.POST)

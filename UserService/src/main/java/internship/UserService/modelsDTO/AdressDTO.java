@@ -1,39 +1,18 @@
-package internship.UserService.model;
+package internship.UserService.modelsDTO;
 
-import java.io.Serializable;
+public class AdressDTO {
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-@Entity
-public class Adress implements Serializable {
-
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(nullable = false)
 	private String city;
-	
-	@Column(nullable = false)
 	private String country;
-	
-	@Column(nullable = false)
 	private String street;
-	
-	@Column(nullable = false)
 	private String streetNumber;
 	
-	public Adress() {
+	public AdressDTO() {
 		super();
 	}
-
-	public Adress(Long id, String city, String country, String street, String streetNumber) {
+	
+	public AdressDTO(Long id, String city, String country, String street, String streetNumber) {
 		super();
 		this.id = id;
 		this.city = city;
@@ -87,6 +66,5 @@ public class Adress implements Serializable {
 		return "Adress [id=" + id + ", city=" + city + ", country=" + country + ", street=" + street + ", streetNumber="
 				+ streetNumber + "]";
 	}
-	
 	
 }

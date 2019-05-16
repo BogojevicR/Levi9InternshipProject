@@ -1,7 +1,7 @@
 package internship.UserService.converter;
 
-import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.model.User;
+import internship.UserService.modelsDTO.UserToLogDTO;
 
 /**
  * This class represents abstract class for converting users.
@@ -38,5 +38,8 @@ public abstract class LogInUserConverter extends AbstractConverter {
 		return user;
 		}
 
+	private LogInUserConverter() {
+		
+	}
 	
 }

@@ -13,9 +13,9 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import internship.UserService.DTOmodels.UserToLogDTO;
 import internship.UserService.model.User;
 import internship.UserService.model.User.Role;
+import internship.UserService.modelsDTO.UserToLogDTO;
 import internship.UserService.repositories.UserRepository;
 import internship.UserService.services.UserServiceImpl;
 
@@ -30,9 +30,6 @@ public class UserServiceApplicationTests {
     @Mock
     UserRepository userRepository;
 	
-	@Test
-	public void contextLoads() {
-	}
 	
 	@Test
 	public void getAllUsersTest() {
