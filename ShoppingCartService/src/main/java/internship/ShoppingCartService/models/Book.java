@@ -17,13 +17,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * 
  * @author r.bogojevic
  */
-@Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Book implements Serializable{
-	/**
-	 * 
-	 */
+@Entity
+public class Book implements Serializable {
+
 	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Represents state of the book, whether its active for buying or not.
 	 * @author r.bogojevic
@@ -76,39 +75,27 @@ public class Book implements Serializable{
 		super();
 	}
 
-	public Book(String title, String author, Category category, double price, State state, int quantity) {
+	public Book(String title, String author, Category category, double price, int quantity) {
 		super();
 		this.title = title;
 		this.author = author;
 		this.category = category;
 		this.price = price;
-		this.state = state;
+		this.state = State.ACTIVE;
 		this.quantity = quantity;
 		this.soldAmount = 0;
 	}
 	
-	public Book(Long id, String title, String author, Category category, double price, State state, int quantity, int soldAmount) {
+	public Book(Long id, String title, String author, Category category, double price, int quantity, int soldAmount) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.category = category;
 		this.price = price;
-		this.state = state;
+		this.state = State.ACTIVE;
 		this.quantity = quantity;
 		this.soldAmount = soldAmount;
-	}
-	
-	public Book(Long id,String title, String author, Category category, double price, State state, int quantity) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.author = author;
-		this.category = category;
-		this.price = price;
-		this.state = state;
-		this.quantity = quantity;
-		this.soldAmount = 0;
 	}
 
 	public Long getId() {
@@ -193,6 +180,7 @@ public class Book implements Serializable{
 		this.quantity = book.getQuantity();
 		this.soldAmount = book.getSoldAmount();
 	}
+	
 	/**
 	 * Simulate payment for books. Removes bought quantity from stock and adds it to sold amount.
 	 * @param quantity quantity of book

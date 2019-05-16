@@ -19,7 +19,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private UserAccountService userAccountService;
 	
-	
+	private static final String CUSTOMER = "CUSTOMER";
 	
     public ApplicationSecurityConfig(UserAccountService userAccountService) {
 		super();
@@ -29,9 +29,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-        			.antMatchers(HttpMethod.GET,"/api/cart/**").hasAuthority("CUSTOMER")
-        			.antMatchers(HttpMethod.POST,"/api/cart/**").hasAuthority("CUSTOMER")
-        			.antMatchers(HttpMethod.PUT,"/api/reciept/**").hasAuthority("CUSTOMER")
+        			.antMatchers(HttpMethod.GET,"/api/cart/**").hasAuthority(CUSTOMER)
+        			.antMatchers(HttpMethod.POST,"/api/cart/**").hasAuthority(CUSTOMER)
+        			.antMatchers(HttpMethod.PUT,"/api/reciept/**").hasAuthority(CUSTOMER)
         			.and().httpBasic().and().csrf().disable();
         
 
