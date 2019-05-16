@@ -16,14 +16,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String ADMIN = "ADMIN";
-	private static  String URI = "/api/book/**";
+	private static  String uri = "/api/book/**";
 	
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-        			.antMatchers(HttpMethod.GET,URI).authenticated()
-        			.antMatchers(HttpMethod.POST,URI).hasAuthority(ADMIN)
-        			.antMatchers(HttpMethod.PUT,URI).hasAuthority(ADMIN)
+        			.antMatchers(HttpMethod.GET,uri).authenticated()
+        			.antMatchers(HttpMethod.POST,uri).hasAuthority(ADMIN)
+        			.antMatchers(HttpMethod.PUT,uri).hasAuthority(ADMIN)
         			.and().httpBasic().and().csrf().disable();
         
 

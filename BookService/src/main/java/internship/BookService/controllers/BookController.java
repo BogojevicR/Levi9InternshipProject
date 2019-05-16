@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import internship.BookService.DTO.BookDTO;
 import internship.BookService.models.Book;
 import internship.BookService.services.BookServiceImpl;
 /**
@@ -33,8 +34,8 @@ public class BookController {
 	 * @return book which is saved, together with HTTP status.
 	 */
 	@PostMapping(value = "save")
-	public ResponseEntity<Book> save(@RequestBody Book book) {
-		Book response = bookService.save(book);
+	public ResponseEntity<BookDTO> save(@RequestBody BookDTO book) {
+		BookDTO response = bookService.save(book);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	/**
@@ -43,7 +44,7 @@ public class BookController {
 	 * @return boolean value if book is edited, together with HTTP status.
 	 */
 	@PutMapping(value = "edit")
-	public ResponseEntity<Book> edit(@RequestBody Book book) {
+	public ResponseEntity<BookDTO> edit(@RequestBody BookDTO book) {
 		return new ResponseEntity<>(bookService.edit(book),HttpStatus.OK);
 	}
 	/**

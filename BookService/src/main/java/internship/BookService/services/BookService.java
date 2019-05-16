@@ -2,6 +2,7 @@ package internship.BookService.services;
 
 import java.util.List;
 
+import internship.BookService.DTO.BookDTO;
 import internship.BookService.models.Book;
 /**
  * Interface for BookService.
@@ -14,7 +15,7 @@ public interface BookService {
 	 * @param book book for saving.
 	 * @return book if it's saved, null if it's not.
 	 */
-	Book save(Book book);
+	BookDTO save(BookDTO book);
 	/**
 	 * Remove book with chosen id from sale.
 	 * @param id from book for disable.
@@ -26,7 +27,7 @@ public interface BookService {
 	 * @param book book for editing.
 	 * @return boolean value if book is edited.
 	 */
-	Book edit(Book book);
+	BookDTO edit(BookDTO book);
 	/**
 	 * Collects all existing books in database.
 	 * @return List of all books.
@@ -55,5 +56,6 @@ public interface BookService {
 	 * @return List of books which are in chosen category.
 	 */
 	List<Book> getByCategoryId(Long id);
+	
 	
 }

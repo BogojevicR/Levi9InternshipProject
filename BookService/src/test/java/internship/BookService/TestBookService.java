@@ -14,7 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import internship.BookService.converters.BookConverter;
 import internship.BookService.models.Book;
+import internship.BookService.models.Book.State;
 import internship.BookService.models.Category;
 import internship.BookService.repositories.BookRepository;
 import internship.BookService.repositories.CategoryRepository;
@@ -35,20 +37,20 @@ public class TestBookService {
 	
 	@Test
 	public void saveTest(){
-		Book book = new Book("title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
-	    bookService.save(book);
+		Book book = new Book("title1", "Author1", new Category("category1"), 10, 10);
+	    bookService.save(BookConverter.fromEntity(book));
 	    verify(bookRep, times(1)).save(book);
 	    verify(bookRep).save(book);
 	 }
 	
 	@Test
 	public void saveBookWithSameTitleTest() {
-		Book book = new Book("title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
-		bookService.save(book);
+		Book book = new Book("title1", "Author1", new Category("category1"), 10, 10);
+		bookService.save(BookConverter.fromEntity(book));
 		
 		when(bookRep.findByTitle(book.getTitle())).thenReturn(book);
 		
-		bookService.save(book);
+		bookService.save(BookConverter.fromEntity(book));
 		
 		verify(bookRep, times(1)).save(book);
 		verify(bookRep).save(book);
@@ -56,7 +58,7 @@ public class TestBookService {
 	 
 	@Test
 	public void disableTest() {
-		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
+		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		when(bookRep.getOne(book.getId())).thenReturn(book);
 		bookService.disable(book.getId());
 		assertEquals(Book.State.DELETED, book.getState());
@@ -71,11 +73,11 @@ public class TestBookService {
 	
 	@Test
 	public void editTest() {
-		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
-		Book edit = new Book(new Long(1),"t", "A", new Category("c"), 1, Book.State.DELETED, 1);
-		
+		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		Book edit = new Book(new Long(1),"t", "A", new Category("c"), 1, 1 , 1);
+		edit.setState(State.DELETED);
 		when(bookRep.getOne(book.getId())).thenReturn(book);
-		bookService.edit(edit);
+		bookService.edit(BookConverter.fromEntity(edit));
 		
 		assertEquals(book.getTitle(), edit.getTitle());
 		assertEquals(book.getAuthor(), edit.getAuthor());
@@ -88,7 +90,7 @@ public class TestBookService {
 		//Book doesnt exist text
 		when(bookRep.getOne(book.getId())).thenReturn(null);
 		
-		Book response = bookService.edit(edit);
+		Book response = BookConverter.toEntity(bookService.edit(BookConverter.fromEntity(edit)));
 		
 		assertEquals(null, response);
 		verify(bookRep,times(3)).getOne(book.getId());
@@ -98,9 +100,9 @@ public class TestBookService {
 	@Test
 	public void getAllTest() {
 		List<Book> list = new ArrayList<Book>();
-		Book book1 = new Book("title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
-		Book book2 = new Book("title2", "Author2", new Category("category2"), 20, Book.State.ACTIVE, 20);
-		Book book3 = new Book("title3", "Author3", new Category("category3"), 30, Book.State.ACTIVE, 30);
+		Book book1 = new Book("title1", "Author1", new Category("category1"), 10, 10);
+		Book book2 = new Book("title2", "Author2", new Category("category2"), 20, 20);
+		Book book3 = new Book("title3", "Author3", new Category("category3"), 30, 30);
 
         list.add(book1);
         list.add(book2);
@@ -119,17 +121,17 @@ public class TestBookService {
 		List<Book> list = new ArrayList<Book>();
 		List<Book> resultList = new ArrayList<Book>();
 		Category c = new Category(new Long(1),"name");
-		Book book1 = new Book(new Long(1), "title1", "Author1", c, 10, Book.State.ACTIVE, 10, 10);
-		Book book2 = new Book(new Long(2), "title2", "Author2", c, 20, Book.State.ACTIVE, 20, 20);
-		Book book3 = new Book(new Long(3), "title1", "Author1", c, 10, Book.State.ACTIVE, 30, 30);
-		Book book4 = new Book(new Long(4), "title2", "Author2", c, 20, Book.State.ACTIVE, 40, 40);
-		Book book5 = new Book(new Long(5), "title1", "Author1", c, 10, Book.State.ACTIVE, 50, 50);
-		Book book6 = new Book(new Long(6), "title2", "Author2", c, 20, Book.State.ACTIVE, 60, 60);
-		Book book7 = new Book(new Long(7), "title1", "Author1", c, 10, Book.State.ACTIVE, 70, 70);
-		Book book8 = new Book(new Long(8), "title2", "Author2", c, 20, Book.State.ACTIVE, 80, 80);
-		Book book9 = new Book(new Long(9), "title1", "Author1", c, 10, Book.State.ACTIVE, 90, 90);
-		Book book10 = new Book(new Long(10), "title2", "Author2", c, 20, Book.State.ACTIVE, 100, 100);
-		Book book11 = new Book(new Long(11), "title2", "Author2", c, 20, Book.State.ACTIVE, 110, 110);
+		Book book1 = new Book(new Long(1), "title1", "Author1", c, 10, 10, 10);
+		Book book2 = new Book(new Long(2), "title2", "Author2", c, 20, 20, 20);
+		Book book3 = new Book(new Long(3), "title1", "Author1", c, 10, 30, 30);
+		Book book4 = new Book(new Long(4), "title2", "Author2", c, 20, 40, 40);
+		Book book5 = new Book(new Long(5), "title1", "Author1", c, 10, 50, 50);
+		Book book6 = new Book(new Long(6), "title2", "Author2", c, 20, 60, 60);
+		Book book7 = new Book(new Long(7), "title1", "Author1", c, 10, 70, 70);
+		Book book8 = new Book(new Long(8), "title2", "Author2", c, 20, 80, 80);
+		Book book9 = new Book(new Long(9), "title1", "Author1", c, 10, 90, 90);
+		Book book10 = new Book(new Long(10), "title2", "Author2", c, 20, 100, 100);
+		Book book11 = new Book(new Long(11), "title2", "Author2", c, 20, 110, 110);
 		
 		list.add(book1);
 		list.add(book2);
@@ -170,8 +172,8 @@ public class TestBookService {
 	public void sortTest() {
 		List<Book> resultList = new ArrayList<Book>();
 		Category c = new Category(new Long(1),"name");
-		Book book1 = new Book(new Long(1), "title1", "Author1", c, 10, Book.State.ACTIVE, 10, 10);
-		Book book3 = new Book(new Long(3), "title1", "Author1", c, 10, Book.State.ACTIVE, 30, 30);
+		Book book1 = new Book(new Long(1), "title1", "Author1", c, 10, 10, 10);
+		Book book3 = new Book(new Long(3), "title1", "Author1", c, 10, 30, 30);
 
 		resultList.add(book1);
 		resultList.add(book3);
@@ -201,8 +203,8 @@ public class TestBookService {
 	public void getListByCategoryId() {
 		List<Book> list = new ArrayList<Book>();
 		Category c = new Category(new Long(1),"name");
-		Book book1 = new Book("title1", "Author1", c, 10, Book.State.ACTIVE, 10);
-		Book book2 = new Book("title2", "Author2", c, 20, Book.State.ACTIVE, 20);
+		Book book1 = new Book("title1", "Author1", c, 10, 10);
+		Book book2 = new Book("title2", "Author2", c, 20, 20);
 
 		list.add(book1);
 		list.add(book2);

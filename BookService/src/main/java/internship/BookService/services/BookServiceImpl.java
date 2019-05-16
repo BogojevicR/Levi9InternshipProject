@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import internship.BookService.DTO.BookDTO;
+import internship.BookService.converters.BookConverter;
 import internship.BookService.models.Book;
 import internship.BookService.models.Category;
 import internship.BookService.repositories.BookRepository;
@@ -25,35 +27,29 @@ public class BookServiceImpl implements BookService {
 	public CategoryRepository categoryRep;
 
 	@Override
-	public Book save (Book book) {
+	public BookDTO save (BookDTO book) {
 		if(bookRep.findByTitle(book.getTitle()) == null) {
-			bookRep.save(book);
+			bookRep.save(BookConverter.toEntity(book));
 			return book;
 		}
 		return null;
 	}
 
 	@Override
-	public Book disable(Long id) {	
-		if (bookRep.getOne(id) != null) {
-			Book b = bookRep.getOne(id);
-			b.setState(Book.State.DELETED);
-			bookRep.save(b);
-			return b;
-		}
-		return null;
+	public Book disable(Long id){	
+		Book b = bookRep.getOne(id);
+		b.setState(Book.State.DELETED);
+		bookRep.save(b);
+		return b;
 		
 	}
 	
 	@Override
-	public Book edit(Book book) {
-		if(bookRep.getOne(book.getId()) != null) {
-			Book b = bookRep.getOne(book.getId());
-			b.edit(book);
-			bookRep.save(b);
-			return b;
-		}
-		return null;
+	public BookDTO edit(BookDTO book) {
+		Book b = bookRep.getOne(book.getId());
+		b.edit(BookConverter.toEntity(book));
+		bookRep.save(b);
+		return book;
 	}
 
 	@Override
