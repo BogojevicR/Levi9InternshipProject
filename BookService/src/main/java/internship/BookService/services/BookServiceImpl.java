@@ -35,21 +35,23 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book disable(Long id) {
 		Book b = bookRep.getOne(id);
-		if(b == null)
-			return null;
-		b.setState(Book.State.DELETED);
-		bookRep.save(b);
-		return b;
+		if(b != null) {
+			b.setState(Book.State.DELETED);
+			bookRep.save(b);
+			return b;
+		}
+		return null;
 	}
 	
 	@Override
 	public boolean edit(Book book) {
 		Book b = bookRep.getOne(book.getId());
-		if(b == null)
-			return false;
-		b.edit(book);
-		bookRep.save(b);
-		return true;
+		if(b != null) {
+			b.edit(book);
+			bookRep.save(b);
+			return true;
+		}
+		return false;
 	}
 
 	@Override

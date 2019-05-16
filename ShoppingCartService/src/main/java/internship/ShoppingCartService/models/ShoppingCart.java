@@ -1,7 +1,6 @@
 package internship.ShoppingCartService.models;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -9,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 /**
  * Represents the entity of the users shopping cart.
  * @author r.bogojevic
@@ -34,31 +31,30 @@ public class ShoppingCart implements Serializable {
 	@ElementCollection
 	private List<CartItem> itemList;
 
-	
 	public ShoppingCart() {
 		super();
-		this.itemList = new ArrayList<CartItem>();
 	}
+	
 
 	public ShoppingCart(List<CartItem> itemList) {
 		super();
 		this.itemList = itemList;
-	//	this.user = user;
 	}
-
+	
 	public ShoppingCart(Long long1, List<CartItem> listOfItems) {
+		super();
 		this.id = long1;
 		this.itemList = listOfItems;
 	}
 
+	public ShoppingCart(ShoppingCart sc) {
+		super();
+		this.itemList = sc.getItemList();
+		this.id = sc.getId();
+	}
+
 	public ShoppingCart(Long long1) {
 		this.id = long1;
-		this.itemList = new ArrayList<CartItem>();
-	}
-	
-	public ShoppingCart(ShoppingCart cart) {
-		this.id = cart.getId();
-		this.itemList = cart.getItemList();
 	}
 
 	public long getId() {
@@ -84,7 +80,7 @@ public class ShoppingCart implements Serializable {
 	 */
 	public boolean checkBook(Long id2) {
 		for(CartItem i : this.itemList) {
-			if(i.getBook().getId().longValue() == id2.longValue())
+			if(i.getBook().getId().equals(id2))
 				return true;
 		}
 		return false;
@@ -96,7 +92,7 @@ public class ShoppingCart implements Serializable {
 	 */
 	public CartItem getItemByBookId(Long id2) {
 		for(CartItem i : this.itemList) {
-			if(i.getBook().getId() == id2)
+			if(i.getBook().getId().equals(id2))
 				return i;
 		}
 		return null;
@@ -107,7 +103,7 @@ public class ShoppingCart implements Serializable {
 	 */
 	public void removeItemById(Long cartItemId) {
 		for(CartItem i : this.itemList) {
-			if(i.getId().longValue() == cartItemId.longValue()) {
+			if(i.getId().equals(cartItemId)) {
 				this.itemList.remove(i);
 				return;
 			}
@@ -115,12 +111,5 @@ public class ShoppingCart implements Serializable {
 		}
 		
 	}
-
-	@Override
-	public String toString() {
-		return "ShoppingCart [id=" + id + ", itemList=" + itemList + "]";
-	}
-	
-	
 	
 }

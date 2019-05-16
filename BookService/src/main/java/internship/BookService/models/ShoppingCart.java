@@ -31,15 +31,30 @@ public class ShoppingCart implements Serializable {
 	@ElementCollection
 	private List<CartItem> itemList;
 
-	
 	public ShoppingCart() {
 		super();
 	}
+	
 
 	public ShoppingCart(List<CartItem> itemList) {
 		super();
 		this.itemList = itemList;
-	//	this.user = user;
+	}
+	
+	public ShoppingCart(Long long1, List<CartItem> listOfItems) {
+		super();
+		this.id = long1;
+		this.itemList = listOfItems;
+	}
+
+	public ShoppingCart(ShoppingCart sc) {
+		super();
+		this.itemList = sc.getItemList();
+		this.id = sc.getId();
+	}
+
+	public ShoppingCart(Long long1) {
+		this.id = long1;
 	}
 
 	public long getId() {
@@ -65,7 +80,7 @@ public class ShoppingCart implements Serializable {
 	 */
 	public boolean checkBook(Long id2) {
 		for(CartItem i : this.itemList) {
-			if(i.getBook().getId() == id2)
+			if(i.getBook().getId().equals(id2))
 				return true;
 		}
 		return false;
@@ -77,7 +92,7 @@ public class ShoppingCart implements Serializable {
 	 */
 	public CartItem getItemByBookId(Long id2) {
 		for(CartItem i : this.itemList) {
-			if(i.getBook().getId() == id2)
+			if(i.getBook().getId().equals(id2))
 				return i;
 		}
 		return null;
@@ -88,9 +103,11 @@ public class ShoppingCart implements Serializable {
 	 */
 	public void removeItemById(Long cartItemId) {
 		for(CartItem i : this.itemList) {
-			if(i.getId() == cartItemId)
+			if(i.getId().equals(cartItemId)) {
 				this.itemList.remove(i);
 				return;
+			}
+				
 		}
 		
 	}

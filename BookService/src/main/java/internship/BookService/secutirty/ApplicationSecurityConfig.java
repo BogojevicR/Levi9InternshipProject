@@ -15,12 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private static final String admin_role = "ADMIN";
+	
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
         			.antMatchers(HttpMethod.GET,"/api/book/**").authenticated()
-        			.antMatchers(HttpMethod.POST,"/api/book/**").hasAuthority("ADMIN")
-        			.antMatchers(HttpMethod.PUT,"/api/book/**").hasAuthority("ADMIN")
+        			.antMatchers(HttpMethod.POST,"/api/book/**").hasAuthority(admin_role)
+        			.antMatchers(HttpMethod.PUT,"/api/book/**").hasAuthority(admin_role)
         			.and().httpBasic().and().csrf().disable();
         
 
@@ -30,15 +32,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configureGlobal(AuthenticationManagerBuilder authentication)
             throws Exception
     {
-        authentication.inMemoryAuthentication()
-                .withUser("sara95krasic")
-                .password(passwordEncoder().encode("sara"));
         authentication.inMemoryAuthentication().withUser("admin")
                 .password(passwordEncoder().encode("123"))
-                .authorities("ADMIN");
+                .authorities(admin_role);
         authentication.inMemoryAuthentication()
 		        .withUser("rale")
-		        .password(passwordEncoder().encode("123"))
+		        .password(passwordEncoder().encode("1243"))
 		        .authorities("CUSTOMER");
     }
 
