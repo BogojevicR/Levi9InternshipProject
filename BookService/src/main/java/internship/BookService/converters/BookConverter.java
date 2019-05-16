@@ -6,8 +6,7 @@ import internship.BookService.models.Book;
 public abstract class BookConverter extends AbstractConverter {
 
 	public static BookDTO fromEntity (Book b) {
-		BookDTO book = new BookDTO(b);
-		return book;
+		return new BookDTO(b);
 	}
 	
 	public static Book toEntity (BookDTO b) {

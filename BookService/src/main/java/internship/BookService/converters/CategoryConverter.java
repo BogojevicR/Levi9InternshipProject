@@ -6,8 +6,7 @@ import internship.BookService.models.Category;
 public abstract class CategoryConverter extends AbstractConverter {
 
 	public static CategoryDTO fromEntity(Category c) {
-		CategoryDTO category = new CategoryDTO(c);
-		return category;	
+		return new CategoryDTO(c);
 	}
 	
 	public static Category toEntity (CategoryDTO c) {

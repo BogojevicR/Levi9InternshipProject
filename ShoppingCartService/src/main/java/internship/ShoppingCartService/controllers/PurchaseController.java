@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import internship.ShoppingCartService.DTO.UserInfoDTO;
 import internship.ShoppingCartService.models.Purchase;
 import internship.ShoppingCartService.models.UserInfo;
 import internship.ShoppingCartService.services.PurchaseServiceImpl;
@@ -55,7 +56,7 @@ public class PurchaseController {
 	
 
 	@RequestMapping(value = "/buyCart", method = RequestMethod.POST)
-	public ResponseEntity<Purchase> buyCart( @RequestBody UserInfo userInfo) {
+	public ResponseEntity<Purchase> buyCart( @RequestBody UserInfoDTO userInfo) {
 		Purchase response = purchaseService.buyCartUnauth(userInfo);
 		if(response != null)
 			return new ResponseEntity<Purchase>(response, HttpStatus.OK);
@@ -65,7 +66,7 @@ public class PurchaseController {
 	}
 	
 	@RequestMapping(value = "/buyNow/{quantity}/{bookId}", method = RequestMethod.POST)
-	public ResponseEntity<Purchase> buyNow(@PathVariable int quantity, @PathVariable Long bookId, @RequestBody UserInfo userInfo) {
+	public ResponseEntity<Purchase> buyNow(@PathVariable int quantity, @PathVariable Long bookId, @RequestBody UserInfoDTO userInfo) {
 		Purchase response = purchaseService.buyNowUnauth(quantity,bookId,userInfo);
 		if(response != null)
 			return new ResponseEntity<Purchase>(response, HttpStatus.OK);

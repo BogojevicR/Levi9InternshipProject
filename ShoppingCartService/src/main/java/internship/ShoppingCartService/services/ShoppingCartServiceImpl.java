@@ -46,10 +46,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public ShoppingCart getCart(Optional<Long> cartId) {
 		if(!cartId.isPresent()){
-		//	System.out.println(sessionScopedBean.toString());
 			return new ShoppingCart(sessionScopedBean);
-		}
-		return cartRep.findById(cartId.get()).get();
+		}		
+		if(cartRep.findById(cartId.get()).isPresent())
+			return cartRep.findById(cartId.get()).get();
+		
+		return null;
 	}
 	
 	/**
