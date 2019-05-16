@@ -34,7 +34,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	
 	@Resource(name = "sessionScopedBean")
 	ShoppingCart sessionScopedBean;
-	//TODO: kako da dodam ovo u sesiju isto? puca mi ako stavim u odvojen beam
+	//TODO: Obrisi counter i zameni ga sa Book IDem
 	static int counter = 0;
 	
 	/**

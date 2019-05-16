@@ -2,10 +2,13 @@ package internship.BookService.services;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import internship.BookService.DTO.BookDTO;
+import internship.BookService.converters.BookConverter;
 import internship.BookService.models.Book;
 import internship.BookService.models.Category;
 import internship.BookService.repositories.BookRepository;
@@ -24,44 +27,38 @@ public class BookServiceImpl implements BookService {
 	public CategoryRepository categoryRep;
 
 	@Override
-	public Book save (Book book) {
+	public BookDTO save (BookDTO book) {
 		if(bookRep.findByTitle(book.getTitle()) == null) {
-			bookRep.save(book);
+			bookRep.save(BookConverter.toEntity(book));
 			return book;
 		}
 		return null;
 	}
 
 	@Override
-	public Book disable(Long id) {
+	public Book disable(Long id){	
 		Book b = bookRep.getOne(id);
-		if(b != null) {
-			b.setState(Book.State.DELETED);
-			bookRep.save(b);
-			return b;
-		}
-		return null;
+		b.setState(Book.State.DELETED);
+		bookRep.save(b);
+		return b;
+		
 	}
 	
 	@Override
-	public boolean edit(Book book) {
+	public BookDTO edit(BookDTO book) {
 		Book b = bookRep.getOne(book.getId());
-		if(b != null) {
-			b.edit(book);
-			bookRep.save(b);
-			return true;
-		}
-		return false;
+		b.edit(BookConverter.toEntity(book));
+		bookRep.save(b);
+		return book;
 	}
 
 	@Override
-	public ArrayList<Book> getAll() {
-		return (ArrayList<Book>) bookRep.findAll();
+	public List<Book> getAll() {
+		return  bookRep.findAll();
 	}
 
 	@Override
-	public ArrayList<Book> getTopTen() {
-		//TODO: Uradi preko querryija TopTen
+	public List<Book> getTopTen() {
 		ArrayList<Book> books = (ArrayList<Book>) bookRep.findAll();
 		books.sort(Comparator.comparing(Book::getSoldAmount).reversed());
 		if(books.size() >= 10) {
@@ -74,8 +71,8 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public ArrayList<Book> sort(String input) {
-		return (ArrayList<Book>) bookRep.findLike(input);	
+	public List<Book> sort(String input) {
+		return bookRep.findLike(input);	
 	}
 
 	@Override
@@ -87,9 +84,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public ArrayList<Book> getByCategoryId(Long id) {
+	public List<Book> getByCategoryId(Long id) {
 		
-		return (ArrayList<Book>) bookRep.findByCategoryId(id);
+		return  bookRep.findByCategoryId(id);
 	}
 
 

@@ -1,6 +1,7 @@
 package internship.BookService;
 
 
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -8,8 +9,6 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import static org.mockito.Mockito.verify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -85,7 +84,7 @@ public class TestBookController {
 	public void editBookShouldReturnTrue() throws Exception {
 		
 		Book edit = new Book(new Long(1),"t", "A", new Category("c"), 1, Book.State.DELETED, 1);
-		when(bookService.edit(edit)).thenReturn(true);
+		when(bookService.edit(edit)).thenReturn(edit);
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.put("/api/book/edit").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(edit)))
 		.andExpect(MockMvcResultMatchers.status().isOk());
