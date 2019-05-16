@@ -17,9 +17,6 @@ public abstract class AbstractConverter {
 	 * @return DTO entity.
 	 */
 
-	public AbstractConverter() {
-		
-	}
 	
 	public static <D, E> List<D> fromEntityList(List<E> entityList, Function<E, D> e) {
 		return entityList.stream().map(e).collect(Collectors.toList());

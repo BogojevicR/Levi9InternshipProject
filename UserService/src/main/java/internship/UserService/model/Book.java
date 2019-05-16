@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 
+
 /**
  * Book is main entity in BookService. It is used for representation of the book.
  * 
@@ -84,14 +85,15 @@ public class Book implements Serializable{
 		this.soldAmount = 0;
 	}
 	
-	public Book(Long id, String title, String author, Category category, double price, State state, int quantity, int soldAmount) {
+	
+	public Book(Long id, String title, String author, Category category, double price, int quantity, int soldAmount) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.author = author;
 		this.category = category;
 		this.price = price;
-		this.state = state;
+		this.state = State.ACTIVE;
 		this.quantity = quantity;
 		this.soldAmount = soldAmount;
 	}

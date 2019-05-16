@@ -37,8 +37,6 @@ public class AdressConverter extends AbstractConverter{
 		}
 	}
 	
-	private AdressConverter() {
-		
-	}
+	
 	
 }

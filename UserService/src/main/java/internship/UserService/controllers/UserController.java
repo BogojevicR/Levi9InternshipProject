@@ -76,26 +76,7 @@ public class UserController {
 		}
 		return new ResponseEntity<> (rola, HttpStatus.OK); 
 	}
-	
-	/*@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<Boolean> login(HttpServletRequest request, @RequestBody UserToLogDTO uDTO){
-		HttpSession http = request.getSession();
-		User userToLog = userService.logInUser(uDTO);
-		if (userToLog.getId() != null) {
-			http.setAttribute("loged", userToLog);
-			Role role = userService.getRoleById(userToLog.getId());
-			http.setAttribute("role", role);
-			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-		}
-		return new ResponseEntity<Boolean>(false, HttpStatus.NO_CONTENT);
-	}
-	
-	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public ResponseEntity<Boolean> logOut(HttpSession http) {
-		http.removeAttribute("logged");
-		http.removeAttribute("role");
-		return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-	}*/
+
 	
 	
 }
