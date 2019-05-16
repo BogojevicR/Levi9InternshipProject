@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import internship.BookService.DTO.BookDTO;
 import internship.BookService.converters.BookConverter;
 import internship.BookService.models.Book;
 import internship.BookService.models.Book.State;
@@ -37,8 +38,11 @@ public class TestBookService {
 	
 	@Test
 	public void saveTest(){
-		Book book = new Book("title1", "Author1", new Category("category1"), 10, 10);
-	    bookService.save(BookConverter.fromEntity(book));
+		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		BookDTO dto = new BookDTO(book);
+		when(bookRep.findByTitle(book.getTitle())).thenReturn(null);
+	    bookService.save(dto);
+	    assertEquals(BookConverter.toEntity(bookService.save(dto)), book);
 	    verify(bookRep, times(1)).save(book);
 	    verify(bookRep).save(book);
 	 }
@@ -46,12 +50,11 @@ public class TestBookService {
 	@Test
 	public void saveBookWithSameTitleTest() {
 		Book book = new Book("title1", "Author1", new Category("category1"), 10, 10);
-		bookService.save(BookConverter.fromEntity(book));
-		
-		when(bookRep.findByTitle(book.getTitle())).thenReturn(book);
-		
-		bookService.save(BookConverter.fromEntity(book));
-		
+		BookDTO dto = new BookDTO(book);
+		when(bookRep.findByTitle(book.getTitle())).thenReturn(null);
+		bookService.save(dto);
+
+		assertEquals(null,BookConverter.toEntity(bookService.save(dto)));
 		verify(bookRep, times(1)).save(book);
 		verify(bookRep).save(book);
 	}
@@ -62,12 +65,9 @@ public class TestBookService {
 		when(bookRep.getOne(book.getId())).thenReturn(book);
 		bookService.disable(book.getId());
 		assertEquals(Book.State.DELETED, book.getState());
+		verify(bookRep).getOne(book.getId());
 		verify(bookRep,times(1)).save(book);
 		
-		//Book doesnt exist test
-		when(bookRep.getOne(book.getId())).thenReturn(null);
-		bookService.disable(book.getId());
-		verify(bookRep,times(1)).save(book);
 	}
 
 	
