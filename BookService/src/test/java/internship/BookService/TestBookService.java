@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import internship.BookService.models.Book;
@@ -60,10 +59,12 @@ public class TestBookService {
 		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, Book.State.ACTIVE, 10);
 		when(bookRep.getOne(book.getId())).thenReturn(book);
 		bookService.disable(book.getId());
-		assertEquals(book.getState(), Book.State.DELETED);
+		assertEquals(Book.State.DELETED, book.getState());
+		verify(bookRep,times(1)).save(book);
 		
 		//Book doesnt exist test
 		when(bookRep.getOne(book.getId())).thenReturn(null);
+		bookService.disable(book.getId());
 		verify(bookRep,times(1)).save(book);
 	}
 
@@ -87,10 +88,10 @@ public class TestBookService {
 		//Book doesnt exist text
 		when(bookRep.getOne(book.getId())).thenReturn(null);
 		
-		boolean response = bookService.edit(edit);
+		Book response = bookService.edit(edit);
 		
-		assertEquals(false, response);
-		verify(bookRep,times(2)).getOne(book.getId());
+		assertEquals(null, response);
+		verify(bookRep,times(3)).getOne(book.getId());
 	}
 	
 	

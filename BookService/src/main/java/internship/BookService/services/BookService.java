@@ -1,6 +1,6 @@
 package internship.BookService.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import internship.BookService.models.Book;
 /**
@@ -26,23 +26,23 @@ public interface BookService {
 	 * @param book book for editing.
 	 * @return boolean value if book is edited.
 	 */
-	boolean edit(Book book);
+	Book edit(Book book);
 	/**
 	 * Collects all existing books in database.
 	 * @return List of all books.
 	 */
-	ArrayList<Book> getAll();
+	List<Book> getAll();
 	/**
 	 * Collects top ten sold books.
 	 * @return List of top ten sold books.
 	 */
-	ArrayList<Book> getTopTen();
+	List<Book> getTopTen();
 	/**
 	 * Sorts all books by author or title.
 	 * @param input value for sorting.
 	 * @return List of all books which have input value in author or title.
 	 */
-	ArrayList<Book> sort(String input);
+	List<Book> sort(String input);
 	/**
 	 * Adds new category.
 	 * @param name name of category.
@@ -54,6 +54,6 @@ public interface BookService {
 	 * @param id id of category.
 	 * @return List of books which are in chosen category.
 	 */
-	ArrayList<Book> getByCategoryId(Long id);
+	List<Book> getByCategoryId(Long id);
 	
 }

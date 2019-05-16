@@ -2,6 +2,7 @@ package internship.BookService.services;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,35 +34,35 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Book disable(Long id) {
-		Book b = bookRep.getOne(id);
-		if(b != null) {
+	public Book disable(Long id) {	
+		if (bookRep.getOne(id) != null) {
+			Book b = bookRep.getOne(id);
 			b.setState(Book.State.DELETED);
 			bookRep.save(b);
 			return b;
 		}
 		return null;
+		
 	}
 	
 	@Override
-	public boolean edit(Book book) {
-		Book b = bookRep.getOne(book.getId());
-		if(b != null) {
+	public Book edit(Book book) {
+		if(bookRep.getOne(book.getId()) != null) {
+			Book b = bookRep.getOne(book.getId());
 			b.edit(book);
 			bookRep.save(b);
-			return true;
+			return b;
 		}
-		return false;
+		return null;
 	}
 
 	@Override
-	public ArrayList<Book> getAll() {
-		return (ArrayList<Book>) bookRep.findAll();
+	public List<Book> getAll() {
+		return  bookRep.findAll();
 	}
 
 	@Override
-	public ArrayList<Book> getTopTen() {
-		//TODO: Uradi preko querryija TopTen
+	public List<Book> getTopTen() {
 		ArrayList<Book> books = (ArrayList<Book>) bookRep.findAll();
 		books.sort(Comparator.comparing(Book::getSoldAmount).reversed());
 		if(books.size() >= 10) {
@@ -74,8 +75,8 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public ArrayList<Book> sort(String input) {
-		return (ArrayList<Book>) bookRep.findLike(input);	
+	public List<Book> sort(String input) {
+		return bookRep.findLike(input);	
 	}
 
 	@Override
@@ -87,9 +88,9 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public ArrayList<Book> getByCategoryId(Long id) {
+	public List<Book> getByCategoryId(Long id) {
 		
-		return (ArrayList<Book>) bookRep.findByCategoryId(id);
+		return  bookRep.findByCategoryId(id);
 	}
 
 

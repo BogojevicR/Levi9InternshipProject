@@ -15,14 +15,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	private static final String admin_role = "ADMIN";
+	private static final String ADMIN = "ADMIN";
+	private static  String URI = "/api/book/**";
 	
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-        			.antMatchers(HttpMethod.GET,"/api/book/**").authenticated()
-        			.antMatchers(HttpMethod.POST,"/api/book/**").hasAuthority(admin_role)
-        			.antMatchers(HttpMethod.PUT,"/api/book/**").hasAuthority(admin_role)
+        			.antMatchers(HttpMethod.GET,URI).authenticated()
+        			.antMatchers(HttpMethod.POST,URI).hasAuthority(ADMIN)
+        			.antMatchers(HttpMethod.PUT,URI).hasAuthority(ADMIN)
         			.and().httpBasic().and().csrf().disable();
         
 
@@ -34,7 +35,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     {
         authentication.inMemoryAuthentication().withUser("admin")
                 .password(passwordEncoder().encode("123"))
-                .authorities(admin_role);
+                .authorities(ADMIN);
         authentication.inMemoryAuthentication()
 		        .withUser("rale")
 		        .password(passwordEncoder().encode("1243"))
