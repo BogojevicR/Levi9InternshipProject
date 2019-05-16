@@ -31,11 +31,11 @@ public class UserControllerApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 	
-    @MockBean
-    private UserService userService;
+ //   @MockBean
+ //   private UserService userService;
     
 
-    @Test
+  /*  @Test
     public void saveTest() throws Exception {
     	
     	User user1 = new User(new Long(17),"sara", User.Role.ADMIN, "saki",null);
@@ -79,7 +79,7 @@ public class UserControllerApplicationTests {
 		
 		 Mockito.verify(userService).findAll();
 		
-    }
+    }*/
     
   /*  @Test
     public void loginUserTestWhenExists() throws Exception {

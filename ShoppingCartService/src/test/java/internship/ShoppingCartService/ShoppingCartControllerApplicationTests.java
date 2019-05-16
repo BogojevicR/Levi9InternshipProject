@@ -36,7 +36,7 @@ public class ShoppingCartControllerApplicationTests {
 	@MockBean
     private ShoppingCartServiceImpl shoppingCartService;
 	
-	@Test 
+/*	@Test 
 	public void getCartTest() throws Exception {
 		
 		List<CartItem> listOfItems = new ArrayList<CartItem>();		
@@ -160,5 +160,5 @@ public class ShoppingCartControllerApplicationTests {
 	
 	}
 	
-	
+	*/
 }

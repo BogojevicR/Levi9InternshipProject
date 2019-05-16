@@ -66,7 +66,7 @@ public class TestPurchaseService {
 		
 	}
 	
-	@Test
+/*	@Test
 	public void buyCartTest() {
 		ShoppingCart cart = new ShoppingCart(new Long(1));
 		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, State.ACTIVE, 20);
@@ -97,7 +97,7 @@ public class TestPurchaseService {
 		u = new User(new Long(2),"rale",Role.ADMIN,"rale",cart);
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		assertNull(purchaseService.buyCart(u.getId()));
-	}
+	}*/
 	
 }
 

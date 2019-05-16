@@ -68,7 +68,22 @@
     		<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
+		<dependency>
+    		<groupId>org.codehaus.mojo</groupId>
+    		<artifactId>sonar-maven-plugin</artifactId>
+    		<version>3.2</version>
+    		<type>pom</type>
+		</dependency>
+		
+		<dependency>
 
+ 		   <groupId>org.springframework.boot</groupId>
+ 		   <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 		    
 	
 	</dependencies>
@@ -79,6 +94,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
+			<plugin>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.1</version>
+            <configuration>
+                <fork>true</fork>
+                <executable>C:\Program Files\Java\jdk-11.0.2\bin\javac.exe</executable>
+            </configuration>
+        	</plugin>
+			
 		</plugins>
 	</build>
 
