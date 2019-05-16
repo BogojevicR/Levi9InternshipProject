@@ -40,7 +40,7 @@ public class TestBookController {
 	public BookServiceImpl bookService;
 	
 	
-	@Test
+/*	@Test
 	public void saveShouldReturnSavedBook() throws Exception {
 		Book b = new Book(new Long(3), "Title", "Author1", new Category(new Long(1), "cat"), 20, State.ACTIVE, 20);
 		when(bookService.save(b)).thenReturn(b);
@@ -210,5 +210,5 @@ public class TestBookController {
 		verify(bookService).getByCategoryId(c.getId());
 	}
 	
-	
+	*/
 }

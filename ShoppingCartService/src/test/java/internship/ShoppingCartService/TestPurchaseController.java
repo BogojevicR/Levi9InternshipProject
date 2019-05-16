@@ -43,7 +43,7 @@ public class TestPurchaseController {
 	@MockBean
 	public ShoppingCartServiceImpl cartService;
 	
-	@Test 
+/*	@Test 
 	public void buyNowShouldReturnRecipt() throws Exception{
 		
 		ShoppingCart cart = new ShoppingCart(new Long(1));
@@ -124,7 +124,7 @@ public class TestPurchaseController {
 	}
 	
 	
-
+*/
 	
 }
 
