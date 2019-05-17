@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import internship.UserService.converter.UserConverter;
 import internship.UserService.model.User;
+import internship.UserService.model.User.Role;
 import internship.UserService.modelsDTO.UserDTO;
 import internship.UserService.services.UserService;
 
@@ -64,16 +66,18 @@ public class UserController {
 	 * 
 	 */
 	
-	@GetMapping(value = "/getRole/{id}")
-	public  ResponseEntity<String>  getRole(@PathVariable Long id) {
-		String rola;
-		User u = userService.getById(id);
-		if (u.getRole().toString().equals("ADMIN")) {
+	@RequestMapping(value = "/getRole/{id}", method = RequestMethod.GET)
+	public  ResponseEntity<Role>  getRole(@PathVariable Long id) {
+		//String rola;
+		//User u = userService.getById(id);
+		Role rola = userService.getRoleById(id);
+		
+		/*if (u.getRole().toString().equals("ADMIN")) {
 			rola = "ADMIN";
 		}
 		else {
 			rola = "CUSTOMER";
-		}
+		}*/
 		return new ResponseEntity<> (rola, HttpStatus.OK); 
 	}
 
