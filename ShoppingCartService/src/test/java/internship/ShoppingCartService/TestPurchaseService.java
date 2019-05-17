@@ -6,14 +6,17 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import internship.ShoppingCartService.DTO.AdressDTO;
+import internship.ShoppingCartService.DTO.UserInfoDTO;
 import internship.ShoppingCartService.models.Book;
-import internship.ShoppingCartService.models.Book.State;
 import internship.ShoppingCartService.models.CartItem;
 import internship.ShoppingCartService.models.Category;
 import internship.ShoppingCartService.models.Purchase;
@@ -44,48 +47,49 @@ public class TestPurchaseService {
 	@Mock
 	CartItemRepository cartItemRep;
 	
+	@Mock
+	@Resource(name = "sessionShoppingCart")
+	ShoppingCart sessionShoppingCart;
+	
 	@Test
 	public void buyNowTest() {
 		
 		ShoppingCart cart = new ShoppingCart(new Long(1));
 		User u = new User(new Long(2),"rale",Role.CUSTOMER,"rale",cart);
-		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, State.ACTIVE, 20);
+		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, 20, 20);
 		u.setPurchases(new ArrayList<Purchase>());
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		when(bookRep.getOne(new Long(3))).thenReturn(b);
-		// Cart has items	
+
 		assertNotNull(purchaseService.buyNow(u.getId(),20,b.getId()));
 		
-		// Cart item have more quantity than stock
+
 		assertNull(purchaseService.buyNow(u.getId(),30,b.getId()));
 		
 		u = new User(new Long(2),"rale",Role.ADMIN,"rale",null);
 		when(userRep.getOne(new Long(2))).thenReturn(u);
-		// User is Admin
+
 		assertNull(purchaseService.buyNow(u.getId(),20,b.getId()));
 		
 	}
 	
-/*	@Test
+	@Test
 	public void buyCartTest() {
 		ShoppingCart cart = new ShoppingCart(new Long(1));
-		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, State.ACTIVE, 20);
+		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, 20, 20);
 		CartItem ci = new CartItem(b, 5);
 		User u = new User(new Long(2),"rale",Role.CUSTOMER,"rale",cart);
 		u.setPurchases(new ArrayList<Purchase>());
 		
-		// Cart is Empty
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		assertNull(purchaseService.buyCart(u.getId()));
 		
-		//Cart has items
 		cart.getItemList().add(ci);
 		u  = new User(new Long(2),"rale",Role.CUSTOMER,"rale",cart);
 		u.setPurchases(new ArrayList<Purchase>());
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		assertNotNull(purchaseService.buyCart(u.getId()));
 		
-		//Cart item have more quantity than stock
 		ci.setQuantity(25);
 		cart.getItemList().add(ci);
 		u = new User(new Long(2),"rale",Role.CUSTOMER,"rale",cart);
@@ -93,11 +97,30 @@ public class TestPurchaseService {
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		assertNull(purchaseService.buyCart(u.getId()));
 		
-		// User is ADMIN
 		u = new User(new Long(2),"rale",Role.ADMIN,"rale",cart);
 		when(userRep.getOne(new Long(2))).thenReturn(u);
 		assertNull(purchaseService.buyCart(u.getId()));
-	}*/
+	}
+	
+	@Test
+	public void buyCartUnauthTest() {
+		
+		sessionShoppingCart = new ShoppingCart(new Long(1));
+		UserInfoDTO info = new UserInfoDTO(new Long(1),"Rale","Bogojevic","rale@gmail.com","064",new AdressDTO(new Long(2), "Novi Sad", "Serbia", "Street", "22"));
+		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, 20, 20);
+		CartItem ci = new CartItem(b, 5);
+		sessionShoppingCart.setItemList(new ArrayList<>());
+		
+		sessionShoppingCart.getItemList().add(ci);
+		
+		when(bookRep.getOne(new Long(3))).thenReturn(b);
+		
+		purchaseService.buyCartUnauth(info);
+				
+		assertNull(purchaseService.buyCartUnauth(info));
+		
+		
+	}
 	
 }
 

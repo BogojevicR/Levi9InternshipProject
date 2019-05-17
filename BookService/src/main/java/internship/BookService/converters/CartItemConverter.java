@@ -6,7 +6,7 @@ import internship.BookService.DTO.CartItemDTO;
 import internship.BookService.models.Book;
 import internship.BookService.models.CartItem;
 
-public class CartItemConverter {
+public class CartItemConverter extends AbstractConverter {
 
 	public static CartItemDTO fromEnity(CartItem e) {
 		if (e != null) {

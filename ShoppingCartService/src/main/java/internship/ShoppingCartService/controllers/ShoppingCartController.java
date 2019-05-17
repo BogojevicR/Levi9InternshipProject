@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,7 @@ public class ShoppingCartController {
 	
 	@Bean
 	@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
-	public ShoppingCart sessionScopedBean() {
+	public ShoppingCart sessionShoppingCart() {
 		
 	    return new ShoppingCart();
 	}
@@ -72,7 +73,7 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@GetMapping(value = { "addItem/{cartId}/{quantity}/{bookId}", "addItem/{quantity}/{bookId}"})
+	@PostMapping(value = { "addItem/{cartId}/{quantity}/{bookId}", "addItem/{quantity}/{bookId}"})
 	public boolean addItem(@PathVariable Optional<Long> cartId, @PathVariable int quantity, @PathVariable Long bookId) {
 
 		return cartService.addItem(cartId, quantity, bookId);

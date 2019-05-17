@@ -38,7 +38,7 @@ public class Purchase implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@ElementCollection
-	private List<CartItem> itemList = new ArrayList<CartItem>();
+	private List<CartItem> itemList = new ArrayList<>();
 	private double totalPrice;
 	@ManyToOne
 	private UserInfo userInfo;

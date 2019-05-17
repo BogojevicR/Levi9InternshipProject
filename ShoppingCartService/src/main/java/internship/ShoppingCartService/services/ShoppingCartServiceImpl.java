@@ -1,6 +1,5 @@
 package internship.ShoppingCartService.services;
 
-import java.beans.Visibility;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,8 +31,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Autowired
 	public BookRepository bookRep;
 	
-	@Resource(name = "sessionScopedBean")
-	ShoppingCart sessionScopedBean;
+	@Resource(name = "sessionShoppingCart")
+	ShoppingCart sessionShoppingCart;
 	//TODO: Obrisi counter i zameni ga sa Book IDem
 	static int counter = 0;
 	
@@ -46,11 +45,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public ShoppingCart getCart(Optional<Long> cartId) {
 		if(!cartId.isPresent()){
-			return new ShoppingCart(sessionScopedBean);
+			return new ShoppingCart(sessionShoppingCart);
 		}		
-		if(cartRep.findById(cartId.get()).isPresent())
-			return cartRep.findById(cartId.get()).get();
-		
+		if(cartRep.findById(cartId.get()).isPresent()) {
+			Optional<ShoppingCart> cart = cartRep.findById(cartId.get());
+			if(cart.isPresent())
+				return cart.get();	
+		}		
 		return null;
 	}
 	
@@ -64,12 +65,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public List<CartItem> getCartItems(Optional<Long> cartId) {
 	
 		if(!cartId.isPresent()){
-			List<CartItem> retList = sessionScopedBean.getItemList();
-			return retList;
+			return sessionShoppingCart.getItemList();
 		}
 		
-		List<CartItem> retList = cartRep.getOne(cartId.get()).getItemList();
-		return  retList;
+		return  cartRep.getOne(cartId.get()).getItemList();
 
 	}
 	
@@ -87,23 +86,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		
 		Book b = bookRep.getOne(bookId);
 		if(!cartId.isPresent()){
-			if(sessionScopedBean.getItemList().size() != 0) {
-				if(sessionScopedBean.checkBook(bookId)) {
-					return false;
-				}
+			if(!sessionShoppingCart.getItemList().isEmpty() && sessionShoppingCart.checkBook(bookId)) {
+				return false;
 			}
-			sessionScopedBean.getItemList().add(new CartItem(new Long(counter),b, quantity));
+			sessionShoppingCart.getItemList().add(new CartItem((long)counter,b, quantity));
 			counter++;
 			
-			//TODO: zasto ovo ne radi kad se skloni println ???
-		//	sessionScopedBean.getItemList().toString();
 			return true;
 		}
 		ShoppingCart cart = cartRep.getOne(cartId.get());
-		if(cart.getItemList().size() != 0) {
-			if(cart.checkBook(bookId)) {
-				return false;
-			}
+		if(!cart.getItemList().isEmpty() && cart.checkBook(bookId)) {
+			return false;
 		}
 
 		CartItem item = new CartItem(b, quantity);
@@ -124,7 +117,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public boolean changeQuantity(Optional<Long> cartId,int quantity, Long itemId) {
 		if(!cartId.isPresent()) {
-			for(CartItem i : sessionScopedBean.getItemList()) {
+			for(CartItem i : sessionShoppingCart.getItemList()) {
 				if(i.getId().longValue() == itemId.longValue()) {
 					i.setQuantity(quantity);
 					return true;
@@ -149,19 +142,22 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public boolean emptyCart(Optional<Long> cartId) {
 		if(!cartId.isPresent()) {
-			sessionScopedBean.getItemList().clear();
+			sessionShoppingCart.getItemList().clear();
 			return true;
 		}
 		
 		ShoppingCart cart = cartRep.getOne(cartId.get());
-		for(CartItem i : cart.getItemList()) {
-			cartItemRep.deleteById(i.getId());
-		}
+		if(cartId.get() != null) {
+			for(CartItem i : cart.getItemList()) {
+				cartItemRep.deleteById(i.getId());
+			}
 
-		cart.getItemList().clear();
-		cartRep.save(cart);
-		
-		return true;
+			cart.getItemList().clear();
+			cartRep.save(cart);
+			
+			return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -175,9 +171,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Override
 	public boolean removeItem(Optional<Long> cartId, Long cartItemId) {
 		if(!cartId.isPresent()) {
-			for(CartItem i : sessionScopedBean.getItemList()) {
+			for(CartItem i : sessionShoppingCart.getItemList()) {
 				if(i.getId().longValue() == cartItemId.longValue()) {
-					sessionScopedBean.getItemList().remove(i);
+					sessionShoppingCart.getItemList().remove(i);
 					return true;
 				}
 			}

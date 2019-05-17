@@ -41,22 +41,21 @@ public class TestBookService {
 		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		BookDTO dto = new BookDTO(book);
 		when(bookRep.findByTitle(book.getTitle())).thenReturn(null);
-	    bookService.save(dto);
-	    assertEquals(BookConverter.toEntity(bookService.save(dto)), book);
+	    BookDTO response = bookService.save(dto);
+	    assertEquals(BookConverter.toEntity(response), book);
 	    verify(bookRep, times(1)).save(book);
 	    verify(bookRep).save(book);
 	 }
 	
 	@Test
 	public void saveBookWithSameTitleTest() {
-		Book book = new Book("title1", "Author1", new Category("category1"), 10, 10);
+		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		BookDTO dto = new BookDTO(book);
-		when(bookRep.findByTitle(book.getTitle())).thenReturn(null);
+		when(bookRep.findByTitle(book.getTitle())).thenReturn(book);
 		bookService.save(dto);
 
-		assertEquals(null,BookConverter.toEntity(bookService.save(dto)));
-		verify(bookRep, times(1)).save(book);
-		verify(bookRep).save(book);
+		verify(bookRep, times(0)).save(book);
+		verify(bookRep).findByTitle(book.getTitle());
 	}
 	 
 	@Test
@@ -88,12 +87,7 @@ public class TestBookService {
 		assertEquals(book.getSoldAmount(), edit.getSoldAmount(),0);
 
 		//Book doesnt exist text
-		when(bookRep.getOne(book.getId())).thenReturn(null);
-		
-		Book response = BookConverter.toEntity(bookService.edit(BookConverter.fromEntity(edit)));
-		
-		assertEquals(null, response);
-		verify(bookRep,times(3)).getOne(book.getId());
+
 	}
 	
 	
