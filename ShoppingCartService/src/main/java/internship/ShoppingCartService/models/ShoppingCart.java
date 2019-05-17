@@ -34,6 +34,7 @@ public class ShoppingCart implements Serializable {
 
 	public ShoppingCart() {
 		super();
+		this.itemList = new ArrayList<CartItem>();
 	}
 	
 

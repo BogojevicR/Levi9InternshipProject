@@ -37,7 +37,6 @@ public class ShoppingCartController {
 	@Bean
 	@Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 	public ShoppingCart sessionShoppingCart() {
-		
 	    return new ShoppingCart();
 	}
 	
@@ -87,9 +86,9 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@DeleteMapping(value = { "removeItem/{cartId}/{cartItemId}", "removeItem/{cartItemId}" })
-	public boolean removeItem(@PathVariable Optional<Long> cartId, @PathVariable Long cartItemId) {
-		return cartService.removeItem(cartId, cartItemId);
+	@DeleteMapping(value = { "removeItem/{cartId}/{bookORItemId}", "removeItem/{bookORItemId}" })
+	public boolean removeItem(@PathVariable Optional<Long> cartId, @PathVariable Long bookORItemId) {
+		return cartService.removeItem(cartId, bookORItemId);
 	}
 
 	/**
@@ -100,9 +99,9 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@PutMapping(value = { "changeQuantity/{cartId}/{quantity}/{itemId}", "changeQuantity/{quantity}/{itemId}"})
-	public boolean changeQuantity(@PathVariable Optional<Long> cartId,@PathVariable int quantity, @PathVariable Long itemId) {
-		return cartService.changeQuantity(cartId,quantity, itemId);
+	@PutMapping(value = { "changeQuantity/{cartId}/{quantity}/{bookORItemId}", "changeQuantity/{quantity}/{bookORItemId}"})
+	public boolean changeQuantity(@PathVariable Optional<Long> cartId,@PathVariable int quantity, @PathVariable Long bookORItemId) {
+		return cartService.changeQuantity(cartId,quantity, bookORItemId);
 	}
 	
 	/**

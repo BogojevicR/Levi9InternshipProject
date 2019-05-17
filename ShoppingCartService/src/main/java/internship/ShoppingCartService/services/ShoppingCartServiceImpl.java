@@ -33,9 +33,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	
 	@Resource(name = "sessionShoppingCart")
 	ShoppingCart sessionShoppingCart;
-	//TODO: Obrisi counter i zameni ga sa Book IDem
-	static int counter = 0;
-	
 	/**
 	 * This method is method to get shopping cart.
 	 * @param cartId represents id for cart that we want to  get.
@@ -86,19 +83,19 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		
 		Book b = bookRep.getOne(bookId);
 		if(!cartId.isPresent()){
-			if(!sessionShoppingCart.getItemList().isEmpty() && sessionShoppingCart.checkBook(bookId)) {
+			if(!sessionShoppingCart.getItemList().isEmpty())
 				return false;
-			}
-			sessionShoppingCart.getItemList().add(new CartItem((long)counter,b, quantity));
-			counter++;
+			if(sessionShoppingCart.checkBook(bookId))
+				return false;
+			sessionShoppingCart.getItemList().add(new CartItem((long)0,b, quantity));
 			
 			return true;
 		}
 		ShoppingCart cart = cartRep.getOne(cartId.get());
-		if(!cart.getItemList().isEmpty() && cart.checkBook(bookId)) {
-			return false;
+		if(!cart.getItemList().isEmpty()) {
+			if(cart.checkBook(bookId))
+				return false;
 		}
-
 		CartItem item = new CartItem(b, quantity);
 		cartItemRep.save(item);
 		cart.getItemList().add(item);
@@ -115,10 +112,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 */
 
 	@Override
-	public boolean changeQuantity(Optional<Long> cartId,int quantity, Long itemId) {
+	public boolean changeQuantity(Optional<Long> cartId,int quantity, Long bookORItemId) {
 		if(!cartId.isPresent()) {
 			for(CartItem i : sessionShoppingCart.getItemList()) {
-				if(i.getId().longValue() == itemId.longValue()) {
+				if(i.getBook().getId().longValue() == bookORItemId.longValue()) {
 					i.setQuantity(quantity);
 					return true;
 				}
@@ -126,7 +123,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			return false;
 		}
 		
-		CartItem item = cartItemRep.getOne(itemId);
+		CartItem item = cartItemRep.getOne(bookORItemId);
 		item.setQuantity(quantity);
 		cartItemRep.save(item);
 		return true;
@@ -147,7 +144,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		}
 		
 		ShoppingCart cart = cartRep.getOne(cartId.get());
-		if(cartId.get() != null) {
+		if(cart != null) {
 			for(CartItem i : cart.getItemList()) {
 				cartItemRep.deleteById(i.getId());
 			}
@@ -169,10 +166,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 */
 
 	@Override
-	public boolean removeItem(Optional<Long> cartId, Long cartItemId) {
+	public boolean removeItem(Optional<Long> cartId, Long bookORItemId) {
 		if(!cartId.isPresent()) {
 			for(CartItem i : sessionShoppingCart.getItemList()) {
-				if(i.getId().longValue() == cartItemId.longValue()) {
+				if(i.getBook().getId().longValue() == bookORItemId.longValue()) {
 					sessionShoppingCart.getItemList().remove(i);
 					return true;
 				}
@@ -181,8 +178,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		}
 		
 		ShoppingCart cart = cartRep.getOne(cartId.get());
-		cart.removeItemById(cartItemId);
-		cartItemRep.deleteById(cartItemId);
+		cart.removeItemById(bookORItemId);
+		cartItemRep.deleteById(bookORItemId);;
 		cartRep.save(cart);
 		return true;
 	}

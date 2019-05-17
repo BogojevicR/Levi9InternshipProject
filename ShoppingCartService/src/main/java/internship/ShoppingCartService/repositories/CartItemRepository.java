@@ -15,4 +15,6 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 	 * @return CartItem with chosen id.
 	 */
 	CartItem findByBookId(Long id);
+	
+	
 }

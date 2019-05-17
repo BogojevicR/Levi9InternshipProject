@@ -11,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
 
@@ -24,8 +26,6 @@ import internship.ShoppingCartService.models.Book;
 import internship.ShoppingCartService.models.CartItem;
 import internship.ShoppingCartService.models.Category;
 import internship.ShoppingCartService.models.ShoppingCart;
-import internship.ShoppingCartService.security.ApplicationSecurityConfig;
-import internship.ShoppingCartService.security.UserAccount;
 import internship.ShoppingCartService.security.UserAccountService;
 import internship.ShoppingCartService.services.PurchaseServiceImpl;
 import internship.ShoppingCartService.services.ShoppingCartServiceImpl;
@@ -47,12 +47,11 @@ public class ShoppingCartControllerApplicationTests {
 	
 	@MockBean
 	public UserAccountService userAccountService;
-
-
+	
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "CUSTOMER")
 	public void getCartTest() throws Exception {
-		
+
 		List<CartItem> listOfItems = new ArrayList<CartItem>();		
 		ShoppingCart shopingCart = new ShoppingCart(new Long(2), listOfItems);
 	
