@@ -88,14 +88,14 @@ public class UserServiceApplicationTests {
 	      
 	      boolean retVal = userService.save(user1);
 	      
-	      assertEquals(retVal, false);
+	      assertEquals(false, retVal);
 	      
 	      Mockito.when(userRepository.findByUsername(user1.getUsername())).thenReturn(null);
 	      Mockito.when(userRepository.getRole(user1.getId())).thenReturn(User.Role.ADMIN);
 	      
 	      boolean retVal1 = userService.save(user1);
 	      
-	      assertEquals(retVal1, true);
+	      assertEquals(true, retVal1);
 	      
 	      Mockito.when(userRepository.findByUsername(user2.getUsername())).thenReturn(null);
 	      Mockito.when(userRepository.getRole(user2.getId())).thenReturn(User.Role.CUSTOMER);
@@ -127,7 +127,7 @@ public class UserServiceApplicationTests {
 		  
 		  boolean retVal5 = userService.save(user2);
 		  
-		  assertEquals(retVal5, true);
+		  assertEquals(true, retVal5);
 
 	  }
 	  

@@ -179,7 +179,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		
 		ShoppingCart cart = cartRep.getOne(cartId.get());
 		cart.removeItemById(bookORItemId);
-		cartItemRep.deleteById(bookORItemId);;
+		cartItemRep.deleteById(bookORItemId);
 		cartRep.save(cart);
 		return true;
 	}

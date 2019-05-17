@@ -66,7 +66,7 @@ public class UserController {
 	 * 
 	 */
 	
-	@RequestMapping(value = "/getRole/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/getRole/{id}")
 	public  ResponseEntity<Role>  getRole(@PathVariable Long id) {
 		Role rola = userService.getRoleById(id);
 	
