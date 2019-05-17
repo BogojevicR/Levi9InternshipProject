@@ -99,16 +99,29 @@ public class UserControllerApplicationTests {
     	
     	String jsonUserRole = new Gson().toJson(user.getRole());
     	
-    	System.out.println("DA VIDIM " + jsonUserRole);
-    	
     	Mockito.when(userService.getRoleById(user.getId())).thenReturn(user.getRole());
-    	
-    	System.out.println("DA VIDIM " + jsonUserRole);
     	
     	this.mockMvc.perform(MockMvcRequestBuilders.get("/user/getRole/{id}", user.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().json(jsonUserRole));
     	
     	Mockito.verify(userService).getRoleById(user.getId());
+    	
+    }
+    
+    @Test
+    @WithMockUser(username="sara95krasic", authorities="ADMIN", password="saki")
+    public void getUserTest() throws Exception {
+    	
+    	User user = new User(new Long(17),"sara", User.Role.CUSTOMER, "saki");
+    	
+    	String jsonUserRole = new Gson().toJson(user);
+    	
+    	Mockito.when(userService.getById(user.getId())).thenReturn(user);
+    	
+    	this.mockMvc.perform(MockMvcRequestBuilders.get("/user/getUser/{id}", user.getId())).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(MockMvcResultMatchers.content().json(jsonUserRole));
+    	
+    	Mockito.verify(userService).getById(user.getId());
     	
     }
     

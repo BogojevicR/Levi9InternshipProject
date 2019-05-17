@@ -48,6 +48,15 @@ public class UserInfo implements Serializable{
 		this.adress = adress;
 	}
 
+	public UserInfo(Long id, String name, String surname, String email, String phone) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.phone = phone;
+	}
+	
 	public Long getId() {
 		return id;
 	}

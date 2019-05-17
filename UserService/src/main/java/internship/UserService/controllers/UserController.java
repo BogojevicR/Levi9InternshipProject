@@ -68,17 +68,17 @@ public class UserController {
 	
 	@RequestMapping(value = "/getRole/{id}", method = RequestMethod.GET)
 	public  ResponseEntity<Role>  getRole(@PathVariable Long id) {
-		//String rola;
-		//User u = userService.getById(id);
 		Role rola = userService.getRoleById(id);
-		
-		/*if (u.getRole().toString().equals("ADMIN")) {
-			rola = "ADMIN";
-		}
-		else {
-			rola = "CUSTOMER";
-		}*/
+	
 		return new ResponseEntity<> (rola, HttpStatus.OK); 
+	}
+	
+	
+	@GetMapping(value = "/getUser/{id}")
+	public ResponseEntity<UserDTO> getUser(@PathVariable Long id){
+		User user = userService.getById(id);
+		UserDTO userDTO = UserConverter.fromEntity(user);
+		return new ResponseEntity<> (userDTO,HttpStatus.OK);
 	}
 
 	

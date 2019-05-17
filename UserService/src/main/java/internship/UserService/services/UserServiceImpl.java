@@ -12,7 +12,6 @@ import internship.UserService.model.Purchase;
 import internship.UserService.model.ShoppingCart;
 import internship.UserService.model.User;
 import internship.UserService.model.User.Role;
-import internship.UserService.modelsDTO.UserToLogDTO;
 import internship.UserService.model.UserInfo;
 import internship.UserService.repositories.AdressRepository;
 import internship.UserService.repositories.ShoppingCartRepository;
@@ -95,19 +94,9 @@ public class UserServiceImpl implements UserService{
 	 * @return loged user.
 	 * 
 	 */
-	
-	@Override
-	public User logInUser(UserToLogDTO u) {
-		User userToLog = userRepository.logInUser(u.getUsername(), u.getPassword());
-		if (userToLog != null) {
-			return userToLog;
-		}
-		
-		return new User();
-	}
 
 	@Override
-	public User getById(long id) {
+	public User getById(Long id) {
 		User u = userRepository.getOne(id);
 		return u;
 	}
