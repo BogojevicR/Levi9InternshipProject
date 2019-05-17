@@ -39,30 +39,36 @@ public class ShoppingCartServiceApplicationTests {
 	@Mock
 	BookRepository bookRep;
 	
-	/*@Test
+	
+
+	
+	@Test
 	public void addItemTest() {
 		
-		Book book1 = new Book(new Long(2), "Kako bih bez tebe", "Gijom Muso", new Category("category1"), 10, Book.State.ACTIVE, 10);
-		Book book2 = new Book(new Long(2), "Alhemicar", "Paolo Koeljo", new Category("category1"), 10, Book.State.ACTIVE, 10);
+		Book b1 = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, 20, 20);
+
 		List<CartItem> listOfItems = new ArrayList<CartItem>();		
 		ShoppingCart shopingCart = new ShoppingCart(new Long(2), listOfItems);
 		
 		Mockito.when(soppingCartRepository.getOne(shopingCart.getId())).thenReturn(shopingCart);
-		Mockito.when(bookRep.getOne(book1.getId())).thenReturn(book1);
+		Mockito.when(bookRep.getOne(b1.getId())).thenReturn(b1);
 		
-		System.out.println("VIDIIII" +  shopingCart.toString());
-
-	//	soppingCartService.addItem(shopingCart.getId(), 5, book1.getId());
+		soppingCartService.addItem(Optional.of(shopingCart.getId()), 5,b1.getId());
 		
 	    Mockito.verify(soppingCartRepository, Mockito.times(1)).save(shopingCart);
 	    
 	    //Book exist in cart
-	    Mockito.when(bookRep.getOne(book1.getId())).thenReturn(book1);
-	    
-	//    boolean response = soppingCartService.addItem(shopingCart.getId(), 2, book2.getId());
-	//	assertEquals(false, response);
-	       
-	}*/
+	    Mockito.when(soppingCartRepository.getOne(shopingCart.getId())).thenReturn(shopingCart);
+		Mockito.when(bookRep.getOne(b1.getId())).thenReturn(b1);
+
+		listOfItems = new ArrayList<CartItem>();		
+		listOfItems.add(new CartItem(b1,5));
+		shopingCart = new ShoppingCart(new Long(2), listOfItems);
+		Mockito.when(soppingCartRepository.getOne(shopingCart.getId())).thenReturn(shopingCart);
+		Mockito.when(bookRep.getOne(b1.getId())).thenReturn(b1);
+		soppingCartService.addItem(Optional.of(shopingCart.getId()), 5,b1.getId());
+
+	}
 	
 	@Test
 	public void changeQuantitytest() {
@@ -72,17 +78,20 @@ public class ShoppingCartServiceApplicationTests {
 	
 		Mockito.when(cartItemRepository.getOne(cI1.getId())).thenReturn(cI1);
 		
-	//	boolean response = soppingCartService.changeQuantity(5, cI1.getId());
+		boolean response = soppingCartService.changeQuantity(Optional.of(cI1.getId()), 50, cI1.getId());
 		
-	//	assertEquals(true, response);
+		assertEquals(true, response);
+
+	//	response = soppingCartService.changeQuantity(Optional.empty(), 50, cI1.getId());
+
 		
 	}
 	
-/*	@Test
-	public void emptyCarttest() {
+		@Test
+		public void emptyCarttest() {
 		
-		Book book1 = new Book(new Long(2), "Kako bih bez tebe", "Gijom Muso", new Category("category1"), 10, Book.State.ACTIVE, 10);
-		Book book2 = new Book(new Long(2), "Alhemicar", "Paolo Koeljo", new Category("category1"), 10, Book.State.ACTIVE, 10);
+		Book book1 = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		Book book2 = new Book(new Long(2),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		List<CartItem> listOfItems = new ArrayList<CartItem>();		
 		CartItem cI1 = new CartItem(new Long(2), book1, 2);
 		CartItem cI2 = new CartItem(new Long(2), book2, 2);
@@ -92,18 +101,20 @@ public class ShoppingCartServiceApplicationTests {
 		
 		Mockito.when(soppingCartRepository.getOne(shopingCart.getId())).thenReturn(shopingCart);
 		
-	//	boolean response = soppingCartService.emptyCart(shopingCart.getId());
+		boolean response = soppingCartService.emptyCart(Optional.of(shopingCart.getId()));
 		
-	//	assertEquals(true, response);
+		assertEquals(true, response);
 		assertEquals(0, listOfItems.size());
+				
+		Mockito.when(soppingCartRepository.getOne(shopingCart.getId())).thenReturn(shopingCart);
 		
-	}*/
+	}
 	
-/*	@Test
+	@Test
 	public void removeItemTest() {
 		
-		Book book1 = new Book(new Long(2), "Kako bih bez tebe", "Gijom Muso", new Category("category1"), 10, Book.State.ACTIVE, 10);
-		Book book2 = new Book(new Long(2), "Alhemicar", "Paolo Koeljo", new Category("category1"), 10, Book.State.ACTIVE, 10);
+		Book book1 = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		Book book2 = new Book(new Long(2),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		List<CartItem> listOfItems = new ArrayList<CartItem>();		
 		CartItem cI1 = new CartItem(new Long(2), book1, 2);
 		CartItem cI2 = new CartItem(new Long(2), book2, 2);
@@ -113,10 +124,10 @@ public class ShoppingCartServiceApplicationTests {
 		
 		Mockito.when(soppingCartRepository.getOne(shopingCart.getId())).thenReturn(shopingCart);
 		
-//		boolean response = soppingCartService.removeItem(shopingCart.getId(), cI1.getId());
+		boolean response = soppingCartService.removeItem(Optional.of(shopingCart.getId()), cI1.getId());
 		
-	//	assertEquals(true, response);
+		assertEquals(true, response);
 		assertEquals(1, listOfItems.size());
-	}*/
+	}
 	
 }

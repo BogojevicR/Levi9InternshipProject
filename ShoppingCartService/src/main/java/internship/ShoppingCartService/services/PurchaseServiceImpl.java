@@ -8,14 +8,12 @@ import org.springframework.stereotype.Service;
 import internship.ShoppingCartService.DTO.UserInfoDTO;
 import internship.ShoppingCartService.converters.AdressConverter;
 import internship.ShoppingCartService.converters.UserInfoConverter;
-import internship.ShoppingCartService.models.Adress;
 import internship.ShoppingCartService.models.Book;
 import internship.ShoppingCartService.models.CartItem;
 import internship.ShoppingCartService.models.Purchase;
 import internship.ShoppingCartService.models.ShoppingCart;
 import internship.ShoppingCartService.models.User;
 import internship.ShoppingCartService.models.User.Role;
-import internship.ShoppingCartService.models.UserInfo;
 import internship.ShoppingCartService.repositories.AdressRepository;
 import internship.ShoppingCartService.repositories.BookRepository;
 import internship.ShoppingCartService.repositories.CartItemRepository;
@@ -48,8 +46,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	UserInfoRepository userInfoRep;
 	
 	
-	@Resource(name = "sessionScopedBean")
-	ShoppingCart sessionScopedBean;
+	@Resource(name = "sessionShoppingCart")
+	ShoppingCart sessionShoppingCart;
 
 	@Override
 	public Purchase buyNow(Long userId,int quantity, Long bookId) {
@@ -83,7 +81,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			return null;
 		ShoppingCart s = u.getShoppingCart();
 		Purchase purchase = new Purchase();
-		if(s.getItemList().size() == 0) {
+		if(s.getItemList().isEmpty()) {
 			return null;
 		}
 		for(CartItem i : s.getItemList()) {
@@ -111,11 +109,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 	public Purchase buyCartUnauth(UserInfoDTO userInfo) {
 		
-		if(sessionScopedBean.getItemList().size() == 0) {
+		if(sessionShoppingCart.getItemList().isEmpty()) {
 			return null;
 		}
 		
-		for(CartItem i : sessionScopedBean.getItemList()) {
+		for(CartItem i : sessionShoppingCart.getItemList()) {
 			if(i.getBook().getQuantity() < i.getQuantity()) {
 				return null;	
 			}
@@ -125,14 +123,14 @@ public class PurchaseServiceImpl implements PurchaseService {
 		adressRep.save(AdressConverter.toEnity(userInfo.getAdress()));
 		userInfoRep.save(UserInfoConverter.toEntity(userInfo));
 		
-		for(CartItem i : sessionScopedBean.getItemList()) {
+		for(CartItem i : sessionShoppingCart.getItemList()) {
 			i.getBook().payBook(i.getQuantity());
 			bookRep.save(i.getBook());
 			purchase.getItemList().add(i);
 			CartItem item = cartItemRep.save(i);
 			i.setId(item.getId());
 		}
-		sessionScopedBean.getItemList().clear();
+		sessionShoppingCart.getItemList().clear();
 		purchase.calculateTotalPrice();
 		purchase.setUserInfo(UserInfoConverter.toEntity(userInfo));
 		purchaseRep.save(purchase);

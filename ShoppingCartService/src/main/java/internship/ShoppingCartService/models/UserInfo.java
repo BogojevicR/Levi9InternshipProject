@@ -95,5 +95,4 @@ public class UserInfo implements Serializable {
 		this.adress = adress;
 	}
 	
-	
 }

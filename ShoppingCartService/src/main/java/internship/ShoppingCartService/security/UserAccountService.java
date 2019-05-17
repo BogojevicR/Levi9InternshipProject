@@ -1,7 +1,6 @@
 package internship.ShoppingCartService.security;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import internship.ShoppingCartService.models.User;
@@ -17,13 +16,12 @@ public class UserAccountService implements org.springframework.security.core.use
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String username) {
 		User user = userRep.findByUsername(username);
 		if(user == null)
 			return null;
-		UserAccount userAcc = new UserAccount(user);
 		
-		return userAcc;
+		return new UserAccount(user);
 	}
 
 }
