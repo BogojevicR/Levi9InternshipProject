@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -45,7 +47,7 @@ public class ShoppingCartController {
 	 */
 	
 	
-	@RequestMapping(value = { "getCart/{cartId}", "getCart" }, method = RequestMethod.GET)
+	@GetMapping(value = { "getCart/{cartId}", "getCart" })
 	public ShoppingCart getCart(@PathVariable Optional<Long> cartId) {
 		return cartService.getCart(cartId);
 		
@@ -56,7 +58,7 @@ public class ShoppingCartController {
 	 * @return list of shopping cart items.
 	 */
 	
-	@RequestMapping(value = {"getCartItems/{cartId}", "getCartItems"}, method = RequestMethod.GET)
+	@GetMapping(value = {"getCartItems/{cartId}", "getCartItems"})
 	public List<CartItem> getCartItems(@PathVariable Optional<Long> cartId){
 		return cartService.getCartItems(cartId);
 	}
@@ -70,7 +72,7 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@RequestMapping(value = { "addItem/{cartId}/{quantity}/{bookId}", "addItem/{quantity}/{bookId}"}, method = RequestMethod.GET)
+	@GetMapping(value = { "addItem/{cartId}/{quantity}/{bookId}", "addItem/{quantity}/{bookId}"})
 	public boolean addItem(@PathVariable Optional<Long> cartId, @PathVariable int quantity, @PathVariable Long bookId) {
 
 		return cartService.addItem(cartId, quantity, bookId);
@@ -84,7 +86,7 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@RequestMapping(value = { "removeItem/{cartId}/{cartItemId}", "removeItem/{cartItemId}" }, method = RequestMethod.DELETE)
+	@DeleteMapping(value = { "removeItem/{cartId}/{cartItemId}", "removeItem/{cartItemId}" })
 	public boolean removeItem(@PathVariable Optional<Long> cartId, @PathVariable Long cartItemId) {
 		return cartService.removeItem(cartId, cartItemId);
 	}
@@ -97,7 +99,7 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@RequestMapping(value = { "changeQuantity/{cartId}/{quantity}/{itemId}", "changeQuantity/{quantity}/{itemId}"}, method = RequestMethod.PUT)
+	@PutMapping(value = { "changeQuantity/{cartId}/{quantity}/{itemId}", "changeQuantity/{quantity}/{itemId}"})
 	public boolean changeQuantity(@PathVariable Optional<Long> cartId,@PathVariable int quantity, @PathVariable Long itemId) {
 		return cartService.changeQuantity(cartId,quantity, itemId);
 	}
@@ -109,7 +111,7 @@ public class ShoppingCartController {
 	 * 
 	 */
 	
-	@RequestMapping(value = { "emptyCart/{cartId}", "emptyCart" } , method = RequestMethod.DELETE)
+	@DeleteMapping(value = { "emptyCart/{cartId}", "emptyCart" })
 	public boolean emptyCart(@PathVariable Optional<Long> cartId) {
 		return cartService.emptyCart(cartId);
 	}

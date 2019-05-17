@@ -67,7 +67,7 @@ public class ShoppingCartServiceApplicationTests {
 	@Test
 	public void changeQuantitytest() {
 		
-		Book book1 = new Book(new Long(2), "Kako bih bez tebe", "Gijom Muso", new Category("category1"), 10, Book.State.ACTIVE, 10);
+		Book book1 = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		CartItem cI1 = new CartItem(new Long(2),book1, 5);
 	
 		Mockito.when(cartItemRepository.getOne(cI1.getId())).thenReturn(cI1);
@@ -119,10 +119,4 @@ public class ShoppingCartServiceApplicationTests {
 		assertEquals(1, listOfItems.size());
 	}*/
 	
-	@Test
-	public void contextLoads() {
-	}
-	
-	
-
 }
