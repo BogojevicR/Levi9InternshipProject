@@ -111,5 +111,37 @@ public class ShoppingCart implements Serializable {
 		}
 		
 	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((itemList == null) ? 0 : itemList.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ShoppingCart other = (ShoppingCart) obj;
+		if (id != other.id)
+			return false;
+		if (itemList == null) {
+			if (other.itemList != null)
+				return false;
+		} else if (!itemList.equals(other.itemList))
+			return false;
+		return true;
+	}
+	
+	
 	
 }

@@ -19,7 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.google.gson.Gson;
 
 import internship.UserService.controllers.UserController;
+import internship.UserService.converter.UserConverter;
 import internship.UserService.model.User;
+import internship.UserService.modelsDTO.UserDTO;
 import internship.UserService.security.UserAccountService;
 import internship.UserService.services.UserService;
 
@@ -47,15 +49,17 @@ public class UserControllerApplicationTests {
     public void saveTest() throws Exception {
     	
     	User user1 = new User(new Long(17),"sara", User.Role.ADMIN, "saki",null);
-    	
-    	//Mockito.verify(userService, Mockito.times(1)).save(user);
+    	UserDTO user1DTO = UserConverter.fromEntity(user1);
     	
        Mockito.when(userService.save(user1)).thenReturn(true);
     	
-       this.mockMvc.perform(MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(user1))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
-       .andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(user1)));
+       /*this.mockMvc.perform(MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(user1DTO))).andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk())
+       .andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(user1DTO)));
+       */
+       this.mockMvc.perform(MockMvcRequestBuilders.post("/user/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(user1DTO))).andDo(MockMvcResultHandlers.print())
+		.andExpect(MockMvcResultMatchers.status().isOk());
        
-       //Mockito.verify(userService).save(user1);
+       Mockito.verify(userService).save(user1);
        
 
 

@@ -156,6 +156,64 @@ public class User implements Serializable {
 				+ ", shoppingCart=" + shoppingCart + ", userInfo=" + userInfo + ", purchases=" + purchases + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((purchases == null) ? 0 : purchases.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((shoppingCart == null) ? 0 : shoppingCart.hashCode());
+		result = prime * result + ((userInfo == null) ? 0 : userInfo.hashCode());
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (purchases == null) {
+			if (other.purchases != null)
+				return false;
+		} else if (!purchases.equals(other.purchases))
+			return false;
+		if (role != other.role)
+			return false;
+		if (shoppingCart == null) {
+			if (other.shoppingCart != null)
+				return false;
+		} else if (!shoppingCart.equals(other.shoppingCart))
+			return false;
+		if (userInfo == null) {
+			if (other.userInfo != null)
+				return false;
+		} else if (!userInfo.equals(other.userInfo))
+			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
+		return true;
+	}
+
 	
 
 
