@@ -11,5 +11,6 @@ public interface UserService {
 	boolean save(User u);
 	Role getRoleById(Long id);
 	User getById(Long id);
+	User login(String username, String password);
 	
 }

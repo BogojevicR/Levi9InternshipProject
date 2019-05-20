@@ -1,5 +1,7 @@
 package internship.AuthenticationService.services;
 
+import java.util.Optional;
+
 import internship.AuthenticationService.models.User;
 
 
@@ -9,6 +11,6 @@ public interface AuthenticationService {
 	String login(String username, String password);
 	User findByToken(String token);
 	boolean logout(String username, String password);
-	
+	Optional<User> validation(String token);
 	
 }

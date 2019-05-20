@@ -30,9 +30,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.authorizeRequests()
         			.antMatchers(HttpMethod.GET,"/user/**").hasAuthority("ADMIN")
         			.antMatchers(HttpMethod.POST,"/user/**").hasAuthority("ADMIN")
-        			.and().httpBasic().and().csrf().disable();
-        
-
+       // 			.antMatchers(HttpMethod.GET,"/user/**").hasAuthority("CUSTOMER")
+        			.and().httpBasic().and().csrf().disable();     
     }
 
     @Autowired

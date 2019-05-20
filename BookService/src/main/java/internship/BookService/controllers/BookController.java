@@ -1,6 +1,9 @@
 package internship.BookService.controllers;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import internship.BookService.DTO.BookDTO;
+import internship.BookService.helper.Requests;
 import internship.BookService.models.Book;
 import internship.BookService.services.BookServiceImpl;
 /**
@@ -35,6 +39,11 @@ public class BookController {
 	 */
 	@PostMapping(value = "save")
 	public ResponseEntity<BookDTO> save(@RequestBody BookDTO book) {
+		try {
+			new Requests().makeTokenCheck("8280a277-9c2a-4328-9123-c02fc6e055ac");
+		}catch (IOException e) {
+			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		}
 		BookDTO response = bookService.save(book);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
@@ -45,6 +54,11 @@ public class BookController {
 	 */
 	@PutMapping(value = "edit")
 	public ResponseEntity<BookDTO> edit(@RequestBody BookDTO book) {
+		try {
+			new Requests().makeTokenCheck("8280a277-9c2a-4328-9123-c02fc6e055ac");
+		}catch (IOException e) {
+			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		}
 		return new ResponseEntity<>(bookService.edit(book),HttpStatus.OK);
 	}
 	/**
@@ -61,7 +75,12 @@ public class BookController {
 	 * @return returns Book entity, together with HTTP status.
 	 */
 	@PutMapping(value = "disable/{id}")
-	public ResponseEntity<Book> disable(@PathVariable Long id) {
+	public ResponseEntity<Book> disable(@PathVariable Long id, HttpServletRequest request) {
+		try {
+			new Requests().makeTokenCheck(new Requests().getCookie(request));
+		}catch (IOException e) {
+			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		}
 		return new ResponseEntity<>(bookService.disable(id),HttpStatus.OK);
 	}
 	/**
@@ -88,6 +107,11 @@ public class BookController {
 	 */
 	@PostMapping(value = "addCategory/{name}")
 	public ResponseEntity<Boolean> addCategory(@PathVariable String name) {
+		try {
+			new Requests().makeTokenCheck("1280a277-9c2a-4328-9123-c02fc6e055ac");
+		}catch (IOException e) {
+			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		}
 		return new ResponseEntity<>(bookService.addCategory(name),HttpStatus.OK);
 	}
 	/**
@@ -97,6 +121,7 @@ public class BookController {
 	 */
 	@GetMapping(value = "getByCategory/{id}")
 	public ResponseEntity<List<Book>> getByCategoryId(@PathVariable Long id){
+
 		return new ResponseEntity<>(bookService.getByCategoryId(id),HttpStatus.OK);
 	}
 }

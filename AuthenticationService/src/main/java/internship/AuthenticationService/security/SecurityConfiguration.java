@@ -41,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	 @Override
 	 public void configure(final WebSecurity webSecurity) {
-	  webSecurity.ignoring().antMatchers("/auth/login/**","/auth/logout/**, /auth/save/**");
+	  webSecurity.ignoring().antMatchers("/auth/login/**","/auth/logout/**, /auth/save/**, /auth/validation/**");
 	 }
 	
 	 @Override

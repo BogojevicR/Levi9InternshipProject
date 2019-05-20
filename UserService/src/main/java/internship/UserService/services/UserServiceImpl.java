@@ -100,6 +100,11 @@ public class UserServiceImpl implements UserService{
 		return userRepository.getOne(id);
 	}
 
+	@Override
+	public User login(String username, String password) {
+		return userRepository.logInUser(username, password);
+	}
+
 	
 	
 	

@@ -62,7 +62,12 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			return true;
 		}
 			return false;
-			
+	}
+	@Override
+	public Optional<User> validation(String token) {
+		
+		
+		return userRep.findByToken(token);
 	}
 
 	
