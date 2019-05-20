@@ -54,8 +54,8 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	}
 
 	@Override
-	public boolean logout(String username, String password) {
-		User user = userRep.login(username, password);
+	public boolean logout(String username) {
+		User user = userRep.findByUsername(username);
 		if(user != null) {
 			user.setToken("");
 			userRep.save(user);

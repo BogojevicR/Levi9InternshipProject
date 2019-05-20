@@ -42,8 +42,8 @@ public class AuthenticationController {
     }
 	
 	@PostMapping(value = "/logout")
-    public ResponseEntity<Boolean> logout(@RequestParam("username") final String username, @RequestParam("password") final String password){
-       boolean token = authService.logout(username, password);
+    public ResponseEntity<Boolean> logout(@RequestParam("username") final String username){
+       boolean token = authService.logout(username);
        if(token)
     	   return new ResponseEntity<>(token,HttpStatus.OK);
        return new ResponseEntity<>(token,HttpStatus.NOT_FOUND);
@@ -54,6 +54,9 @@ public class AuthenticationController {
 	public ResponseEntity<Boolean> tokenValidation(@RequestHeader HttpHeaders headers){
 		
 		String token = headers.get("authorization").get(0);
+
+		if(token.equals("Bearer"))
+			return new ResponseEntity<>(false,HttpStatus.UNAUTHORIZED);
 		token = token.replaceAll("]","");
 		token = token.split("\\s+")[1];
 

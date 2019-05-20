@@ -59,8 +59,8 @@ public class UserController {
 			map.put("password", userDTO.getPassword());
 			map.put("role", userDTO.getRole().toString());
 
-			String response = new Requests().makePostRequest("http://localhost:8085/auth/save",map);
-			System.out.println(response);
+			new Requests().makePostRequest("http://localhost:8085/auth/save",map);
+			
 			return new ResponseEntity<>(userDTO, HttpStatus.OK);
 		}
 		return new ResponseEntity<> (userDTO, HttpStatus.OK); 
@@ -123,12 +123,29 @@ public class UserController {
 			map.put("password", password);
 
 			String response = new Requests().makePostRequest("http://localhost:8085/auth/login",map);
+			Cookie cookie = new Cookie("token" , response);
+			cookie.setValue(response);
+			cookie.setPath("/");
+			resp.addCookie(cookie);
 			
-			resp.addCookie(new Cookie("token" , response));
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 		
        return new ResponseEntity<>(username, HttpStatus.NOT_FOUND);
     }
+	
+	@GetMapping(value = "/logout")
+    public ResponseEntity<String> logout(@RequestParam("username") final String username, HttpServletResponse resp) throws IOException{
+
+			Map<String, String> map= new HashMap<String,String>();
+			map.put("username", username);
+
+			String response = new Requests().makePostRequest("http://localhost:8085/auth/logout",map);
+			Cookie cookie = new Cookie("token" ,null);
+			cookie.setMaxAge(0);
+			resp.addCookie(cookie);
+			return new ResponseEntity<>(response, HttpStatus.OK);
+			
+    } 
 	
 }

@@ -38,9 +38,9 @@ public class BookController {
 	 * @return book which is saved, together with HTTP status.
 	 */
 	@PostMapping(value = "save")
-	public ResponseEntity<BookDTO> save(@RequestBody BookDTO book) {
+	public ResponseEntity<BookDTO> save(@RequestBody BookDTO book, HttpServletRequest request) {
 		try {
-			new Requests().makeTokenCheck("8280a277-9c2a-4328-9123-c02fc6e055ac");
+			new Requests().makeTokenCheck(new Requests().getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
@@ -53,9 +53,9 @@ public class BookController {
 	 * @return boolean value if book is edited, together with HTTP status.
 	 */
 	@PutMapping(value = "edit")
-	public ResponseEntity<BookDTO> edit(@RequestBody BookDTO book) {
+	public ResponseEntity<BookDTO> edit(@RequestBody BookDTO book, HttpServletRequest request) {
 		try {
-			new Requests().makeTokenCheck("8280a277-9c2a-4328-9123-c02fc6e055ac");
+			new Requests().makeTokenCheck(new Requests().getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
@@ -66,7 +66,12 @@ public class BookController {
 	 * @return List of all books in database, together with HTTP status.
 	 */
 	@GetMapping(value = "getAll")
-	public ResponseEntity<List<Book>> getAll(){
+	public ResponseEntity<List<Book>> getAll( HttpServletRequest request){
+		try {
+			new Requests().makeTokenCheck(new Requests().getCookie(request));
+		}catch (IOException e) {
+			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		}
 		return new ResponseEntity<>(bookService.getAll(),HttpStatus.OK);
 	}
 	/**
@@ -106,9 +111,9 @@ public class BookController {
 	 * @return returns whether category is saved or not in boolean value, together with HTTP status.
 	 */
 	@PostMapping(value = "addCategory/{name}")
-	public ResponseEntity<Boolean> addCategory(@PathVariable String name) {
+	public ResponseEntity<Boolean> addCategory(@PathVariable String name, HttpServletRequest request) {
 		try {
-			new Requests().makeTokenCheck("1280a277-9c2a-4328-9123-c02fc6e055ac");
+			new Requests().makeTokenCheck(new Requests().getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
