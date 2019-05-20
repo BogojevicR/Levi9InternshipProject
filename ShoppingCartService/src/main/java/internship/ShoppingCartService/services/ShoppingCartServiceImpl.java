@@ -36,13 +36,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	
 	@Resource(name = "sessionShoppingCart")
 	ShoppingCart sessionShoppingCart;
-<<<<<<< HEAD
+
 	
 	//TODO: Obrisi counter i zameni ga sa Book IDem
 	static int counter = 0;
 	
-=======
->>>>>>> d05f417d0f7e39d844673e43507e7912880a3689
+
 	/**
 	 * This method is method to get shopping cart.
 	 * @param cartId represents id for cart that we want to  get.
