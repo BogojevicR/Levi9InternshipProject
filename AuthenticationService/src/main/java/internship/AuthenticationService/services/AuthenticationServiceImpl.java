@@ -48,8 +48,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	public User findByToken(String token) {
 		Optional<User> user= userRep.findByToken(token);
         if(user.isPresent()){
-            User u = (User) user.get();
-            return u;
+            return  user.get();
         }
         return  null;
 	}

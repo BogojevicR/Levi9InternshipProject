@@ -3,7 +3,6 @@ package internship.AuthenticationService.security;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.naming.AuthenticationException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -8,7 +8,7 @@ import internship.AuthenticationService.models.User.Role;
 public interface UserService {
 
 	List<User> findAll();
-	boolean save(User u);
+	User save(User u);
 	Role getRoleById(Long id);
 	User logInUser(User u);
 

@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public List<User> findAll() {
-		List<User> allUsers = userRepository.findAll();
-		return allUsers;
+
+		return userRepository.findAll();
 	}
 	
 
@@ -47,9 +47,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean save(User u) {
-		// TODO Auto-generated method stub
-		return false;
+	public User save(User u) {	
+		return userRepository.save(u);
 	}
 
 	

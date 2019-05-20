@@ -1,15 +1,14 @@
 package internship.AuthenticationService.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+
+import internship.AuthenticationService.DTO.UserDTO;
 
 /**
  * This class represents entity of user who is buying books.
@@ -72,6 +71,14 @@ public class User implements Serializable {
 		this.role = role;
 		this.password = password;
 		this.token = token;
+	}
+	
+	public User(UserDTO dto) {
+		this.id = dto.getId();
+		this.username = dto.getUsername();
+		this.role = dto.getRole();
+		this.password = dto.getPassword();
+		this.token = dto.getToken();
 	}
 
 	public Long getId() {
