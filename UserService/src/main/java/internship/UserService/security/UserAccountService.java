@@ -24,9 +24,7 @@ public class UserAccountService implements org.springframework.security.core.use
 		User user = userRep.findByUsername(username);
 		if(user == null)
 			return null;
-		UserAccount userAcc = new UserAccount(user);
-		
-		return userAcc;
+			
+		return new UserAccount(user);
 	}
-
 }

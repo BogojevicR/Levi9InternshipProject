@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public List<User> findAll() {
-		List<User> allUsers = userRepository.findAll();
-		return allUsers;
+		
+		return userRepository.findAll();
 	}
 	
 	/**
@@ -97,8 +97,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User getById(Long id) {
-		User u = userRepository.getOne(id);
-		return u;
+		return userRepository.getOne(id);
 	}
 
 	

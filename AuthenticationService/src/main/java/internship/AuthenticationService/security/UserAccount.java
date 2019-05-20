@@ -1,4 +1,4 @@
-package internship.UserService.security;
+package internship.AuthenticationService.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -9,12 +9,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import internship.UserService.model.User;
+import internship.AuthenticationService.models.User;
 
 public class UserAccount implements org.springframework.security.core.userdetails.UserDetails {
 
-	private static final long serialVersionUID = 1L;
-	
 	private User user;
 	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() ;
 	
@@ -32,31 +30,37 @@ public class UserAccount implements org.springframework.security.core.userdetail
 
 	@Override
 	public String getPassword() {
+		// TODO Auto-generated method stub
 		return passwordEncoder.encode(this.user.getPassword());
 	}
 
 	@Override
 	public String getUsername() {
+		// TODO Auto-generated method stub
 		return this.user.getUsername();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
