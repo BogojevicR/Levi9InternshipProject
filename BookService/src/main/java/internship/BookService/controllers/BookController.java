@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import internship.BookService.DTO.BookDTO;
-import internship.BookService.helper.Requests;
+import internship.BookService.helpers.Requests;
 import internship.BookService.models.Book;
 import internship.BookService.services.BookServiceImpl;
 /**
@@ -67,11 +67,6 @@ public class BookController {
 	 */
 	@GetMapping(value = "getAll")
 	public ResponseEntity<List<Book>> getAll( HttpServletRequest request){
-		try {
-			new Requests().makeTokenCheck(new Requests().getCookie(request));
-		}catch (IOException e) {
-			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
-		}
 		return new ResponseEntity<>(bookService.getAll(),HttpStatus.OK);
 	}
 	/**

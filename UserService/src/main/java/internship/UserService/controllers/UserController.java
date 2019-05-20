@@ -126,6 +126,7 @@ public class UserController {
 			Cookie cookie = new Cookie("token" , response);
 			cookie.setValue(response);
 			cookie.setPath("/");
+			cookie.setHttpOnly(true);
 			resp.addCookie(cookie);
 			
 			return new ResponseEntity<>(response, HttpStatus.OK);
@@ -143,6 +144,7 @@ public class UserController {
 			String response = new Requests().makePostRequest("http://localhost:8085/auth/logout",map);
 			Cookie cookie = new Cookie("token" ,null);
 			cookie.setMaxAge(0);
+			cookie.setHttpOnly(true);
 			resp.addCookie(cookie);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 			

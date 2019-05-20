@@ -22,8 +22,6 @@ import internship.ShoppingCartService.repositories.ShoppingCartRepository;
  * @author s.krasic
  *
  */
-@Component("userSession")
-@Scope(value="session")
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
@@ -38,8 +36,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	ShoppingCart sessionShoppingCart;
 
 	
-	//TODO: Obrisi counter i zameni ga sa Book IDem
-	static int counter = 0;
 	
 
 	/**

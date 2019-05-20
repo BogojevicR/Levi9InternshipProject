@@ -3,9 +3,7 @@ package internship.ShoppingCartService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -13,24 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-<<<<<<< HEAD
-import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
-=======
-import org.springframework.context.annotation.Bean;
->>>>>>> d05f417d0f7e39d844673e43507e7912880a3689
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-<<<<<<< HEAD
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-=======
->>>>>>> d05f417d0f7e39d844673e43507e7912880a3689
 import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
@@ -64,7 +51,7 @@ public class ShoppingCartControllerApplicationTests {
 	@MockBean
 	public UserAccountService userAccountService;
 	
-<<<<<<< HEAD
+
 	@MockBean
 	protected MockHttpSession mockSession;
 
@@ -76,9 +63,7 @@ public class ShoppingCartControllerApplicationTests {
 	        mockSession.setAttribute("session", "session");
 	    }*/
 	
-	
-=======
->>>>>>> d05f417d0f7e39d844673e43507e7912880a3689
+
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "CUSTOMER")
 	public void getCartTest() throws Exception {

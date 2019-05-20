@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class Requests {
 	
+	static final  String UTF = "UTF-8";
+	
 	/**
 	 * This method is used for all post requests
 	 * @param url - location or rest resource
@@ -36,11 +38,11 @@ public class Requests {
         StringBuilder postData = new StringBuilder();
         for (Entry<String, String> param : params.entrySet()) {
             if (postData.length() != 0) postData.append('&');
-            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+            postData.append(URLEncoder.encode(param.getKey(), UTF));
             postData.append('=');
-            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), UTF));
         }
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        byte[] postDataBytes = postData.toString().getBytes(UTF);
 
         HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
         conn.setRequestMethod("POST");
@@ -49,7 +51,7 @@ public class Requests {
         conn.setDoOutput(true);
         conn.getOutputStream().write(postDataBytes);
 
-        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), UTF));
 
         StringBuilder sb = new StringBuilder();
         for (int c; (c = in.read()) >= 0;)
@@ -63,7 +65,7 @@ public class Requests {
 	       
         StringBuilder postData = new StringBuilder();
         
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+        byte[] postDataBytes = postData.toString().getBytes(UTF);
 
         HttpURLConnection conn = (HttpURLConnection) uri.openConnection();
         conn.setRequestMethod("POST");
@@ -75,7 +77,7 @@ public class Requests {
         conn.setDoOutput(true);
         conn.getOutputStream().write(postDataBytes);
 
-        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+        Reader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), UTF));
 
         StringBuilder sb = new StringBuilder();
         for (int c; (c = in.read()) >= 0;)

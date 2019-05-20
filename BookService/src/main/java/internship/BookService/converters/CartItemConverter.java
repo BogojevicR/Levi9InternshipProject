@@ -10,8 +10,7 @@ public class CartItemConverter extends AbstractConverter {
 
 	public static CartItemDTO fromEnity(CartItem e) {
 		if (e != null) {
-			CartItemDTO cartItemDTO = new CartItemDTO(e);
-			return cartItemDTO;
+			return new CartItemDTO(e);
 		}else {
 			return null;
 		}
