@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import internship.ShoppingCartService.models.Book;
@@ -20,7 +22,8 @@ import internship.ShoppingCartService.repositories.ShoppingCartRepository;
  * @author s.krasic
  *
  */
-
+@Component("userSession")
+@Scope(value="session")
 @Service
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 
@@ -33,6 +36,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	
 	@Resource(name = "sessionShoppingCart")
 	ShoppingCart sessionShoppingCart;
+	
 	//TODO: Obrisi counter i zameni ga sa Book IDem
 	static int counter = 0;
 	
