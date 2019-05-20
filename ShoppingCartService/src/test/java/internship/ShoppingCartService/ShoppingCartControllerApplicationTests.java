@@ -3,7 +3,9 @@ package internship.ShoppingCartService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -11,13 +13,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+<<<<<<< HEAD
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockHttpSession;
+=======
 import org.springframework.context.annotation.Bean;
+>>>>>>> d05f417d0f7e39d844673e43507e7912880a3689
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+<<<<<<< HEAD
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+=======
+>>>>>>> d05f417d0f7e39d844673e43507e7912880a3689
 import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
@@ -39,6 +52,9 @@ public class ShoppingCartControllerApplicationTests {
 	@Autowired
 	public MockMvc mockMvc;
 	
+    @Autowired
+	private WebApplicationContext wac;
+	
 	@MockBean
     public ShoppingCartServiceImpl shoppingCartService;
 	
@@ -48,6 +64,21 @@ public class ShoppingCartControllerApplicationTests {
 	@MockBean
 	public UserAccountService userAccountService;
 	
+<<<<<<< HEAD
+	@MockBean
+	protected MockHttpSession mockSession;
+
+
+	 
+	   /* public void setup(){
+	        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+	        mockSession = new MockHttpSession(wac.getServletContext(), UUID.randomUUID().toString());
+	        mockSession.setAttribute("session", "session");
+	    }*/
+	
+	
+=======
+>>>>>>> d05f417d0f7e39d844673e43507e7912880a3689
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "CUSTOMER")
 	public void getCartTest() throws Exception {
@@ -63,7 +94,34 @@ public class ShoppingCartControllerApplicationTests {
 	        	.andExpect(MockMvcResultMatchers.content().json(jsonCart));
 		
 		Mockito.verify(shoppingCartService).getCart(Optional.of(shopingCart.getId()));
+		
+		//odavde ne prolazi i tu kupim bean
+		
+		ShoppingCart shopingCartWthoutId = wac.getBean(ShoppingCart.class);
+		
+		System.out.println("*******" + shopingCartWthoutId.toString());
 	
+		/*Mockito.when(shoppingCartService.getCart(Optional.of(shopingCartWthoutId.getId()))).thenReturn(shopingCartWthoutId);
+		
+		String jsonCart2 = new Gson().toJson(shopingCartWthoutId);
+		
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/cart/getCart")).andExpect(MockMvcResultMatchers.status().isOk())
+    	.andExpect(MockMvcResultMatchers.content().json(jsonCart2));
+		
+		Mockito.verify(shoppingCartService).getCart(Optional.of(shopingCartWthoutId.getId()));*/
+		
+		/*String jsonCart2 = new Gson().toJson(shopingCartWthoutId);
+		
+		 MvcResult result = this.mockMvc.perform(
+				 MockMvcRequestBuilders.get("/api/cart/getCart")
+	                        .contentType(MediaType.APPLICATION_JSON)
+	                        .content(jsonCart2)
+	                        .session(mockSession))
+	                .andExpect(MockMvcResultMatchers.status().isOk())
+	                .andReturn();
+		 
+		 MockHttpServletResponse response = result.getResponse();*/
+		 
 	}
 	
 	@Test
