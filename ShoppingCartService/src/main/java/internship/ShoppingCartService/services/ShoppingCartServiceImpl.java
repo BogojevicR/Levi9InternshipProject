@@ -35,8 +35,6 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	@Resource(name = "sessionShoppingCart")
 	ShoppingCart sessionShoppingCart;
 
-	
-	
 
 	/**
 	 * This method is method to get shopping cart.
@@ -89,9 +87,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		Book b = bookRep.getOne(bookId);
 		if(!cartId.isPresent()){
 			if(!sessionShoppingCart.getItemList().isEmpty())
-				return false;
-			if(sessionShoppingCart.checkBook(bookId))
-				return false;
+				if(sessionShoppingCart.checkBook(bookId))
+					return false;
 			sessionShoppingCart.getItemList().add(new CartItem((long)0,b, quantity));
 			
 			return true;

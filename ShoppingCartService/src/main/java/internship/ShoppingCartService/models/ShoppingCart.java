@@ -71,6 +71,7 @@ public class ShoppingCart implements Serializable {
 	public ShoppingCart(ShoppingCart sc) {
 		super();
 		this.itemList = sc.getItemList();
+		this.itemList = sc.getItemList();
 		this.id = sc.getId();
 	}
 
@@ -133,5 +134,13 @@ public class ShoppingCart implements Serializable {
 		}
 	
 	}
+
+
+	@Override
+	public String toString() {
+		return "ShoppingCart [id=" + id + ", itemList=" + itemList + "]";
+	}
+	
+	
 	
 }

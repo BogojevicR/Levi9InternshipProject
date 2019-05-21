@@ -1,10 +1,15 @@
 package internship.ShoppingCartService;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import javax.annotation.Resource;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +19,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -48,14 +56,17 @@ public class ShoppingCartServiceApplicationTests {
 	
 	@Autowired
 	private WebApplicationContext wac;
+	
+	@Mock
+	ShoppingCart sessionShoppingCart;
 
 
 	 @Before()
-	    public void setup(){
-	        MockMvcBuilders.webAppContextSetup(wac).build();
-	        mockSession = new MockHttpSession(wac.getServletContext());
-	        mockSession.setAttribute("sessionShoppingCart", new ShoppingCart());
-	    }
+	 public void setup(){
+       	MockMvcBuilders.webAppContextSetup(wac).build();
+        mockSession = new MockHttpSession(wac.getServletContext());
+
+	 }
 	
 	
 	@Test
@@ -93,21 +104,50 @@ public class ShoppingCartServiceApplicationTests {
 		listOfItems = new ArrayList<CartItem>();		
 		listOfItems.add(new CartItem(new Long(22),b1,5));
 		shopingCart = new ShoppingCart(new Long(2), listOfItems);
-		
+				
 		Mockito.when(shoppingCartRepository.getOne(shopingCart.getId())).thenReturn(shopingCart);
 		
 		Mockito.when(bookRep.getOne(b1.getId())).thenReturn(b1);
 		
 		Mockito.when(bookRep.getOne(b2.getId())).thenReturn(b2);
-		
+				
 		assertEquals(true, shoppingCartService.addItem(Optional.of(shopingCart.getId()), 5,b2.getId()));
 		
 		shoppingCartService.addItem(Optional.empty(), 5, b1.getId());
 		
-	}
+	} 
 	
 	@Test
-	public void changeQuantitytest() {
+	public void addItemSessionCartTest() {
+		
+		Book b1 = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, 20, 20);
+		
+		Mockito.when(bookRep.getOne(b1.getId())).thenReturn(b1);
+		
+		assertTrue(shoppingCartService.addItem(Optional.empty(), 5, b1.getId()));
+		
+		System.out.println(shoppingCartService.getCart(Optional.empty()));
+
+		List<CartItem> listOfItems = new ArrayList<CartItem>();		
+		listOfItems = new ArrayList<CartItem>();		
+		listOfItems.add(new CartItem(new Long(22),b1,5));
+		
+		Mockito.when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
+		
+		Mockito.when(bookRep.getOne(b1.getId())).thenReturn(b1);
+		
+		shoppingCartService.addItem(Optional.empty(), 5, b1.getId());
+		
+		Mockito.when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
+		Mockito.when(sessionShoppingCart.checkBook(b1.getId())).thenReturn(true);
+		Mockito.when(bookRep.getOne(b1.getId())).thenReturn(b1);
+		
+		shoppingCartService.addItem(Optional.empty(), 5, b1.getId());
+	}
+	
+	
+	@Test
+	public void changeQuantityTest() {
 		
 		Book book1 = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		CartItem cI1 = new CartItem(new Long(2),book1, 5);
@@ -121,6 +161,31 @@ public class ShoppingCartServiceApplicationTests {
 		shoppingCartService.changeQuantity(Optional.empty(), 5, book1.getId());
 
 	}
+	
+	@Test
+	public void changeQuantitySessionCartTest() {
+		
+		Book book1 = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		CartItem cI1 = new CartItem(new Long(2),book1, 5);
+		ArrayList<CartItem> itemList = new ArrayList<CartItem>();
+		itemList.add(cI1);
+		
+		Mockito.when(sessionShoppingCart.getItemList()).thenReturn(itemList);
+		
+		boolean response = shoppingCartService.changeQuantity(Optional.empty(), 50, book1.getId());
+		
+		assertEquals(true, response);
+		
+		shoppingCartService.changeQuantity(Optional.empty(), 5, book1.getId());
+		
+		response = shoppingCartService.changeQuantity(Optional.empty(), 50, (long) 5);
+		
+		assertEquals(false, response);
+		
+		shoppingCartService.changeQuantity(Optional.empty(), 5, book1.getId());
+
+	}
+	
 	
 		@Test
 		public void emptyCarttest() {
@@ -172,6 +237,31 @@ public class ShoppingCartServiceApplicationTests {
 		shoppingCartService.removeItem(Optional.empty(), book1.getId());
 
 	}
+
+	
+	@Test
+	public void removeItemSessionCartTest() {
+		
+		Book book1 = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		Book book2 = new Book(new Long(2),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		List<CartItem> listOfItems = new ArrayList<CartItem>();		
+		CartItem cI1 = new CartItem(new Long(2), book1, 2);
+		CartItem cI2 = new CartItem(new Long(2), book2, 2);
+		listOfItems.add(cI1);
+		listOfItems.add(cI2);
+		
+		Mockito.when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
+	
+		boolean response = shoppingCartService.removeItem(Optional.empty(), book1.getId());
+		
+		assertEquals(true, response);
+		assertEquals(1, listOfItems.size());
+		
+		shoppingCartService.removeItem(Optional.empty(), book1.getId());
+
+	}
+	
+	
 	
 	@Test
 	public void getCartTest() {
@@ -188,12 +278,16 @@ public class ShoppingCartServiceApplicationTests {
 		
 		assertEquals(null, shoppingCartService.getCart(Optional.of(cart.get().getId())));
 		
-		
 		shoppingCartService.getCart(Optional.empty());
-		
 		
 	}
 	
+	
+	@Test
+	public void getSessionCartTest() {
+	
+		shoppingCartService.getCart(Optional.empty());
+	}
 	@Test
 	public void getCartItemsTest() {
 
@@ -206,5 +300,5 @@ public class ShoppingCartServiceApplicationTests {
 		
 		shoppingCartService.getCartItems(Optional.empty());
 
-	}
+	} 
 }
