@@ -1,6 +1,7 @@
 package internship.ShoppingCartService;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -279,7 +280,7 @@ public class ShoppingCartServiceApplicationTests {
 	@Test
 	public void getSessionCartTest() {
 	
-		shoppingCartService.getCart(Optional.empty());
+		assertNotNull(shoppingCartService.getCart(Optional.empty()));
 	}
 	@Test
 	public void getCartItemsTest() {

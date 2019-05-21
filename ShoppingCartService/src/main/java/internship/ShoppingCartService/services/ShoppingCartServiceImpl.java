@@ -6,8 +6,6 @@ import java.util.Optional;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import internship.ShoppingCartService.models.Book;

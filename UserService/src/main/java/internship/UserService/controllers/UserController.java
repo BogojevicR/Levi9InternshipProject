@@ -43,6 +43,8 @@ public class UserController {
 	@Autowired
 	private Requests requestService;
 	
+	public final String USERNAME = "username";
+	
 	/**
 	 * This method is method to save current user.
 	 * @param user represents user who we want to save.
@@ -56,8 +58,8 @@ public class UserController {
 		User u = UserConverter.toEntity(userDTO); 
 
 		if(userService.save(u)) {
-			Map<String, String> map= new HashMap<String,String>();
-			map.put("username", userDTO.getUsername());
+			Map<String, String> map= new HashMap<>();
+			map.put(USERNAME, userDTO.getUsername());
 			map.put("password", userDTO.getPassword());
 			map.put("role", userDTO.getRole().toString());
 
@@ -120,8 +122,8 @@ public class UserController {
     public ResponseEntity<String> login(@RequestParam("username") final String username, @RequestParam("password") final String password, HttpServletResponse resp) throws IOException{
 		User u = userService.login(username,password);
 		if(u != null) {
-			Map<String, String> map= new HashMap<String,String>();
-			map.put("username", username);
+			Map<String, String> map= new HashMap<>();
+			map.put(USERNAME, username);
 			map.put("password", password);
 
 			String response = requestService.makePostRequest("http://localhost:8085/auth/login",map);
@@ -140,8 +142,8 @@ public class UserController {
 	@GetMapping(value = "/logout")
     public ResponseEntity<String> logout(@RequestParam("username") final String username, HttpServletResponse resp) throws IOException{
 
-			Map<String, String> map= new HashMap<String,String>();
-			map.put("username", username);
+			Map<String, String> map= new HashMap<>();
+			map.put(USERNAME, username);
 
 			String response = requestService.makePostRequest("http://localhost:8085/auth/logout",map);
 			Cookie cookie = new Cookie("token" ,null);
