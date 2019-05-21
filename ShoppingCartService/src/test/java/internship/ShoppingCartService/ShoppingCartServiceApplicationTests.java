@@ -3,13 +3,19 @@ package internship.ShoppingCartService;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 53de191bc42c8f86c8396ea842c531e9a54ec888
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 53de191bc42c8f86c8396ea842c531e9a54ec888
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

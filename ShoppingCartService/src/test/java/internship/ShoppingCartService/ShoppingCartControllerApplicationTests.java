@@ -81,10 +81,7 @@ public class ShoppingCartControllerApplicationTests {
 		Mockito.verify(shoppingCartService).getCart(Optional.of(shopingCart.getId()));
 		
 		//odavde ne prolazi i tu kupim bean
-		
-		ShoppingCart shopingCartWthoutId = wac.getBean(ShoppingCart.class);
-		
-		System.out.println("*******" + shopingCartWthoutId.toString());
+				
 	
 		/*Mockito.when(shoppingCartService.getCart(Optional.of(shopingCartWthoutId.getId()))).thenReturn(shopingCartWthoutId);
 		

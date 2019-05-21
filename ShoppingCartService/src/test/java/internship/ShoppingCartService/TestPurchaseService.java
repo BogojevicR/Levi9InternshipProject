@@ -5,14 +5,15 @@ import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-
-import javax.annotation.Resource;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.mock.web.MockHttpSession;
 
 import internship.ShoppingCartService.DTO.AdressDTO;
 import internship.ShoppingCartService.DTO.UserInfoDTO;
@@ -23,10 +24,12 @@ import internship.ShoppingCartService.models.Purchase;
 import internship.ShoppingCartService.models.ShoppingCart;
 import internship.ShoppingCartService.models.User;
 import internship.ShoppingCartService.models.User.Role;
+import internship.ShoppingCartService.repositories.AdressRepository;
 import internship.ShoppingCartService.repositories.BookRepository;
 import internship.ShoppingCartService.repositories.CartItemRepository;
 import internship.ShoppingCartService.repositories.PurchaseRepository;
 import internship.ShoppingCartService.repositories.ShoppingCartRepository;
+import internship.ShoppingCartService.repositories.UserInfoRepository;
 import internship.ShoppingCartService.repositories.UserRepository;
 import internship.ShoppingCartService.services.PurchaseServiceImpl;
 
@@ -46,10 +49,18 @@ public class TestPurchaseService {
 	UserRepository userRep;
 	@Mock
 	CartItemRepository cartItemRep;
+	@Mock
+	AdressRepository adressRep;
+	@Mock
+	UserInfoRepository userInfoRep;
+	
+	protected MockHttpSession mockSession;
+
+	
 	
 	@Mock
-	@Resource(name = "sessionShoppingCart")
 	ShoppingCart sessionShoppingCart;
+
 	
 	@Test
 	public void buyNowTest() {
@@ -104,23 +115,53 @@ public class TestPurchaseService {
 	
 	@Test
 	public void buyCartUnauthTest() {
-		
-		sessionShoppingCart = new ShoppingCart(new Long(1));
 		UserInfoDTO info = new UserInfoDTO(new Long(1),"Rale","Bogojevic","rale@gmail.com","064",new AdressDTO(new Long(2), "Novi Sad", "Serbia", "Street", "22"));
-		Book b = new Book(new Long(3), "Title", "Author1", new Category("cat"), 20, 20, 20);
-		CartItem ci = new CartItem(b, 5);
-		sessionShoppingCart.setItemList(new ArrayList<>());
+
+		List<CartItem> listOfItems = new ArrayList<CartItem>();	
+		when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
+		assertNull(purchaseService.buyCartUnauth(info));	
 		
-		sessionShoppingCart.getItemList().add(ci);
 		
-		when(bookRep.getOne(new Long(3))).thenReturn(b);
+		Book book1 = new Book(new Long(3),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		CartItem cI1 = new CartItem(new Long(2), book1, 2);
+		listOfItems.add(cI1);
+		
+		
+		when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
+		when(cartItemRep.save(cI1)).thenReturn(cI1);
+		when(bookRep.getOne(new Long(3))).thenReturn(book1);
 		
 		purchaseService.buyCartUnauth(info);
-				
-		assertNull(purchaseService.buyCartUnauth(info));
+						
+		listOfItems = new ArrayList<CartItem>();		
+		cI1 = new CartItem(new Long(2), book1, 22222);
+		listOfItems.add(cI1);
+		Mockito.when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
+		when(cartItemRep.save(cI1)).thenReturn(cI1);
 		
+		when(bookRep.getOne(new Long(3))).thenReturn(book1);
 		
+		purchaseService.buyCartUnauth(info);
+		assertNull(purchaseService.buyCartUnauth(info));	
+
 	}
+
+	@Test
+	public void buyNowUnauthCart() {
+		
+		UserInfoDTO info = new UserInfoDTO(new Long(1),"Rale","Bogojevic","rale@gmail.com","064",new AdressDTO(new Long(2), "Novi Sad", "Serbia", "Street", "22"));
+		
+		Book book1 = new Book(new Long(3),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		
+		when(bookRep.getOne(book1.getId())).thenReturn(book1);
+		
+		purchaseService.buyNowUnauth(5, book1.getId(), info);
+		
+		assertNull(purchaseService.buyNowUnauth(55555, book1.getId(), info));	
+
+
+	}
+	
 	
 }
 
