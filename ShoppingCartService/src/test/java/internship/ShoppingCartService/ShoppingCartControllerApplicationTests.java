@@ -18,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.google.gson.Gson;
 
@@ -39,9 +38,6 @@ public class ShoppingCartControllerApplicationTests {
 	@Autowired
 	public MockMvc mockMvc;
 	
-    @Autowired
-	private WebApplicationContext wac;
-	
 	@MockBean
     public ShoppingCartServiceImpl shoppingCartService;
 	
@@ -54,16 +50,8 @@ public class ShoppingCartControllerApplicationTests {
 
 	@MockBean
 	protected MockHttpSession mockSession;
-
-
-	 
-	   /* public void setup(){
-	        mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
-	        mockSession = new MockHttpSession(wac.getServletContext(), UUID.randomUUID().toString());
-	        mockSession.setAttribute("session", "session");
-	    }*/
 	
-
+	
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "CUSTOMER")
 	public void getCartTest() throws Exception {
