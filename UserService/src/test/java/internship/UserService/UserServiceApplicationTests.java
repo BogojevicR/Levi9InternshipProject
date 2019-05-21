@@ -156,5 +156,15 @@ public class UserServiceApplicationTests {
 		  
 	  }
 	
+	  @Test
+	  public void loginTest() {
+		  
+		  User user = new User(new Long(1),"Rale", User.Role.ADMIN, "rale");
+		  
+		  Mockito.when(userRepository.logInUser(user.getUsername(), user.getPassword())).thenReturn(user);
+		  
+		  assertEquals(user, userService.login(user.getUsername(), user.getPassword()));
+		  
+	  }
 
 }

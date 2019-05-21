@@ -1,5 +1,6 @@
 package internship.UserService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -98,6 +99,30 @@ public class UserControllerApplicationTests {
 		
     }
     
+    @Test
+    @WithMockUser(username="Rale", authorities="ADMIN", password="rale")
+    public void getAllShouldThrowException() throws Exception {
+    	
+    	List<User> users = new ArrayList<User>();
+		
+    	User userOne = new User(new Long(1),"Rale", User.Role.ADMIN, "rale");
+		User userTwo = new User(new Long(2),"Pera", User.Role.CUSTOMER, "pera");
+		User userThree = new User(new Long(3),"Marko", User.Role.CUSTOMER, "marko");
+
+		
+		users.add(userOne);
+		users.add(userTwo);
+		users.add(userThree);
+				
+		Mockito.when(userService.findAll()).thenReturn(users);
+		Mockito.when(requestSrvice.makeTokenCheck(Mockito.any())).thenThrow(new IOException());
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/user/getAll"))
+		.andExpect(MockMvcResultMatchers.status().isUnauthorized());
+				
+    	Mockito.verify(requestSrvice).makeTokenCheck(Mockito.any());
+
+    }
+    
     
     @Test
     @WithMockUser(username="sara95krasic", authorities="ADMIN", password="saki")
@@ -117,6 +142,22 @@ public class UserControllerApplicationTests {
     }
     
     @Test
+    @WithMockUser(username="Rale", authorities="ADMIN", password="rale")
+    public void getRoleShouldThrowException() throws Exception {
+    	
+    	User user = new User(new Long(1),"Rale", User.Role.CUSTOMER, "rale");
+    	    	
+    	Mockito.when(userService.getRoleById(user.getId())).thenReturn(user.getRole());
+    	Mockito.when(requestSrvice.makeTokenCheck(Mockito.any())).thenThrow(new IOException());
+    	this.mockMvc.perform(MockMvcRequestBuilders.get("/user/getRole/{id}", user.getId()))
+    	.andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+    	
+    	Mockito.verify(requestSrvice).makeTokenCheck(Mockito.any());
+    	
+    }
+    
+    @Test
     @WithMockUser(username="sara95krasic", authorities="ADMIN", password="saki")
     public void getUserTest() throws Exception {
     	
@@ -130,6 +171,23 @@ public class UserControllerApplicationTests {
         .andExpect(MockMvcResultMatchers.content().json(jsonUserRole));
     	
     	Mockito.verify(userService).getById(user.getId());
+    	
+    }
+    
+    @Test
+    @WithMockUser(username="Rale", authorities="ADMIN", password="rale")
+    public void getUserShouldThrowException() throws Exception {
+    	
+    	User user = new User(new Long(1),"Rale", User.Role.CUSTOMER, "rale");
+    	
+    	
+    	Mockito.when(userService.getById(user.getId())).thenReturn(user);
+    	Mockito.when(requestSrvice.makeTokenCheck(Mockito.any())).thenThrow(new IOException());
+
+    	this.mockMvc.perform(MockMvcRequestBuilders.get("/user/getUser/{id}", user.getId()))
+    	.andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
+    	Mockito.verify(requestSrvice).makeTokenCheck(Mockito.any());
     	
     }
     
