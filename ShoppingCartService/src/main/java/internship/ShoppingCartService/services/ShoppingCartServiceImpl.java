@@ -45,10 +45,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		if(!cartId.isPresent()){
 			return new ShoppingCart(sessionShoppingCart);
 		}		
-		if(cartRep.findById(cartId.get()).isPresent()) {
-			Optional<ShoppingCart> cart = cartRep.findById(cartId.get());
-			if(cart.isPresent())
-				return cart.get();	
+		Optional<ShoppingCart> cart = cartRep.findById(cartId.get());
+		if(cart.isPresent()) {
+			return cart.get();
+
 		}		
 		return null;
 	}

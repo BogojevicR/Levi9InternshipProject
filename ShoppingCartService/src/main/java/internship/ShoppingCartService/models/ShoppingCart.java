@@ -11,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 /**
  * Represents the entity of the users shopping cart.
  * @author r.bogojevic
@@ -37,7 +36,7 @@ public class ShoppingCart implements Serializable {
 
 	public ShoppingCart() {
 		super();
-		this.itemList = new ArrayList<CartItem>();
+		this.itemList = new ArrayList<>();
 	}
 	
 
