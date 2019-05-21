@@ -4,18 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 1555f036546a9e64728bdd19feab058ac32e869d
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-<<<<<<< HEAD
-import org.junit.Before;
-=======
->>>>>>> 1555f036546a9e64728bdd19feab058ac32e869d
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
