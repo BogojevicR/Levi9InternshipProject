@@ -28,6 +28,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import com.google.gson.Gson;
 
 import internship.BookService.DTO.BookDTO;
+import internship.BookService.controllers.BookController;
 import internship.BookService.helpers.Requests;
 import internship.BookService.models.Book;
 import internship.BookService.models.Book.State;
@@ -35,7 +36,7 @@ import internship.BookService.models.Category;
 import internship.BookService.services.BookServiceImpl;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest(BookController.class)
 @AutoConfigureMockMvc
 public class TestBookController {
 
@@ -52,7 +53,6 @@ public class TestBookController {
 	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
 	public void saveShouldReturnSavedBook() throws Exception {
 		
-		
 		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		BookDTO dto = new BookDTO(book);
 		when(bookService.save(dto)).thenReturn(dto);
@@ -68,16 +68,15 @@ public class TestBookController {
 	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
 	public void saveShouldThrowException() throws Exception {
 		
-		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
 		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		BookDTO dto = new BookDTO(book);
-		
-	    when(requestService.getCookie(request)).thenReturn("cookie");
-		when(requestService.makeTokenCheck("cookie")).thenThrow(new IOException());
+		when(bookService.save(dto)).thenReturn(dto);
+		when(requestService.makeTokenCheck(Mockito.any())).thenThrow(new IOException());
 		
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/book/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(dto))).andDo(MockMvcResultHandlers.print())
-		.andExpect(MockMvcResultMatchers.status().isOk());
+		.andExpect(MockMvcResultMatchers.status().isUnauthorized());
 		
+		verify(requestService).makeTokenCheck(Mockito.any());
 	} 
 	
 	
@@ -113,7 +112,26 @@ public class TestBookController {
         this.mockMvc.perform(MockMvcRequestBuilders.put("/api/book/disable/{id}",book.getId())).andExpect(MockMvcResultMatchers.status().isOk())
         .andExpect(MockMvcResultMatchers.content().json(new Gson().toJson(response)));
 	}
+	
+	@Test
+	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
+	public void disableShouldThrowException() throws Exception {
+		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		Book response = new Book(new Long(1), "title1", "Author1", new Category(new Long(1),"category1"), 10,10, 10);
+        response.setState(State.DELETED);
+		when(bookService.disable(book.getId())).thenReturn(response);
+		when(requestService.makeTokenCheck(Mockito.any())).thenThrow(new IOException());
+		
+        this.mockMvc.perform(MockMvcRequestBuilders.put("/api/book/disable/{id}",book.getId()))
+        .andExpect(MockMvcResultMatchers.status().isUnauthorized());
+        
+    	verify(requestService).makeTokenCheck(Mockito.any());
+	}
 
+	
+	
+	
+	
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
 	public void editBookShouldReturnTrue() throws Exception {
@@ -127,6 +145,21 @@ public class TestBookController {
 		
 		verify(bookService).edit(dto);
 	}    
+	
+	@Test
+	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
+	public void editBookShouldThrowException() throws Exception {
+		
+		Book edit = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		BookDTO dto = new BookDTO(edit);
+		when(bookService.edit(dto)).thenReturn(dto);
+		when(requestService.makeTokenCheck(Mockito.any())).thenThrow(new IOException());		
+		
+		this.mockMvc.perform(MockMvcRequestBuilders.put("/api/book/edit").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(edit)))
+		.andExpect(MockMvcResultMatchers.status().isUnauthorized());
+		
+		verify(requestService).makeTokenCheck(Mockito.any());
+	} 
 	
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
@@ -230,6 +263,22 @@ public class TestBookController {
 	
 		verify(bookService).addCategory("category1");
 	}
+	
+	@Test
+	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
+	public void addCategoryShouldThrowException() throws Exception{
+		
+		when(bookService.addCategory("category1")).thenReturn(true);
+		when(requestService.makeTokenCheck(Mockito.any())).thenThrow(new IOException());
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/book/addCategory/{name}","category1"))
+		.andExpect(MockMvcResultMatchers.status().isUnauthorized());
+	
+		verify(requestService).makeTokenCheck(Mockito.any());
+	}
+	
+	
+	
 	
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
