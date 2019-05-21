@@ -8,18 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import internship.ShoppingCartService.models.Book;
 import internship.ShoppingCartService.models.CartItem;
@@ -45,22 +40,9 @@ public class ShoppingCartServiceApplicationTests {
 	
 	@Mock
 	BookRepository bookRep;
-	
-	protected MockHttpSession mockSession;
-	
-	@Autowired
-	private WebApplicationContext wac;
-	
+
 	@Mock
 	ShoppingCart sessionShoppingCart;
-
-
-	 @Before()
-	 public void setup(){
-       	MockMvcBuilders.webAppContextSetup(wac).build();
-        mockSession = new MockHttpSession(wac.getServletContext());
-
-	 }
 	
 	
 	@Test
@@ -181,8 +163,8 @@ public class ShoppingCartServiceApplicationTests {
 	}
 	
 	
-		@Test
-		public void emptyCarttest() {
+	@Test
+	public void emptyCarttest() {
 		
 		Book book1 = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		Book book2 = new Book(new Long(2),"title1", "Author1", new Category("category1"), 10, 10, 10);
