@@ -92,14 +92,24 @@ public class TestAuthenticationController {
 	public void validateTokenShouldReturnBoolean() throws Exception {
 		Optional<User> u = Optional.of(new User("rale", "123", Role.ADMIN));
 
-		String token = "Bearer token";
+		String token = "token";
 		
 		Mockito.when(authService.validation(token)).thenReturn(u);
-
 		
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation")).andDo(MockMvcResultHandlers.print())
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization","Bearer " + token)).andDo(MockMvcResultHandlers.print())
 		.andExpect(MockMvcResultMatchers.status().isOk());
 		
+		Mockito.verify(authService).validation(token);
+		
+		Mockito.when(authService.validation(token)).thenReturn(Optional.empty());
+		
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization","Bearer " + token)).andDo(MockMvcResultHandlers.print())
+		.andExpect(MockMvcResultMatchers.status().isUnauthorized());
+		
+		token = "Bearer";
+		
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization",token)).andDo(MockMvcResultHandlers.print())
+		.andExpect(MockMvcResultMatchers.status().isUnauthorized());
 		
 	
 	}
