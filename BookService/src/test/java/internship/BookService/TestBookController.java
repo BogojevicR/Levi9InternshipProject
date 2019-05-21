@@ -4,33 +4,31 @@ package internship.BookService;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 
 import internship.BookService.DTO.BookDTO;
+import internship.BookService.helpers.Requests;
 import internship.BookService.models.Book;
 import internship.BookService.models.Book.State;
 import internship.BookService.models.Category;
@@ -47,11 +45,14 @@ public class TestBookController {
 	@MockBean
 	public BookServiceImpl bookService;
 
-	
+	@MockBean
+	public Requests requestService;
 	
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
 	public void saveShouldReturnSavedBook() throws Exception {
+		
+		
 		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
 		BookDTO dto = new BookDTO(book);
 		when(bookService.save(dto)).thenReturn(dto);
@@ -60,7 +61,26 @@ public class TestBookController {
 		.andExpect(MockMvcResultMatchers.status().isOk());
 		
 		verify(bookService).save(dto);
+		
 	} 
+	
+	@Test
+	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
+	public void saveShouldThrowException() throws Exception {
+		
+		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+		Book book = new Book(new Long(1),"title1", "Author1", new Category("category1"), 10, 10, 10);
+		BookDTO dto = new BookDTO(book);
+		
+	    when(requestService.getCookie(request)).thenReturn("cookie");
+		when(requestService.makeTokenCheck("cookie")).thenThrow(new IOException());
+		
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/book/save").contentType(MediaType.APPLICATION_JSON_UTF8).content(new Gson().toJson(dto))).andDo(MockMvcResultHandlers.print())
+		.andExpect(MockMvcResultMatchers.status().isOk());
+		
+	} 
+	
+	
 	
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")

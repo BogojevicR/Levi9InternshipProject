@@ -29,6 +29,9 @@ import internship.BookService.services.BookServiceImpl;
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
+	
+	@Autowired
+	public Requests requestSrvice;
 
 	@Autowired
 	public BookServiceImpl bookService;	
@@ -40,7 +43,7 @@ public class BookController {
 	@PostMapping(value = "save")
 	public ResponseEntity<BookDTO> save(@RequestBody BookDTO book, HttpServletRequest request) {
 		try {
-			new Requests().makeTokenCheck(new Requests().getCookie(request));
+			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
@@ -55,7 +58,7 @@ public class BookController {
 	@PutMapping(value = "edit")
 	public ResponseEntity<BookDTO> edit(@RequestBody BookDTO book, HttpServletRequest request) {
 		try {
-			new Requests().makeTokenCheck(new Requests().getCookie(request));
+			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
@@ -77,7 +80,7 @@ public class BookController {
 	@PutMapping(value = "disable/{id}")
 	public ResponseEntity<Book> disable(@PathVariable Long id, HttpServletRequest request) {
 		try {
-			new Requests().makeTokenCheck(new Requests().getCookie(request));
+			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
@@ -108,7 +111,7 @@ public class BookController {
 	@PostMapping(value = "addCategory/{name}")
 	public ResponseEntity<Boolean> addCategory(@PathVariable String name, HttpServletRequest request) {
 		try {
-			new Requests().makeTokenCheck(new Requests().getCookie(request));
+			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}

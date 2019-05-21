@@ -41,6 +41,9 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private Requests requestService;
+	
 	/**
 	 * This method is method to save current user.
 	 * @param user represents user who we want to save.
@@ -59,7 +62,7 @@ public class UserController {
 			map.put("password", userDTO.getPassword());
 			map.put("role", userDTO.getRole().toString());
 
-			new Requests().makePostRequest("http://localhost:8085/auth/save",map);
+			requestService.makePostRequest("http://localhost:8085/auth/save",map);
 			
 			return new ResponseEntity<>(userDTO, HttpStatus.OK);
 		}
@@ -75,7 +78,7 @@ public class UserController {
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<List<User>> getAll(HttpServletRequest request) throws IOException{
 		try {
-			new Requests().makeTokenCheck(new Requests().getCookie(request));
+			requestService.makeTokenCheck(requestService.getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
@@ -92,7 +95,7 @@ public class UserController {
 	@GetMapping(value = "/getRole/{id}")
 	public  ResponseEntity<Role>  getRole(@PathVariable Long id, HttpServletRequest request) {
 		try {
-			new Requests().makeTokenCheck(new Requests().getCookie(request));
+			requestService.makeTokenCheck(requestService.getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}	
@@ -105,7 +108,7 @@ public class UserController {
 	@GetMapping(value = "/getUser/{id}")
 	public ResponseEntity<UserDTO> getUser(@PathVariable Long id, HttpServletRequest request){
 		try {
-			new Requests().makeTokenCheck(new Requests().getCookie(request));
+			requestService.makeTokenCheck(requestService.getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
@@ -122,7 +125,7 @@ public class UserController {
 			map.put("username", username);
 			map.put("password", password);
 
-			String response = new Requests().makePostRequest("http://localhost:8085/auth/login",map);
+			String response = requestService.makePostRequest("http://localhost:8085/auth/login",map);
 			Cookie cookie = new Cookie("token" , response);
 			cookie.setValue(response);
 			cookie.setPath("/");
@@ -141,7 +144,7 @@ public class UserController {
 			Map<String, String> map= new HashMap<String,String>();
 			map.put("username", username);
 
-			String response = new Requests().makePostRequest("http://localhost:8085/auth/logout",map);
+			String response = requestService.makePostRequest("http://localhost:8085/auth/logout",map);
 			Cookie cookie = new Cookie("token" ,null);
 			cookie.setMaxAge(0);
 			cookie.setHttpOnly(true);

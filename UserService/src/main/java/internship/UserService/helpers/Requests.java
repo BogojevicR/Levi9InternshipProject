@@ -13,6 +13,8 @@ import java.util.Map.Entry;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Service;
+@Service
 public class Requests {
 	
 	static final  String UTF = "UTF-8";
