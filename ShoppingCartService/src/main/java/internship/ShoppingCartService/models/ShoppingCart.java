@@ -2,9 +2,8 @@ package internship.ShoppingCartService.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -12,9 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.springframework.beans.factory.config.CustomScopeConfigurer;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.support.SimpleThreadScope;
+
 /**
  * Represents the entity of the users shopping cart.
  * @author r.bogojevic
@@ -37,19 +34,6 @@ public class ShoppingCart implements Serializable {
 	 */
 	@ElementCollection
 	private List<CartItem> itemList;
-	
-	/*@Bean
-	  public CustomScopeConfigurer scopeConfigurer() {
-	    CustomScopeConfigurer configurer = new CustomScopeConfigurer();
-	    Map<String, Object> workflowScope = new HashMap<String, Object>();
-	    workflowScope.put("session", new SimpleThreadScope());
-	    configurer.setScopes(workflowScope);
-
-	    return configurer;
-	  }*/
-	
-	
-	
 
 	public ShoppingCart() {
 		super();
