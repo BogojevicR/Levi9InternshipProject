@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -27,6 +28,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
+        			.antMatchers(HttpMethod.GET,"localhost:8081/api/book").authenticated()
         			.antMatchers(HttpMethod.POST,uri).hasAuthority(ADMIN)
         			.antMatchers(HttpMethod.PUT,uri).hasAuthority(ADMIN)
         			.and().httpBasic().and().csrf().disable();
@@ -51,4 +53,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
+ 
+
 }

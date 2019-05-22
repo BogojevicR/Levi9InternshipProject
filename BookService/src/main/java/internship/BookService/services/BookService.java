@@ -4,6 +4,7 @@ import java.util.List;
 
 import internship.BookService.DTO.BookDTO;
 import internship.BookService.models.Book;
+import internship.BookService.models.Category;
 /**
  * Interface for BookService.
  * @author r.bogojevic
@@ -56,6 +57,8 @@ public interface BookService {
 	 * @return List of books which are in chosen category.
 	 */
 	List<Book> getByCategoryId(Long id);
+	
+	List<Category> getAllCategories();
 	
 	
 }

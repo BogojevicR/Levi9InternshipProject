@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import internship.BookService.DTO.BookDTO;
 import internship.BookService.helpers.Requests;
 import internship.BookService.models.Book;
+import internship.BookService.models.Category;
 import internship.BookService.services.BookServiceImpl;
 /**
  * REST Controller for book application.
@@ -27,6 +28,8 @@ import internship.BookService.services.BookServiceImpl;
  * @author r.bogojevic
  *
  */
+
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/book")
 public class BookController {
@@ -128,5 +131,11 @@ public class BookController {
 	public ResponseEntity<List<Book>> getByCategoryId(@PathVariable Long id){
 
 		return new ResponseEntity<>(bookService.getByCategoryId(id),HttpStatus.OK);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:4200")
+	@GetMapping(value = "getAllCategories")
+	public ResponseEntity<List<Category>> getAllCategories( HttpServletRequest request){
+		return new ResponseEntity<>(bookService.getAllCategories(),HttpStatus.OK);
 	}
 }

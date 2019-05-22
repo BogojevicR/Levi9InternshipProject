@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+<<<<<<< HEAD
 import { RouterModule} from '@angular/router'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,17 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     BookComponent,
     NavbarComponent,
     SidebarComponent,
+import { AlertModule } from 'ngx-bootstrap';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { CategoryComponent } from './category/category.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CategoryServiceService } from './services/category-service.service';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +41,11 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     ])
   ],
   providers: [BookService],
+
+    HttpClientModule,
+    AlertModule.forRoot()
+  ],
+  providers: [CategoryServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
