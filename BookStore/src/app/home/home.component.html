@@ -1,0 +1,12 @@
+<div class="main">
+  <br>
+  <input type="search" class="form-control"   placeholder="Filter by title or author">
+  <br>
+  <div  class="row">
+    <div *ngFor="let book of books">
+        <app-book [book]="book"></app-book> 
+    </div>
+  </div>
+</div>
+
+<app-sidebar (booksEvent)="reciveBooks($event)"></app-sidebar>

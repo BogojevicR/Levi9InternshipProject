@@ -72,6 +72,7 @@ public class BookController {
 	 * Collects all existing books in database.
 	 * @return List of all books in database, together with HTTP status.
 	 */
+	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "getAll")
 	public ResponseEntity<List<Book>> getAll( HttpServletRequest request){
 		return new ResponseEntity<>(bookService.getAll(),HttpStatus.OK);
@@ -133,7 +134,6 @@ public class BookController {
 		return new ResponseEntity<>(bookService.getByCategoryId(id),HttpStatus.OK);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "getAllCategories")
 	public ResponseEntity<List<Category>> getAllCategories( HttpServletRequest request){
 		return new ResponseEntity<>(bookService.getAllCategories(),HttpStatus.OK);
