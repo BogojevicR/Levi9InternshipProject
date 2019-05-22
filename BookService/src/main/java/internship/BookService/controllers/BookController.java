@@ -133,7 +133,6 @@ public class BookController {
 		return new ResponseEntity<>(bookService.getByCategoryId(id),HttpStatus.OK);
 	}
 	
-	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "getAllCategories")
 	public ResponseEntity<List<Category>> getAllCategories( HttpServletRequest request){
 		return new ResponseEntity<>(bookService.getAllCategories(),HttpStatus.OK);

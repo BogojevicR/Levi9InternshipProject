@@ -1,6 +1,7 @@
+import { CategoryServiceService } from './../services/category-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Subscriber } from 'rxjs';
-import {BookService} from '../book.service'
+import {BookService} from '../services/book.service'
 
 
 @Component({
@@ -11,13 +12,20 @@ import {BookService} from '../book.service'
 export class HomeComponent implements OnInit {
 
   books = {}
-
-  constructor(private BookService: BookService) { }
+  categories = {}
+  constructor(private bookService: BookService ,private categoryService: CategoryServiceService) { }
 
   ngOnInit() {
-    this.BookService.getAllBooks().subscribe(data => {
+    this.bookService.getAllBooks().subscribe(data => {
       this.books = data;
     });
+    this.categoryService.getAllCategories().subscribe(data => {
+        this.categories = data;
+    });
+  }
+
+  reciveBooks($event){
+    this.books = $event;
   }
 
 }
