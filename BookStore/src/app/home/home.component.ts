@@ -3,14 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Subscriber } from 'rxjs';
 import {BookService} from '../services/book.service'
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  searchValue: any
   books = {}
   categories = {}
   constructor(private bookService: BookService ,private categoryService: CategoryServiceService) { }
@@ -21,6 +20,12 @@ export class HomeComponent implements OnInit {
     });
     this.categoryService.getAllCategories().subscribe(data => {
         this.categories = data;
+    });
+  }
+
+  sort(searchValue : any){
+    this.bookService.sort(searchValue).subscribe(data => {
+      this.books = data;
     });
   }
 

@@ -1,6 +1,6 @@
 <div class="main">
   <br>
-  <input type="search" class="form-control"   placeholder="Filter by title or author">
+  <input #searchValue type="search"  (input)="sort(searchValue.value)" name='searchValue' class="form-control"   placeholder="Filter by title or author">
   <br>
   <div  class="row">
     <div *ngFor="let book of books">

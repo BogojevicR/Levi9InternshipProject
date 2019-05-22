@@ -3,7 +3,7 @@
     width: 160px;
     position: fixed;
     z-index: 1;
-    top: 0;
+    top: 60px;
     left: 0;
     background-color: #428bca;
     overflow-x: hidden;
@@ -20,7 +20,7 @@
   }
   
   .sidebar a:hover {
-    color: #f1f1f1;
+    color:black;
   }
   
  

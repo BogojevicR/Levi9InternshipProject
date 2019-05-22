@@ -24,4 +24,10 @@ export class BookService {
     return this.http.get("http://localhost:8081/api/book/getAllCategories");
   }
 
+  sort(searchValue: any) : Observable<any>{
+    if(searchValue=="")
+      return this.http.get('http://localhost:8081/api/book/getAll');
+    return this.http.get('http://localhost:8081/api/book/sort/' + searchValue);
+  }
+
 }
