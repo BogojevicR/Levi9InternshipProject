@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
 import { RouterModule} from '@angular/router'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +9,9 @@ import { BookService } from './book.service';
 import { BookComponent } from './book/book.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { AlertModule } from 'ngx-bootstrap';
+import { CategoryComponent } from './category/category.component';
+import { CategoryServiceService } from './services/category-service.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,22 +19,13 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     BookComponent,
     NavbarComponent,
     SidebarComponent,
-import { AlertModule } from 'ngx-bootstrap';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { CategoryComponent } from './category/category.component';
-import { HttpClientModule } from '@angular/common/http';
-import { CategoryServiceService } from './services/category-service.service';
-
-@NgModule({
-  declarations: [
-    AppComponent,
     CategoryComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AlertModule.forRoot(),
     RouterModule.forRoot([
       {
         path:'',
@@ -40,12 +33,7 @@ import { CategoryServiceService } from './services/category-service.service';
       }
     ])
   ],
-  providers: [BookService],
-
-    HttpClientModule,
-    AlertModule.forRoot()
-  ],
-  providers: [CategoryServiceService],
+  providers: [BookService,CategoryServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
