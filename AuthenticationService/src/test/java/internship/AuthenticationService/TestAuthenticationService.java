@@ -1,23 +1,22 @@
 package internship.AuthenticationService;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
-
-import internship.AuthenticationService.models.User;
-import internship.AuthenticationService.models.User.Role;
-import internship.AuthenticationService.repositories.UserRepository;
-import internship.AuthenticationService.services.AuthenticationServiceImpl;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+import internship.AuthenticationService.models.User;
+import internship.AuthenticationService.models.User.Role;
+import internship.AuthenticationService.repositories.UserRepository;
+import internship.AuthenticationService.services.AuthenticationServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TestAuthenticationService {
