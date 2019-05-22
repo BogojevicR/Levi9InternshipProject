@@ -41,15 +41,17 @@
   <h4 class="display-6">Categories</h4>
   <hr class="my-4">
 </div>
-<table class="table table-condensed" style="border: 10px">
+<table class="table table-condensed">
   <thead  class="thead-dark">
-    <th>Category name</th>
+    <th></th>
+    <th style="width: 5px;"> Category name</th>
     <th>Options<th>
   </thead>
-  <tr *ngFor='let category of categories'>
-    <td style="width: 100px;">{{ category.name }}</td>
+  <tr *ngFor='let category of categories; index as i '>
+    <td style="width: 50px;">{{i + 1}}</td>
+    <td style="width: 200px;">{{ category.name }}</td>
     <td>
-      <button class="btn btn-outline-info" style = "margin-right: 10px"(click)="navigateToUpdate()">Update</button>
+      <button class="btn btn-outline-info" style = "margin-right: 10px" (click)="navigateToUpdate()">Update</button>
    
       <button class="btn btn-outline-danger" (click)="deleteCategory()">Delete</button>
     </td>
