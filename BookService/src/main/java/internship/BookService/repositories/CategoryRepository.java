@@ -15,4 +15,6 @@ public interface CategoryRepository extends JpaRepository<Category,Long>{
   * @return Category with chosen name.
   */
 	Category findByName(String name);
+	
+	
 }
