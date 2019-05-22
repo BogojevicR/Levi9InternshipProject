@@ -22,7 +22,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-        			.antMatchers(HttpMethod.GET,uri).authenticated()
+        			.antMatchers(HttpMethod.GET,"localhost:8081/api/book").authenticated()
         			.antMatchers(HttpMethod.POST,uri).hasAuthority(ADMIN)
         			.antMatchers(HttpMethod.PUT,uri).hasAuthority(ADMIN)
         			.and().httpBasic().and().csrf().disable();
