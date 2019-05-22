@@ -1,0 +1,28 @@
+<div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header">
+          <h1>Category</h1>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+  
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input formControlName="name" required type="text" class="form-control" name="name">
+              <div *ngIf="(submitted || categoryForm.controls['name'].dirty || categoryForm.controls['name'].touched) && categoryForm.controls['name'].invalid"
+                class="alert alert-danger">
+                <div *ngIf="categoryForm.controls['name'].errors.required">
+                  Name is required.
+                </div>
+                <div *ngIf="categoryForm.controls['name'].errors.pattern">
+                  Invalid name pattern.
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-info btn-block">Add</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

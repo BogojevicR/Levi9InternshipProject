@@ -1,0 +1,8 @@
+<br>
+<h3>Dashboard</h3>
+<br>
+<a *ngFor="let card of cards" class="col-1-4" routerLink="/{{card.url}}">
+  <div class="module card" style="width: 150px; height: 60px;">
+    <h4>{{card.name}}</h4>
+  </div>
+</a>

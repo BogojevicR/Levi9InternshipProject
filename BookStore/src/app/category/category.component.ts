@@ -23,6 +23,8 @@ export class CategoryComponent implements OnInit {
       });
   }
 
-
+  addCategory(){
+    this.router.navigate(['category/add'])
+  }
 
 }

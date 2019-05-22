@@ -114,11 +114,12 @@ public class BookController {
 	 */
 	@PostMapping(value = "addCategory/{name}")
 	public ResponseEntity<Boolean> addCategory(@PathVariable String name, HttpServletRequest request) {
-		try {
+		System.out.println("USAOOOO" + name);
+		/*try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		}catch (IOException e) {
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
-		}
+		}*/
 		return new ResponseEntity<>(bookService.addCategory(name),HttpStatus.OK);
 	}
 	/**
