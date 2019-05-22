@@ -12,18 +12,13 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { AlertModule } from 'ngx-bootstrap';
 import { CategoryComponent } from './category/category.component';
 import { CategoryServiceService } from './services/category-service.service';
-<<<<<<< HEAD
+
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    CategoryComponent,
-    AdminHomeComponent,
-    AddCategoryComponent
-=======
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,19 +26,19 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     BookComponent,
     NavbarComponent,
     SidebarComponent,
-    CategoryComponent
->>>>>>> ce821a7c7ede169b62462000765bbe05a710f09d
+    CategoryComponent,
+    CategoryComponent,
+    AdminHomeComponent,
+    AddCategoryComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-<<<<<<< HEAD
-    HttpClientModule,
-    AlertModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-=======
+
     AlertModule.forRoot(),
     RouterModule.forRoot([
       {
@@ -51,7 +46,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
         component: HomeComponent
       }
     ])
->>>>>>> ce821a7c7ede169b62462000765bbe05a710f09d
   ],
   providers: [BookService,CategoryServiceService],
   bootstrap: [AppComponent]
