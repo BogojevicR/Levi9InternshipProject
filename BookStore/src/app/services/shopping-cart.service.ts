@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,16 @@ export class ShoppingCartService {
 
     return this.http.delete( this.url + "/emptyCart/34");
   }
+  changeQuantity(cartId : any, quantity : number, bookORItemId : any) : Observable<any>{
 
+    return this.http.put( this.url + "/changeQuantity/34" + "/" + quantity + "/" + bookORItemId, null);
+
+  }
+
+  removeItem(cartId : any, bookORItemId : any) : Observable<any>{
+    
+    return this.http.delete( this.url + "/removeItem/34" + "/" + bookORItemId);
+
+  }
 
 }

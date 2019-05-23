@@ -1,4 +1,5 @@
 <div class="sidebar">
+    <h3 style="color: white">Categories:</h3>
     <a  (click)="getBookByCategory('All')"><i class="fa fa-fw"></i>All</a>
   <div *ngFor="let category of categories">
     <a (click)="getBookByCategory(category.id)"><i class="fa fa-fw"></i> {{category.name}}</a>
