@@ -12,14 +12,17 @@ import internship.AuthenticationService.DTO.UserDTO;
 
 /**
  * This class represents entity of user who is buying books.
+ * 
  * @author s.krasic
  *
  */
 
 @Entity
 public class User implements Serializable {
-	
-	public enum Role { ADMIN, CUSTOMER }
+
+	public enum Role {
+		ADMIN, CUSTOMER
+	}
 
 	/**
 	 * 
@@ -27,22 +30,22 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -6655785789440219176L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(nullable = false)
-	private String username;	
-	@Column (nullable = false)
+	private String username;
+	@Column(nullable = false)
 	private Role role;
-	@Column (nullable = false)
+	@Column(nullable = false)
 	private String password;
 	@Column
 	private String token = "";
 
 	
-	public User () {
-		
+	public User() {
+
 	}
-	
+
 	public User(String username, String password, Role role) {
 		super();
 		this.username = username;
@@ -50,7 +53,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.token = "";
 	}
-	
+
 	public User(Long id, String username, Role role, String password, String token) {
 		super();
 		this.id = id;
@@ -59,7 +62,7 @@ public class User implements Serializable {
 		this.password = password;
 		this.token = token;
 	}
-	
+
 	public User(UserDTO dto) {
 		this.id = dto.getId();
 		this.username = dto.getUsername();
@@ -113,5 +116,5 @@ public class User implements Serializable {
 		return "User [id=" + id + ", username=" + username + ", role=" + role + ", password=" + password + ", token="
 				+ token + "]";
 	}
-	
+
 }

@@ -6,12 +6,13 @@ public class CategoryDTO {
 
 	private Long id;
 	private String name;
+
 	
 	public CategoryDTO() {
 		super();
 	}
 
-	public  CategoryDTO( Category category) {
+	public CategoryDTO(Category category) {
 		this.id = category.getId();
 		this.name = category.getName();
 	}
@@ -62,7 +63,5 @@ public class CategoryDTO {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

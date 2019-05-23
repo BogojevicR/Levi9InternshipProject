@@ -10,7 +10,7 @@ import internship.ShoppingCartService.repositories.UserRepository;
 public class UserAccountService implements org.springframework.security.core.userdetails.UserDetailsService {
 
 	private UserRepository userRep;
-		
+
 	public UserAccountService(UserRepository userRep) {
 		this.userRep = userRep;
 	}
@@ -18,9 +18,10 @@ public class UserAccountService implements org.springframework.security.core.use
 	@Override
 	public UserDetails loadUserByUsername(String username) {
 		User user = userRep.findByUsername(username);
-		if(user == null)
+		if (user == null) {
 			return null;
-		
+		}
+
 		return new UserAccount(user);
 	}
 

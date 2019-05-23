@@ -18,24 +18,28 @@ import antlr.StringUtils;
 
 public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
-    AuthenticationFilter(final RequestMatcher requiresAuth) {
-        super(requiresAuth);
-    }
+	AuthenticationFilter(final RequestMatcher requiresAuth) {
+		super(requiresAuth);
+	}
 
-    @Override
-    public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws IOException, ServletException {
+	@Override
+	public Authentication attemptAuthentication(HttpServletRequest httpServletRequest,
+			HttpServletResponse httpServletResponse) throws IOException, ServletException {
 
-        Optional<String> tokenParam = Optional.ofNullable(httpServletRequest.getHeader("Authorization")); //Authorization: Bearer TOKEN
-        String token = httpServletRequest.getHeader("Authorization");
-	    token = StringUtils.stripFront(token, "Bearer").trim();
-        Authentication requestAuthentication = new UsernamePasswordAuthenticationToken(token, token);
-        
-        return getAuthenticationManager().authenticate(requestAuthentication);
-    }
+		Optional<String> tokenParam = Optional.ofNullable(httpServletRequest.getHeader("Authorization")); // Authorization:
+																											// Bearer
+																											// TOKEN
+		String token = httpServletRequest.getHeader("Authorization");
+		token = StringUtils.stripFront(token, "Bearer").trim();
+		Authentication requestAuthentication = new UsernamePasswordAuthenticationToken(token, token);
 
-    @Override
-    protected void successfulAuthentication(final HttpServletRequest request, final HttpServletResponse response, final FilterChain chain, final Authentication authResult) throws IOException, ServletException {
-        SecurityContextHolder.getContext().setAuthentication(authResult);
-        chain.doFilter(request, response);
-    }
+		return getAuthenticationManager().authenticate(requestAuthentication);
+	}
+
+	@Override
+	protected void successfulAuthentication(final HttpServletRequest request, final HttpServletResponse response,
+			final FilterChain chain, final Authentication authResult) throws IOException, ServletException {
+		SecurityContextHolder.getContext().setAuthentication(authResult);
+		chain.doFilter(request, response);
+	}
 }

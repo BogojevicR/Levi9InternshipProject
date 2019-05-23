@@ -7,11 +7,12 @@ public class AdressDTO {
 	private String country;
 	private String street;
 	private String streetNumber;
+
 	
 	public AdressDTO() {
 		super();
 	}
-	
+
 	public AdressDTO(Long id, String city, String country, String street, String streetNumber) {
 		super();
 		this.id = id;
@@ -115,6 +116,5 @@ public class AdressDTO {
 			return false;
 		return true;
 	}
-	
-	
+
 }

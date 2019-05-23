@@ -1,15 +1,14 @@
 package internship.ShoppingCartService.DTO;
 
-
-
 public class UserInfoDTO {
-	
+
 	private Long id;
 	private String name;
 	private String surname;
 	private String email;
 	private String phone;
 	private AdressDTO adress;
+
 	
 	public UserInfoDTO() {
 		super();
@@ -134,7 +133,4 @@ public class UserInfoDTO {
 		return true;
 	}
 
-	
-	
-	
 }

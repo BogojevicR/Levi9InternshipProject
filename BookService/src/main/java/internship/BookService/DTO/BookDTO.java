@@ -1,4 +1,4 @@
-	package internship.BookService.DTO;
+package internship.BookService.DTO;
 
 import internship.BookService.converters.CategoryConverter;
 import internship.BookService.models.Book;
@@ -14,11 +14,12 @@ public class BookDTO {
 	private State state;
 	private int quantity;
 	private int soldAmount;
+
 	
 	public BookDTO() {
 		super();
 	}
-	
+
 	public BookDTO(Book book) {
 		this.id = book.getId();
 		this.title = book.getTitle();
@@ -150,7 +151,5 @@ public class BookDTO {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

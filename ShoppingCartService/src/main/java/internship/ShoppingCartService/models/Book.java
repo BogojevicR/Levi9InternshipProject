@@ -11,65 +11,80 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 /**
- * Book is main entity in BookService. It is used for representation of the book.
+ * Book is main entity in BookService. It is used for representation of the
+ * book.
  * 
  * @author r.bogojevic
  */
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
 public class Book implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Represents state of the book, whether its active for buying or not.
+	 * 
 	 * @author r.bogojevic
 	 *
 	 */
-	public enum State { ACTIVE, DELETED }
+	public enum State {
+		ACTIVE, DELETED
+	}
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5408446439593607546L;
+
 	/**
 	 * Auto-generated, unique key for a book.
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	/**
 	 * Title of the book in text value.
 	 */
 	@Column(nullable = false)
 	private String title;
+
 	/**
 	 * Author of the book in text value.
 	 */
 	@Column(nullable = false)
 	private String author;
+
 	/**
 	 * Cathegory of the book. It contains unique id and name.
 	 */
 	@ManyToOne
 	private Category category;
+
 	/**
 	 * RPrice of the book in numerical value.
 	 */
 	@Column(nullable = false)
 	private double price;
+
 	/**
 	 * Current state of the book.
 	 */
 	@Column(nullable = false)
 	private State state;
+
 	/**
 	 * How many books are on stock in numeric value.
 	 */
 	@Column(nullable = false)
 	private int quantity;
+
 	/**
 	 * Total number of sold books in numeric value.
 	 */
 	@Column(nullable = false)
 	private int soldAmount;
+
 	
 	public Book() {
 		super();
@@ -85,7 +100,7 @@ public class Book implements Serializable {
 		this.quantity = quantity;
 		this.soldAmount = 0;
 	}
-	
+
 	public Book(Long id, String title, String author, Category category, double price, int quantity, int soldAmount) {
 		super();
 		this.id = id;
@@ -164,11 +179,14 @@ public class Book implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", category=" + category.getName() + ", price="
-				+ price + ", state=" + state + ", quantity=" + quantity + ", soldAmount=" + soldAmount + "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", category=" + category.getName()
+				+ ", price=" + price + ", state=" + state + ", quantity=" + quantity + ", soldAmount=" + soldAmount
+				+ "]";
 	}
+
 	/**
 	 * Edits current book by selected one.
+	 * 
 	 * @param book contains values for change.
 	 */
 	public void edit(Book book) {
@@ -180,16 +198,16 @@ public class Book implements Serializable {
 		this.quantity = book.getQuantity();
 		this.soldAmount = book.getSoldAmount();
 	}
-	
+
 	/**
-	 * Simulate payment for books. Removes bought quantity from stock and adds it to sold amount.
+	 * Simulate payment for books. Removes bought quantity from stock and adds it to
+	 * sold amount.
+	 * 
 	 * @param quantity quantity of book
 	 */
 	public void payBook(int quantity) {
 		this.quantity -= quantity;
 		this.soldAmount += quantity;
 	}
-	
-	
-	
+
 }

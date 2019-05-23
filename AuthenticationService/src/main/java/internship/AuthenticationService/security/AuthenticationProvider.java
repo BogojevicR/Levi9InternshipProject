@@ -11,19 +11,21 @@ import internship.AuthenticationService.services.AuthenticationServiceImpl;
 @Component
 public class AuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
-	 @Autowired
-	 AuthenticationServiceImpl authService;
+	@Autowired
+	AuthenticationServiceImpl authService;
 
-	 @Override
-	 protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) {
-	  //
-	 }
+	@Override
+	protected void additionalAuthenticationChecks(UserDetails userDetails,
+			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) {
+		
+	}
 
-	 @Override
-	 protected UserDetails retrieveUser(String userName, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) {
+	@Override
+	protected UserDetails retrieveUser(String userName,
+			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) {
 
-	  Object token = usernamePasswordAuthenticationToken.getCredentials();
-	  return new UserAccount(authService.findByToken(token.toString()));
+		Object token = usernamePasswordAuthenticationToken.getCredentials();
+		return new UserAccount(authService.findByToken(token.toString()));
 
-	 }
+	}
 }

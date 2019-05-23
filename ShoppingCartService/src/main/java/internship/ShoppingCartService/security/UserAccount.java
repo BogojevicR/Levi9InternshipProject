@@ -13,12 +13,14 @@ import internship.ShoppingCartService.models.User;
 
 public class UserAccount implements org.springframework.security.core.userdetails.UserDetails {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -517775068990030390L;
 
-	private static final long serialVersionUID = 1L;
-	
 	private User user;
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() ;
-	
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 	public UserAccount(User user) {
 		super();
 		this.user = user;

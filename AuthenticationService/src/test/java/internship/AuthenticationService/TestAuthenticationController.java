@@ -25,92 +25,99 @@ import internship.AuthenticationService.services.AuthenticationServiceImpl;
 @WebMvcTest
 @AutoConfigureMockMvc(secure = false)
 public class TestAuthenticationController {
-	
+
 	@Autowired
 	public MockMvc mockMvc;
-	
+
 	@MockBean
 	public AuthenticationServiceImpl authService;
-	
 	@MockBean
 	public AuthenticationProvider authProvider;
-	
+
 	@Test
 	public void saveShouldReturnTrue() throws Exception {
-		
+
 		User u = new User("rale", "123", Role.ADMIN);
 
 		Mockito.when(authService.save("rale", "123", Role.ADMIN.toString())).thenReturn(true);
 
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/save").param("username", u.getUsername()).param("password", u.getPassword()).param("role", u.getRole().toString()).contentType(MediaType.APPLICATION_JSON_UTF8))
-		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
-		
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.post("/auth/save").param("username", u.getUsername())
+						.param("password", u.getPassword()).param("role", u.getRole().toString())
+						.contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON_UTF8));
+
 		Mockito.verify(authService).save("rale", "123", Role.ADMIN.toString());
 	}
-	
+
 	@Test
 	public void loginShouldReturnToken() throws Exception {
 		User u = new User("rale", "123", Role.ADMIN);
 		u.setToken("token");
-		
+
 		Mockito.when(authService.login(u.getUsername(), u.getPassword())).thenReturn(u.getToken());
-	
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/login").param("username", u.getUsername()).param("password", u.getPassword()).contentType(MediaType.APPLICATION_JSON_UTF8))
-		.andExpect(MockMvcResultMatchers.status().isOk());
-		
+
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.post("/auth/login").param("username", u.getUsername())
+						.param("password", u.getPassword()).contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
 		Mockito.verify(authService).login(u.getUsername(), u.getPassword());
-		
+
 		Mockito.when(authService.login(u.getUsername(), u.getPassword())).thenReturn("");
-		
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/login").param("username", u.getUsername()).param("password", u.getPassword()).contentType(MediaType.APPLICATION_JSON_UTF8))
-		.andExpect(MockMvcResultMatchers.status().isNotFound());
-			
+
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.post("/auth/login").param("username", u.getUsername())
+						.param("password", u.getPassword()).contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(MockMvcResultMatchers.status().isNotFound());
+
 	}
-	
+
 	@Test
 	public void logoutShouldReturnBoolean() throws Exception {
 		User u = new User("rale", "123", Role.ADMIN);
 		u.setToken("token");
-		
+
 		Mockito.when(authService.logout(u.getUsername())).thenReturn(true);
-		
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/logout").param("username", u.getUsername()).contentType(MediaType.APPLICATION_JSON_UTF8))
-		.andExpect(MockMvcResultMatchers.status().isOk());
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/logout").param("username", u.getUsername())
+				.contentType(MediaType.APPLICATION_JSON_UTF8)).andExpect(MockMvcResultMatchers.status().isOk());
 
 		Mockito.verify(authService).logout(u.getUsername());
 
-		
 		Mockito.when(authService.logout(u.getUsername())).thenReturn(false);
-		
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/logout").param("username", u.getUsername()).contentType(MediaType.APPLICATION_JSON_UTF8))
-		.andExpect(MockMvcResultMatchers.status().isNotFound());
-		
+
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.post("/auth/logout").param("username", u.getUsername())
+						.contentType(MediaType.APPLICATION_JSON_UTF8))
+				.andExpect(MockMvcResultMatchers.status().isNotFound());
+
 	}
-	
+
 	@Test
 	public void validateTokenShouldReturnBoolean() throws Exception {
 		Optional<User> u = Optional.of(new User("rale", "123", Role.ADMIN));
 
 		String token = "token";
-		
+
 		Mockito.when(authService.validation(token)).thenReturn(u);
-		
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization","Bearer " + token)).andDo(MockMvcResultHandlers.print())
-		.andExpect(MockMvcResultMatchers.status().isOk());
-		
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization", "Bearer " + token))
+				.andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isOk());
+
 		Mockito.verify(authService).validation(token);
-		
+
 		Mockito.when(authService.validation(token)).thenReturn(Optional.empty());
-		
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization","Bearer " + token)).andDo(MockMvcResultHandlers.print())
-		.andExpect(MockMvcResultMatchers.status().isUnauthorized());
-		
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization", "Bearer " + token))
+				.andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
 		token = "Bearer";
-		
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization",token)).andDo(MockMvcResultHandlers.print())
-		.andExpect(MockMvcResultMatchers.status().isUnauthorized());
-		
-	
+
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/auth/validation").header("authorization", token))
+				.andDo(MockMvcResultHandlers.print()).andExpect(MockMvcResultMatchers.status().isUnauthorized());
+
 	}
-	
+
 }

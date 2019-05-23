@@ -11,23 +11,23 @@ import javax.persistence.Id;
 @Entity
 public class Adress implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 466068299659178985L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
 	@Column(nullable = false)
 	private String city;
-	
 	@Column(nullable = false)
 	private String country;
-	
 	@Column(nullable = false)
 	private String street;
-	
 	@Column(nullable = false)
 	private String streetNumber;
+
 	
 	public Adress() {
 		super();
@@ -88,5 +88,4 @@ public class Adress implements Serializable {
 				+ streetNumber + "]";
 	}
 
-	
 }

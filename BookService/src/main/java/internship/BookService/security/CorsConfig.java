@@ -1,8 +1,6 @@
 
 package internship.BookService.security;
 
-
-
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 
 import org.springframework.context.annotation.Bean;
@@ -20,70 +18,64 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-
-
-
-
 @Configuration
 
 public class CorsConfig {
 
-    @Bean
+	@Bean
 
-    public FilterRegistrationBean corsFilter() {
+	public FilterRegistrationBean corsFilter() {
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-        CorsConfiguration config = new CorsConfiguration();
+		CorsConfiguration config = new CorsConfiguration();
 
-        config.setAllowCredentials(true);
+		config.setAllowCredentials(true);
 
-        config.addAllowedOrigin("*");
+		config.addAllowedOrigin("*");
 
-        config.addAllowedHeader("*");
+		config.addAllowedHeader("*");
 
-        config.addAllowedMethod("OPTIONS");
+		config.addAllowedMethod("OPTIONS");
 
-        config.addAllowedMethod("HEAD");
+		config.addAllowedMethod("HEAD");
 
-        config.addAllowedMethod("GET");
+		config.addAllowedMethod("GET");
 
-        config.addAllowedMethod("PUT");
+		config.addAllowedMethod("PUT");
 
-        config.addAllowedMethod("POST");
+		config.addAllowedMethod("POST");
 
-        config.addAllowedMethod("DELETE");
+		config.addAllowedMethod("DELETE");
 
-        config.addAllowedMethod("PATCH");
+		config.addAllowedMethod("PATCH");
 
-        source.registerCorsConfiguration("/**", config);
+		source.registerCorsConfiguration("/**", config);
 
-        // return new CorsFilter(source);
+		// return new CorsFilter(source);
 
-        final FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
+		final FilterRegistrationBean bean = new FilterRegistrationBean(new CorsFilter(source));
 
-        bean.setOrder(0);
+		bean.setOrder(0);
 
-        return bean;
+		return bean;
 
-    }
+	}
 
+	@Bean
 
+	public WebMvcConfigurer mvcConfigurer() {
 
-    @Bean
+		return new WebMvcConfigurerAdapter() {
 
-    public WebMvcConfigurer mvcConfigurer() {
+			public void addCorsMappings(CorsRegistry registry) {
 
-        return new WebMvcConfigurerAdapter() {
+				registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "GET", "OPTIONS");
 
-            public void addCorsMappings(CorsRegistry registry) {
+			}
 
-                registry.addMapping("/**").allowedMethods("GET", "PUT", "POST", "GET", "OPTIONS");
+		};
 
-            }
-
-        };
-
-    }
+	}
 
 }
