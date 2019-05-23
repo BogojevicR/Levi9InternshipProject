@@ -9,8 +9,8 @@ import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 export class SidebarComponent implements OnInit {
   @Output() booksEvent = new EventEmitter<any>();
-  books = {}
-  categories = {}
+  books = []
+  categories = []
   constructor(private bookService: BookService ) { }
     
   ngOnInit() {

@@ -1,10 +1,25 @@
-<div class="main">
-  <br>
-  <input #searchValue type="search"  (input)="sort(searchValue.value)" name='searchValue' class="form-control"   placeholder="Filter by title or author">
-  <br>
-  <div  class="row">
-    <div *ngFor="let book of books">
-        <app-book [book]="book"></app-book> 
+<div class="d-flex flex-row">
+  <div class="p-2">
+    <div class="main">
+      <br>
+      <input #searchValue type="search"  (input)="sort(searchValue.value)" name='searchValue' class="form-control"   placeholder="Filter by title or author">
+      <br>
+      <div  class="row">
+        <div *ngFor="let book of books">
+            <app-book [book]="book"></app-book> 
+            <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-2">
+    <br>
+    <div class="card" style="width: 400px; float:right">
+      <div class="card-header"> Top 10 Sold Books </div>
+      <ul class="list-group list-group-flush"  >
+          <li *ngFor="let topBook of topTenBooks;index as i"  class="list-group-item">{{i+1}}. "{{topBook.title}}" by {{topBook.author}}  Sold Amount: {{topBook.soldAmount}}</li>
+      </ul>
     </div>
   </div>
 </div>
