@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
 
     this.bookService.getTopTen().subscribe(data => {
       this.topTenBooks = data;
-      console.log(data)
   });
   }
 

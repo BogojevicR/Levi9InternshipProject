@@ -16,6 +16,7 @@ import { CategoryServiceService } from './services/category-service.service';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 
 
@@ -29,7 +30,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     CategoryComponent,
     CategoryComponent,
     AdminHomeComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    ShoppingCartComponent
 
   ],
   imports: [
@@ -43,7 +45,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     RouterModule.forRoot([
       {
         path:'',
-        component: HomeComponent
+        component: HomeComponent,
+
+      },
+      {
+        path:'cart',
+        component: ShoppingCartComponent
       }
     ])
   ],

@@ -93,6 +93,7 @@ public class Requests {
 	public String getCookie(HttpServletRequest req) {
 		for(Cookie c : req.getCookies()) {
 			if(c.getName().equals("token")) {
+				System.out.println("NASAO TOKEN");
 				return c.getValue();
 			}
 		}
