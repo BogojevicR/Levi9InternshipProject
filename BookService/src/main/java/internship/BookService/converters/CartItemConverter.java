@@ -10,8 +10,10 @@ public class CartItemConverter extends AbstractConverter {
 
 	public static CartItemDTO fromEnity(CartItem e) {
 		if (e != null) {
+			
 			return new CartItemDTO(e);
 		}else {
+			
 			return null;
 		}
 	}
@@ -24,9 +26,11 @@ public class CartItemConverter extends AbstractConverter {
 			cI.setBook(book);
 			cI.setQuantity(d.getQuantity());
 			cI.setTotal(d.getTotal());
+			
 			return cI;
 			
 		}else {
+			
 			return null;
 		}
 	}

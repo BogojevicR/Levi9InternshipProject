@@ -18,43 +18,30 @@ import internship.AuthenticationService.DTO.UserDTO;
 
 @Entity
 public class User implements Serializable {
-
-
-	private static final long serialVersionUID = 1L;
-
-	/** 
-	 * 
-	 * @author s.krasic
-	 * Role - represents role of the user that can be ADMIN or CUSTOMER.
-	 * id is generated value that is value to do identification of user.
-	 * name represents name of the user.
-	 * surname represents surname of the user.
-	 * email represents email of the user.
-	 * password represents password of the user.
-	 * shoppingCart represents shopping cart for users shopping.
-	 * receipts represents list of the receipts that user made by each purchase.
-	 *
-	 */
 	
+	public enum Role { ADMIN, CUSTOMER }
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6655785789440219176L;
+
 	@Id
 	@GeneratedValue (strategy = GenerationType.AUTO)
 	private Long id;
-
-	public enum Role { ADMIN, CUSTOMER }
-	
 	@Column(nullable = false)
-	private String username;
-		
+	private String username;	
 	@Column (nullable = false)
 	private Role role;
-	
 	@Column (nullable = false)
 	private String password;
-	
 	@Column
 	private String token = "";
 
-	public User () {}
+	
+	public User () {
+		
+	}
 	
 	public User(String username, String password, Role role) {
 		super();

@@ -27,10 +27,10 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
 
         Optional<String> tokenParam = Optional.ofNullable(httpServletRequest.getHeader("Authorization")); //Authorization: Bearer TOKEN
         String token = httpServletRequest.getHeader("Authorization");
-	        token = StringUtils.stripFront(token, "Bearer").trim();
+	    token = StringUtils.stripFront(token, "Bearer").trim();
         Authentication requestAuthentication = new UsernamePasswordAuthenticationToken(token, token);
+        
         return getAuthenticationManager().authenticate(requestAuthentication);
-
     }
 
     @Override

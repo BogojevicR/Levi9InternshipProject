@@ -54,7 +54,6 @@ public class ShoppingCart implements Serializable {
 	public ShoppingCart(ShoppingCart sc) {
 		super();
 		this.itemList = sc.getItemList();
-		this.itemList = sc.getItemList();
 		this.id = sc.getId();
 	}
 

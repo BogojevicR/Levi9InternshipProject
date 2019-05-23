@@ -1,3 +1,5 @@
+import { ShoppingCartService } from './../services/shopping-cart.service';
+import { Subscriber } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -9,9 +11,15 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BookComponent implements OnInit {
 
   @Input() book: any;
-  constructor() { }
+  constructor(private cartService: ShoppingCartService) { }
 
   ngOnInit() {
+  }
+
+  addItem(quantity: number, bookId: any){
+    this.cartService.addItem(quantity,bookId).subscribe(data => {
+      console.log(data)
+    })
   }
 
 }

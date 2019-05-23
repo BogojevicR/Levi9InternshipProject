@@ -24,16 +24,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 		super();
 		this.userAccountService = userAccountService;
 	}
-
+ 
 	@Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-        			.antMatchers(HttpMethod.GET,"/api/cart/**").hasAuthority(CUSTOMER)
-        			.antMatchers(HttpMethod.POST,"/api/cart/**").hasAuthority(CUSTOMER)
-        			.antMatchers(HttpMethod.PUT,"/api/reciept/**").hasAuthority(CUSTOMER)
+        			.antMatchers(HttpMethod.GET,"/api/cart/**").permitAll()
+        			.antMatchers(HttpMethod.POST,"/api/cart/**").permitAll()
+        			.antMatchers(HttpMethod.PUT,"/api/reciept/**").permitAll()
         			.and().httpBasic().and().csrf().disable();
-        
-
+       
     }
 
     @Autowired

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import internship.UserService.converter.UserConverter;
-import internship.UserService.helpers.Requests;
+import internship.UserService.helpers.RequestSenderHelper;
 import internship.UserService.model.User;
 import internship.UserService.model.User.Role;
 import internship.UserService.modelsDTO.UserDTO;
@@ -41,7 +41,7 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
-	private Requests requestService;
+	private RequestSenderHelper requestService;
 	
 	public final String USERNAME = "username";
 	

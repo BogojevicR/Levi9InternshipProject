@@ -20,6 +20,9 @@ import { AdminBookComponent } from './admin-book/admin-book.component';
 import { AdminBookEditComponent } from './admin-book-edit/admin-book-edit.component';
 import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component';
 
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+
+
 
 
 @NgModule({
@@ -33,9 +36,13 @@ import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component
     CategoryComponent,
     AdminHomeComponent,
     AddCategoryComponent,
+
     AdminBookComponent,
     AdminBookEditComponent,
-    AdminBookAddComponent
+    AdminBookAddComponent,
+
+    ShoppingCartComponent
+
 
   ],
   imports: [
@@ -49,7 +56,12 @@ import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component
     RouterModule.forRoot([
       {
         path:'',
-        component: HomeComponent
+        component: HomeComponent,
+
+      },
+      {
+        path:'cart',
+        component: ShoppingCartComponent
       }
     ])
   ],

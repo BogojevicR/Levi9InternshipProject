@@ -25,7 +25,7 @@ import com.google.gson.Gson;
 
 import internship.UserService.controllers.UserController;
 import internship.UserService.converter.UserConverter;
-import internship.UserService.helpers.Requests;
+import internship.UserService.helpers.RequestSenderHelper;
 import internship.UserService.model.User;
 import internship.UserService.modelsDTO.UserDTO;
 import internship.UserService.security.UserAccountService;
@@ -46,7 +46,7 @@ public class UserControllerApplicationTests {
 	public UserAccountService userAccountService;
     
     @MockBean
-	public Requests requestSrvice;
+	public RequestSenderHelper requestSrvice;
     
 
     @WithMockUser(username="sara95krasic", authorities="ADMIN", password="saki")

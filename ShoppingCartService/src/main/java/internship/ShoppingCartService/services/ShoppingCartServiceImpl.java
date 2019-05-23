@@ -63,6 +63,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	public List<CartItem> getCartItems(Optional<Long> cartId) {
 	
 		if(!cartId.isPresent()){
+			
 			return sessionShoppingCart.getItemList();
 		}
 		

@@ -27,7 +27,7 @@ import com.google.gson.Gson;
 
 import internship.BookService.DTO.BookDTO;
 import internship.BookService.controllers.BookController;
-import internship.BookService.helpers.Requests;
+import internship.BookService.helpers.RequestSenderHelper;
 import internship.BookService.models.Book;
 import internship.BookService.models.Book.State;
 import internship.BookService.models.Category;
@@ -45,7 +45,7 @@ public class TestBookController {
 	public BookServiceImpl bookService;
 
 	@MockBean
-	public Requests requestService;
+	public RequestSenderHelper requestService;
 	
 	@Test
 	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 @Service
-public class Requests {
+public class RequestSenderHelper {
 	
 	static final  String UTF = "UTF-8";
 	

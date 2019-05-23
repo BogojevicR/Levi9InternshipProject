@@ -3,6 +3,7 @@ package internship.AuthenticationService.services;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 			
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -34,23 +36,27 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	public String login(String username, String password) {
 		User user = userRep.login(username, password);
         if(user != null){
-        	if(!user.getToken().equals(""))
+        	if(!StringUtils.isEmpty(user.getToken())) {
         		return user.getToken();
+        	}
+        		
             String token = UUID.randomUUID().toString();
             user.setToken(token);
             userRep.save(user);
             return token;
         }
 
-        return "";
+        return StringUtils.EMPTY;
 	}
 
 	@Override
 	public User findByToken(String token) {
 		Optional<User> user= userRep.findByToken(token);
         if(user.isPresent()){
+        	
             return  user.get();
         }
+        
         return  null;
 	}
 
@@ -58,15 +64,17 @@ public class AuthenticationServiceImpl implements AuthenticationService{
 	public boolean logout(String username) {
 		User user = userRep.findByUsername(username);
 		if(user != null) {
-			user.setToken("");
+			user.setToken(StringUtils.EMPTY);
 			userRep.save(user);
+			
 			return true;
 		}
+		
 			return false;
 	}
+	
 	@Override
 	public Optional<User> validation(String token) {
-		
 		
 		return userRep.findByToken(token);
 	}
