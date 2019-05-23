@@ -11,28 +11,27 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class UserInfo implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3314503969967203292L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
 	@Column(nullable = false)
 	private String name;
-	
 	@Column(nullable = false)
 	private String surname;
-	
 	@Column(nullable = false)
 	private String email;
-	
 	@Column(nullable = false)
 	private String phone;
-	
 	@OneToOne
 	private Adress adress;
 
+	
 	public UserInfo() {
 		super();
 	}
@@ -94,5 +93,5 @@ public class UserInfo implements Serializable {
 	public void setAdress(Adress adress) {
 		this.adress = adress;
 	}
-	
+
 }

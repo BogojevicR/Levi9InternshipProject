@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 
 /**
  * This class represents entity of user who is buying books.
+ * 
  * @author s.krasic
  *
  */
@@ -20,49 +21,46 @@ import javax.persistence.OneToOne;
 @Entity
 public class User implements Serializable {
 
+	public enum Role {
+		ADMIN, CUSTOMER
+	}
 
-	private static final long serialVersionUID = 1L;
-
-	/** 
+	/**
 	 * 
-	 * @author s.krasic
-	 * Role - represents role of the user that can be ADMIN or CUSTOMER.
-	 * id is generated value that is value to do identification of user.
-	 * email represents email of the user.
-	 * password represents password of the user.
-	 * shoppingCart represents shopping cart for users shopping.
-	 * receipts represents list of the receipts that user made by each purchase.
+	 */
+	private static final long serialVersionUID = 6636653181427178539L;
+
+	/**
+	 * 
+	 * @author s.krasic Role - represents role of the user that can be ADMIN or
+	 *         CUSTOMER. id is generated value that is value to do identification of
+	 *         user. email represents email of the user. password represents
+	 *         password of the user. shoppingCart represents shopping cart for users
+	 *         shopping. receipts represents list of the receipts that user made by
+	 *         each purchase.
 	 *
 	 */
-	
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-
-	public enum Role { ADMIN, CUSTOMER }
-	
-	@Column (nullable = false, unique = true )
+	@Column(nullable = false, unique = true)
 	private String username;
-	
-	@Column (nullable = false)
+	@Column(nullable = false)
 	private String password;
-	
-	@Column (nullable = false)
+	@Column(nullable = false)
 	private Role role;
-	
 	@OneToOne
 	private ShoppingCart shoppingCart;
-	
 	@OneToOne
 	private UserInfo userInfo;
-
 	@ElementCollection
 	private List<Purchase> purchases;
 
-	public User () {}
 	
-	public User (Long id, String username, Role role, String password,UserInfo userInfo, ShoppingCart shoppingCart) {
+	public User() {
+	}
+
+	public User(Long id, String username, Role role, String password, UserInfo userInfo, ShoppingCart shoppingCart) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -70,20 +68,19 @@ public class User implements Serializable {
 		this.role = role;
 		this.password = password;
 		this.shoppingCart = shoppingCart;
-		
+
 	}
 
-	
-	public User (Long id, String username, Role role, String password, ShoppingCart shoppingCart) {
+	public User(Long id, String username, Role role, String password, ShoppingCart shoppingCart) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.role = role;
 		this.password = password;
 		this.shoppingCart = shoppingCart;
-		
+
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -107,7 +104,7 @@ public class User implements Serializable {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -115,7 +112,6 @@ public class User implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 
 	public ShoppingCart getShoppingCart() {
 		return shoppingCart;
@@ -147,10 +143,4 @@ public class User implements Serializable {
 				+ ", shoppingCart=" + shoppingCart + ", userInfo=" + userInfo + ", purchases=" + purchases + "]";
 	}
 
-	
-
-
-
-	
-	
 }

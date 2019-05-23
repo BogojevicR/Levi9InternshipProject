@@ -5,11 +5,11 @@ import internship.BookService.models.Book;
 
 public abstract class BookConverter extends AbstractConverter {
 
-	public static BookDTO fromEntity (Book b) {
+	public static BookDTO fromEntity(Book b) {
 		return new BookDTO(b);
 	}
-	
-	public static Book toEntity (BookDTO b) {
+
+	public static Book toEntity(BookDTO b) {
 		Book book = new Book();
 		book.setId(b.getId());
 		book.setTitle(b.getTitle());
@@ -19,8 +19,8 @@ public abstract class BookConverter extends AbstractConverter {
 		book.setState(b.getState());
 		book.setQuantity(b.getQuantity());
 		book.setSoldAmount(b.getSoldAmount());
-		
+
 		return book;
 	}
-	
+
 }

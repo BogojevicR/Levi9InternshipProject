@@ -10,7 +10,7 @@ public class UserDTO {
 	private Role role;
 	private String password;
 	private String token = "";
-	
+
 	
 	public UserDTO() {
 		super();
@@ -40,8 +40,6 @@ public class UserDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
 
 	public String getUsername() {
 		return username;
@@ -79,6 +77,6 @@ public class UserDTO {
 	public String toString() {
 		return "UserDTO [id=" + id + ", username=" + username + ", role=" + role + ", password=" + password + ", token="
 				+ token + "]";
-	}	
-	
+	}
+
 }

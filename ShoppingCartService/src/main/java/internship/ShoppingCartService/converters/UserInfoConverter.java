@@ -17,14 +17,14 @@ public class UserInfoConverter {
 			userInfoDTO.setName(e.getName());
 			userInfoDTO.setSurname(e.getSurname());
 			userInfoDTO.setPhone(e.getPhone());
-			
+
 			return userInfoDTO;
-		}else {
-			
+		} else {
+
 			return null;
 		}
 	}
-	
+
 	public static UserInfo toEntity(UserInfoDTO d) {
 		if (d != null) {
 			UserInfo userInfo = new UserInfo();
@@ -35,16 +35,16 @@ public class UserInfoConverter {
 			userInfo.setName(d.getName());
 			userInfo.setSurname(d.getSurname());
 			userInfo.setPhone(d.getPhone());
-			
+
 			return userInfo;
-		}else {
-			
+		} else {
+
 			return null;
 		}
 	}
-	
+
 	private UserInfoConverter() {
-		
+
 	}
-	
+
 }
