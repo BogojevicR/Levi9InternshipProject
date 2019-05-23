@@ -57,7 +57,7 @@ public class UserController {
 	public  ResponseEntity<UserDTO>  save(@RequestBody UserDTO userDTO) throws IOException {
 		User u = UserConverter.toEntity(userDTO); 
 
-		if(userService.save(u)) {
+		/*if(userService.save(u)) {
 			Map<String, String> map= new HashMap<>();
 			map.put(USERNAME, userDTO.getUsername());
 			map.put("password", userDTO.getPassword());
@@ -66,7 +66,8 @@ public class UserController {
 			requestService.makePostRequest("http://localhost:8085/auth/save",map);
 			
 			return new ResponseEntity<>(userDTO, HttpStatus.OK);
-		}
+		}*/
+		userService.save(u);
 		return new ResponseEntity<> (userDTO, HttpStatus.OK); 
 	}
 	

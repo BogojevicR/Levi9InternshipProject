@@ -8,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class AdminHomeComponent implements OnInit {
 
   cards = [
-    { "name": "Catrgory", "url": "category" }
+    { "name": "Catrgory", "url": "category" },
+    { "name": "Book", "url" : "adminBook"},   
   ];
 
 

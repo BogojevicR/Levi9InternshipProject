@@ -16,7 +16,12 @@ import { CategoryServiceService } from './services/category-service.service';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AdminBookComponent } from './admin-book/admin-book.component';
+import { AdminBookEditComponent } from './admin-book-edit/admin-book-edit.component';
+import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component';
+
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+
 
 
 
@@ -31,7 +36,13 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     CategoryComponent,
     AdminHomeComponent,
     AddCategoryComponent,
+
+    AdminBookComponent,
+    AdminBookEditComponent,
+    AdminBookAddComponent,
+
     ShoppingCartComponent
+
 
   ],
   imports: [

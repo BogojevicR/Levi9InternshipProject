@@ -1,0 +1,11 @@
+<div class="card" style="width: 18rem;">
+  <div class="card-header"> {{book.title}} </div>
+  <ul class="list-group list-group-flush">
+      <li class="list-group-item">Author: {{book.author}}</li>
+      <li class="list-group-item">Category: {{book.category.name}}</li>
+      <li class="list-group-item">Price: {{book.price}} RSD</li>
+      <li class="list-group-item">Quanity: {{book.quantity}} </li>
+      <li class="list-group-item"> <button class="btn btn-outline-info" style = "margin-right: 10px" (click)="navigateToUpdate()">Update</button> </li>
+      <li class="list-group-item">  <button class="btn btn-outline-danger" (click)="deleteBook()">Delete</button> </li>
+  </ul>
+</div>

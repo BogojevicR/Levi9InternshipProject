@@ -78,4 +78,6 @@ public interface BookService {
 
 	List<Category> getAllCategories();
 
+	Category getCategoryById(Long id);
+
 }

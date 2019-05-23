@@ -35,4 +35,9 @@ export class BookService {
     return this.http.get( this.url + '/sort/' + searchValue);
   }
 
+  addBook (book){
+    console.log(book)
+    return this.http.post("http://localhost:8081/api/book/save", book);
+  }
+
 }

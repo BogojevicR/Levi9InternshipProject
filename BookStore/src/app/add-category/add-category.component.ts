@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 
+
+
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
@@ -29,16 +31,16 @@ export class AddCategoryComponent implements OnInit {
   addCategory(){
     this.submitted = true;
     if (this.categoryForm.invalid) {
-     // swal("Your input is not valid.")
+      swal.fire("Your input is not valid.")
     }
     else {
       console.log(this.categoryForm.value.name);
       this.categoryService.addCategory(this.categoryForm.value.name).subscribe(res => {
-      //  swal('Successfully added!')
+        swal.fire('Successfully added!')
         this.router.navigate(['category/']);
       },
         err => {
-       //   swal('Something went wrong!')
+          swal.fire('Something went wrong!')
         })
     }
   }

@@ -48,12 +48,15 @@ public class BookController {
 	 */
 	@PostMapping(value = "save")
 	public ResponseEntity<BookDTO> save(@RequestBody BookDTO book, HttpServletRequest request) {
-		try {
+		/*try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		} catch (IOException e) {
 
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
+			
+			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		}*/
 		BookDTO response = bookService.save(book);
 
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -173,5 +176,12 @@ public class BookController {
 	public ResponseEntity<List<Category>> getAllCategories() {
 
 		return new ResponseEntity<>(bookService.getAllCategories(), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getCategory/{id}")
+	public ResponseEntity<Category> getCategory(@PathVariable Long id){
+		Category category = bookService.getCategoryById(id);
+		System.out.println("Kategorija je **" + category.getId());
+		return new ResponseEntity<>(category,HttpStatus.OK);
 	}
 }
