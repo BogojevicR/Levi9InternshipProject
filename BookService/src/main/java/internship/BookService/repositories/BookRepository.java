@@ -48,4 +48,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	 */
 	@Query("SELECT b FROM Book b ORDER BY sold_amount DESC")
 	ArrayList<Book> findTopTen();
+	
+	@Query("SELECT b FROM Book b where state = 0")
+	ArrayList<Book> getActiveBooks();
 }

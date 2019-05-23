@@ -12,11 +12,11 @@ export class AdminBookComponent implements OnInit {
   
   constructor(private bookService : BookService, private router: Router, private activeRoute: ActivatedRoute,) { }
 
-  books = [];
+  books: any = [];
   
   ngOnInit() {
 
-    this.bookService.getAllBooks().subscribe(data => {
+    this.bookService.getActiveBooks().subscribe(data => {
       this.books = data;
     });
   }
