@@ -9,25 +9,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-
-
 /**
- * Book is main entity in BookService. It is used for representation of the book.
+ * Book is main entity in BookService. It is used for representation of the
+ * book.
  * 
  * @author r.bogojevic
  */
 @Entity
-public class Book implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Book implements Serializable {
+
+	private static final long serialVersionUID = 753402533479256954L;
+
 	/**
 	 * Represents state of the book, whether its active for buying or not.
+	 * 
 	 * @author r.bogojevic
 	 *
 	 */
-	public enum State { ACTIVE, DELETED }
+	public enum State {
+		ACTIVE, DELETED
+	}
+
 	/**
 	 * Auto-generated, unique key for a book.
 	 */
@@ -69,7 +71,7 @@ public class Book implements Serializable{
 	 */
 	@Column(nullable = false)
 	private int soldAmount;
-	
+
 	public Book() {
 		super();
 	}
@@ -84,8 +86,7 @@ public class Book implements Serializable{
 		this.quantity = quantity;
 		this.soldAmount = 0;
 	}
-	
-	
+
 	public Book(Long id, String title, String author, Category category, double price, int quantity, int soldAmount) {
 		super();
 		this.id = id;
@@ -97,8 +98,8 @@ public class Book implements Serializable{
 		this.quantity = quantity;
 		this.soldAmount = soldAmount;
 	}
-	
-	public Book(Long id,String title, String author, Category category, double price, State state, int quantity) {
+
+	public Book(Long id, String title, String author, Category category, double price, State state, int quantity) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -176,11 +177,14 @@ public class Book implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", category=" + category.getName() + ", price="
-				+ price + ", state=" + state + ", quantity=" + quantity + ", soldAmount=" + soldAmount + "]";
+		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", category=" + category.getName()
+				+ ", price=" + price + ", state=" + state + ", quantity=" + quantity + ", soldAmount=" + soldAmount
+				+ "]";
 	}
+
 	/**
 	 * Edits current book by selected one.
+	 * 
 	 * @param book contains values for change.
 	 */
 	public void edit(Book book) {
@@ -192,15 +196,16 @@ public class Book implements Serializable{
 		this.quantity = book.getQuantity();
 		this.soldAmount = book.getSoldAmount();
 	}
+
 	/**
-	 * Simulate payment for books. Removes bought quantity from stock and adds it to sold amount.
+	 * Simulate payment for books. Removes bought quantity from stock and adds it to
+	 * sold amount.
+	 * 
 	 * @param quantity quantity of book
 	 */
 	public void payBook(int quantity) {
 		this.quantity -= quantity;
 		this.soldAmount += quantity;
 	}
-	
-	
-	
+
 }

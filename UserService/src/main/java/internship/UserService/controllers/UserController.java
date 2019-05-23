@@ -29,6 +29,7 @@ import internship.UserService.services.UserService;
 
 /**
  * This class represents controller for user.
+ * 
  * @author s.krasic
  *
  */
@@ -39,120 +40,118 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
 	@Autowired
 	private RequestSenderHelper requestService;
-	
+
 	public final String USERNAME = "username";
-	
+
 	/**
 	 * This method is method to save current user.
+	 * 
 	 * @param user represents user who we want to save.
 	 * @return saved user.
-	 * @throws IOException 
+	 * @throws IOException
 	 * 
 	 */
-	
 	@PostMapping(value = "/save")
-	public  ResponseEntity<UserDTO>  save(@RequestBody UserDTO userDTO) throws IOException {
-		User u = UserConverter.toEntity(userDTO); 
-
-		/*if(userService.save(u)) {
-			Map<String, String> map= new HashMap<>();
-			map.put(USERNAME, userDTO.getUsername());
-			map.put("password", userDTO.getPassword());
-			map.put("role", userDTO.getRole().toString());
-
-			requestService.makePostRequest("http://localhost:8085/auth/save",map);
-			
-			return new ResponseEntity<>(userDTO, HttpStatus.OK);
-		}*/
+	public ResponseEntity<UserDTO> save(@RequestBody UserDTO userDTO) throws IOException {
+		User u = UserConverter.toEntity(userDTO);
+		/*
+		 * if(userService.save(u)) { Map<String, String> map= new HashMap<>();
+		 * map.put(USERNAME, userDTO.getUsername()); map.put("password",
+		 * userDTO.getPassword()); map.put("role", userDTO.getRole().toString());
+		 * 
+		 * requestService.makePostRequest("http://localhost:8085/auth/save",map);
+		 * 
+		 * return new ResponseEntity<>(userDTO, HttpStatus.OK); }
+		 */
 		userService.save(u);
-		return new ResponseEntity<> (userDTO, HttpStatus.OK); 
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
-	
+
 	/**
 	 * This method is method to get all users.
+	 * 
 	 * @return list of all users.
-	 * @throws IOException 
+	 * @throws IOException
 	 */
-	
 	@GetMapping(value = "/getAll")
-	public ResponseEntity<List<User>> getAll(HttpServletRequest request) throws IOException{
+	public ResponseEntity<List<User>> getAll(HttpServletRequest request) throws IOException {
 		try {
 			requestService.makeTokenCheck(requestService.getCookie(request));
-		}catch (IOException e) {
-			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
-		return new ResponseEntity<> (userService.findAll(),HttpStatus.OK);	
+		return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
 	}
-	
+
 	/**
 	 * This method is method to get role of the user.
+	 * 
 	 * @param id represents id of the user which role we want to get.
 	 * @return string of the role.
 	 * 
 	 */
-	
 	@GetMapping(value = "/getRole/{id}")
-	public  ResponseEntity<Role>  getRole(@PathVariable Long id, HttpServletRequest request) {
+	public ResponseEntity<Role> getRole(@PathVariable Long id, HttpServletRequest request) {
 		try {
 			requestService.makeTokenCheck(requestService.getCookie(request));
-		}catch (IOException e) {
-			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
-		}	
-		
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+
 		Role rola = userService.getRoleById(id);
-		return new ResponseEntity<> (rola, HttpStatus.OK); 
+		return new ResponseEntity<>(rola, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping(value = "/getUser/{id}")
-	public ResponseEntity<UserDTO> getUser(@PathVariable Long id, HttpServletRequest request){
+	public ResponseEntity<UserDTO> getUser(@PathVariable Long id, HttpServletRequest request) {
 		try {
 			requestService.makeTokenCheck(requestService.getCookie(request));
-		}catch (IOException e) {
-			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
+		} catch (IOException e) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 		User user = userService.getById(id);
 		UserDTO userDTO = UserConverter.fromEntity(user);
-		return new ResponseEntity<> (userDTO,HttpStatus.OK);
+		return new ResponseEntity<>(userDTO, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/login")
-    public ResponseEntity<String> login(@RequestParam("username") final String username, @RequestParam("password") final String password, HttpServletResponse resp) throws IOException{
-		User u = userService.login(username,password);
-		if(u != null) {
-			Map<String, String> map= new HashMap<>();
+	public ResponseEntity<String> login(@RequestParam("username") final String username,
+			@RequestParam("password") final String password, HttpServletResponse resp) throws IOException {
+
+		User u = userService.login(username, password);
+		if (u != null) {
+			Map<String, String> map = new HashMap<>();
 			map.put(USERNAME, username);
 			map.put("password", password);
 
-			String response = requestService.makePostRequest("http://localhost:8085/auth/login",map);
-			Cookie cookie = new Cookie("token" , response);
+			String response = requestService.makePostRequest("http://localhost:8085/auth/login", map);
+			Cookie cookie = new Cookie("token", response);
 			cookie.setValue(response);
 			cookie.setPath("/");
 			cookie.setHttpOnly(true);
 			resp.addCookie(cookie);
-			
+
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
-		
-       return new ResponseEntity<>(username, HttpStatus.NOT_FOUND);
-    }
-	
+
+		return new ResponseEntity<>(username, HttpStatus.NOT_FOUND);
+	}
+
 	@GetMapping(value = "/logout")
-    public ResponseEntity<String> logout(@RequestParam("username") final String username, HttpServletResponse resp) throws IOException{
+	public ResponseEntity<String> logout(@RequestParam("username") final String username, HttpServletResponse resp)
+			throws IOException {
+		Map<String, String> map = new HashMap<>();
+		map.put(USERNAME, username);
 
-			Map<String, String> map= new HashMap<>();
-			map.put(USERNAME, username);
+		String response = requestService.makePostRequest("http://localhost:8085/auth/logout", map);
+		Cookie cookie = new Cookie("token", null);
+		cookie.setMaxAge(0);
+		cookie.setHttpOnly(true);
+		resp.addCookie(cookie);
 
-			String response = requestService.makePostRequest("http://localhost:8085/auth/logout",map);
-			Cookie cookie = new Cookie("token" ,null);
-			cookie.setMaxAge(0);
-			cookie.setHttpOnly(true);
-			resp.addCookie(cookie);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-			
-    } 
-	
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
 }

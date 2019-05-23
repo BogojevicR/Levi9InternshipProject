@@ -8,17 +8,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
 /**
  * Represents entity of item in shopping cart.
+ * 
  * @author r.bogojevic
  *
  */
 @Entity
 public class CartItem implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -9149749877463635726L;
+
 	/**
 	 * Auto-generated,unique key for each Cart Item.
 	 */
@@ -40,7 +41,7 @@ public class CartItem implements Serializable {
 	 */
 	@Column(nullable = false)
 	private double total;
-	
+
 	public CartItem() {
 		super();
 	}
@@ -94,7 +95,5 @@ public class CartItem implements Serializable {
 	public String toString() {
 		return "CartItem [id=" + id + ", book=" + book + ", quantity=" + quantity + ", total=" + total + "]";
 	}
-	
-	
-		
+
 }

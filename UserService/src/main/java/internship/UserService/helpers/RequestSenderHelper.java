@@ -16,10 +16,30 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+
+
 @Component
 public class RequestSenderHelper {
 
 	static final String UTF = "UTF-8";
+
+
+	/**
+	 * This method is used for all post requests
+	 * 
+	 * @param url        - location or rest resource
+	 * @param jsonObject - object that is going to be send via post request
+	 * @return returns string of whatever rest resource returns
+	 */
+
+	/**
+	 * This method is used for all post requests
+	 * 
+	 * @param url        - location or rest resource
+	 * @param jsonObject - object that is going to be send via post request
+	 * @return returns string of whatever rest resource returns
+	 * @throws IOException
+	 */
 
 	public String makePostRequest(String url, Map<String, String> params) throws IOException {
 		URL uri = new URL(url);
@@ -79,12 +99,12 @@ public class RequestSenderHelper {
 
 	public String getCookie(HttpServletRequest req) {
 		for (Cookie c : req.getCookies()) {
-			if (c.getName().equals("token")) {
-				
+			if (c.getName().equals("token")) {		
 				return c.getValue();
 			}
 		}
 		return StringUtils.EMPTY;
+
 	}
 
 }

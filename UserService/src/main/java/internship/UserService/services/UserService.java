@@ -8,9 +8,13 @@ import internship.UserService.model.User.Role;
 public interface UserService {
 
 	List<User> findAll();
+
 	boolean save(User u);
+
 	Role getRoleById(Long id);
+
 	User getById(Long id);
+
 	User login(String username, String password);
-	
+
 }
