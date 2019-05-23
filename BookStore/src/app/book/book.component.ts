@@ -1,6 +1,6 @@
 import { ShoppingCartService } from './../services/shopping-cart.service';
-import { Subscriber } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-book',
@@ -18,7 +18,21 @@ export class BookComponent implements OnInit {
 
   addItem(quantity: number, bookId: any){
     this.cartService.addItem(quantity,bookId).subscribe(data => {
+      if (data){
+        swal.fire({
+          title: 'Added item to Cart!',
+          type: 'success'
+        })
+      } else{
+        swal.fire({
+          title: 'Item allready in Cart!',
+          type: 'error'
+        })
+      }
+      
     })
+      
+    
   }
 
 }
