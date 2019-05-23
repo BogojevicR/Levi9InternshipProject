@@ -63,18 +63,18 @@ export class AdminBookAddComponent implements OnInit {
   addBook(){
     this.submitted = true;
 
-    console.log("2" + this.categorySelected.id + this.categorySelected.id.name)
+    console.log("2" + this.categorySelected.id + this.categorySelected.name)
     
     this.book = {
       title : this.bookForm.controls['name'].value,
+      author : this.bookForm.controls['author'].value,
       category : {
          id : this.categorySelected.id,
          name: this.categorySelected.name,
       },
-      author : this.bookForm.controls['author'].value,
       price : this.bookForm.controls['price'].value,
+      state : "0",
       quantity : this.bookForm.controls['quantity'].value,
-      state : 0,
       soldAmount : 0
     }
 

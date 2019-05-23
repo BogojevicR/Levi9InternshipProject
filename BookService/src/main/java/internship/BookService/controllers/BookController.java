@@ -46,12 +46,12 @@ public class BookController {
 	 */
 	@PostMapping(value = "save")
 	public ResponseEntity<BookDTO> save(@RequestBody BookDTO book, HttpServletRequest request) {
-		try {
+		/*try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		} catch (IOException e) {
 			
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
-		}
+		}*/
 		BookDTO response = bookService.save(book);
 		
 		return new ResponseEntity<>(response, HttpStatus.OK);
@@ -157,7 +157,7 @@ public class BookController {
 	 * Collects all categories.
 	 * @return List of all categories
 	 */
-	@GetMapping(value = "getAllCategories")
+	@GetMapping(value = "/getAllCategories")
 	public ResponseEntity<List<Category>> getAllCategories(){		
 		return new ResponseEntity<>(bookService.getAllCategories(),HttpStatus.OK);
 	}
