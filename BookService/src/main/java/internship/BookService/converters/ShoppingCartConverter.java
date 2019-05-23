@@ -10,8 +10,8 @@ public class ShoppingCartConverter extends AbstractConverter{
 			ShoppingCartDTO shoppingCartDTO = new ShoppingCartDTO();
 			shoppingCartDTO.setId(e.getId());
 			shoppingCartDTO.setItemList(e.getItemList());
-			return shoppingCartDTO;
 			
+			return shoppingCartDTO;	
 		}else {
 			
 			return null;
@@ -23,6 +23,7 @@ public class ShoppingCartConverter extends AbstractConverter{
 			ShoppingCart shoppingCart = new ShoppingCart();
 			shoppingCart.setId(d.getId());
 			shoppingCart.setItemList(d.getItemList());
+			
 			return shoppingCart;
 			
 		}else {

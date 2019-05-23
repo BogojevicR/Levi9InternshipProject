@@ -19,6 +19,7 @@ public abstract class BookConverter extends AbstractConverter {
 		book.setState(b.getState());
 		book.setQuantity(b.getQuantity());
 		book.setSoldAmount(b.getSoldAmount());
+		
 		return book;
 	}
 	

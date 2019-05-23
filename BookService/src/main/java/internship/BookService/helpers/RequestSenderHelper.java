@@ -1,4 +1,4 @@
-package internship.UserService.helpers;
+package internship.BookService.helpers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,9 +13,10 @@ import java.util.Map.Entry;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Service;
-@Service
-public class Requests {
+import org.springframework.stereotype.Component;
+
+@Component
+public class RequestSenderHelper {
 	
 	static final  String UTF = "UTF-8";
 	
@@ -92,6 +93,7 @@ public class Requests {
 	public String getCookie(HttpServletRequest req) {
 		for(Cookie c : req.getCookies()) {
 			if(c.getName().equals("token")) {
+				System.out.println("NASAO TOKEN");
 				return c.getValue();
 			}
 		}

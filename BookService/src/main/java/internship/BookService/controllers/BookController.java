@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import internship.BookService.DTO.BookDTO;
-import internship.BookService.helpers.Requests;
+import internship.BookService.helpers.RequestSenderHelper;
 import internship.BookService.models.Book;
 import internship.BookService.models.Category;
 import internship.BookService.services.BookServiceImpl;
@@ -35,10 +35,10 @@ import internship.BookService.services.BookServiceImpl;
 public class BookController {
 	
 	@Autowired
-	public Requests requestSrvice;
-
+	public RequestSenderHelper requestSrvice;
 	@Autowired
-	public BookServiceImpl bookService;	
+	public BookServiceImpl bookService;
+	
 	/**
 	 * Method for saving a book in database.
 	 * @param book book which will be saved.
@@ -48,12 +48,15 @@ public class BookController {
 	public ResponseEntity<BookDTO> save(@RequestBody BookDTO book, HttpServletRequest request) {
 		try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
-		}catch (IOException e) {
+		} catch (IOException e) {
+			
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
 		BookDTO response = bookService.save(book);
+		
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
+	
 	/**
 	 * Method for editing a book.
 	 * @param book book for editing.
@@ -63,11 +66,14 @@ public class BookController {
 	public ResponseEntity<BookDTO> edit(@RequestBody BookDTO book, HttpServletRequest request) {
 		try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
-		}catch (IOException e) {
+		} catch (IOException e) {
+			
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
+		
 		return new ResponseEntity<>(bookService.edit(book),HttpStatus.OK);
 	}
+	
 	/**
 	 * Collects all existing books in database.
 	 * @return List of all books in database, together with HTTP status.
@@ -75,8 +81,10 @@ public class BookController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@GetMapping(value = "getAll")
 	public ResponseEntity<List<Book>> getAll( HttpServletRequest request){
+		
 		return new ResponseEntity<>(bookService.getAll(),HttpStatus.OK);
 	}
+	
 	/**
 	 * Remove book with chosen id from sale.
 	 * @param id from book for disable.
@@ -86,19 +94,24 @@ public class BookController {
 	public ResponseEntity<Book> disable(@PathVariable Long id, HttpServletRequest request) {
 		try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
-		}catch (IOException e) {
+		} catch (IOException e) {
+			
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}
+		
 		return new ResponseEntity<>(bookService.disable(id),HttpStatus.OK);
 	}
+	
 	/**
 	 * Collects top ten most sold books.
 	 * @return returns top ten sold books, together with HTTP status.
 	 */
 	@GetMapping(value = "getTopTen")
 	public ResponseEntity<List<Book>> getTopTen(){
+		
 		return new ResponseEntity<>(bookService.getTopTen(),HttpStatus.OK);
 	}
+	
 	/**
 	 * Sorts all books in database by author or title.
 	 * @param input value for sorting.
@@ -106,8 +119,10 @@ public class BookController {
 	 */
 	@GetMapping(value = "sort/{input}")
 	public ResponseEntity<List<Book>> sort(@PathVariable String input){
+		
 		return new ResponseEntity<>(bookService.sort(input),HttpStatus.OK);
 	}
+	
 	/**
 	 * Adds category to database.
 	 * @param name name of category.
@@ -118,11 +133,14 @@ public class BookController {
 		System.out.println("USAOOOO" + name);
 		/*try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
-		}catch (IOException e) {
+		} catch (IOException e) {
+		
 			return new ResponseEntity<> (HttpStatus.UNAUTHORIZED);
 		}*/
+		
 		return new ResponseEntity<>(bookService.addCategory(name),HttpStatus.OK);
 	}
+	
 	/**
 	 * Collects all books from chosen category.
 	 * @param id id of category.
@@ -134,8 +152,13 @@ public class BookController {
 		return new ResponseEntity<>(bookService.getByCategoryId(id),HttpStatus.OK);
 	}
 	
+	/**
+	 * Collects all categories.
+	 * @return List of all categories
+	 */
 	@GetMapping(value = "getAllCategories")
-	public ResponseEntity<List<Category>> getAllCategories( HttpServletRequest request){
+	public ResponseEntity<List<Category>> getAllCategories(){
+		
 		return new ResponseEntity<>(bookService.getAllCategories(),HttpStatus.OK);
 	}
 }
