@@ -125,7 +125,7 @@ public class ShoppingCartController {
 	 * 
 	 */
 	@DeleteMapping(value = { "emptyCart/{cartId}", "emptyCart" })
-	public boolean emptyCart(@PathVariable Optional<Long> cartId) {
+	public ShoppingCart emptyCart(@PathVariable Optional<Long> cartId) {
 
 		return cartService.emptyCart(cartId);
 	}

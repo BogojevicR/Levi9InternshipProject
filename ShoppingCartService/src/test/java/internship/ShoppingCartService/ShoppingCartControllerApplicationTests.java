@@ -176,7 +176,7 @@ public class ShoppingCartControllerApplicationTests {
 		listOfItems.add(cI2);
 		ShoppingCart shopingCart = new ShoppingCart(new Long(2), listOfItems);
 
-		Mockito.when(shoppingCartService.emptyCart(Optional.of(shopingCart.getId()))).thenReturn(true);
+		Mockito.when(shoppingCartService.emptyCart(Optional.of(shopingCart.getId()))).thenReturn(new ShoppingCart(new Long(2)));
 
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/cart/emptyCart/{cartId}", shopingCart.getId()))
 				.andExpect(MockMvcResultMatchers.status().isOk())

@@ -170,9 +170,9 @@ public class ShoppingCartServiceApplicationTests {
 
 		Mockito.when(shoppingCartRepository.getOne(shopingCart.getId())).thenReturn(shopingCart);
 
-		boolean response = shoppingCartService.emptyCart(Optional.of(shopingCart.getId()));
+		ShoppingCart response = shoppingCartService.emptyCart(Optional.of(shopingCart.getId()));
 
-		assertEquals(true, response);
+		assertNotNull(response);
 		assertEquals(0, listOfItems.size());
 
 		Mockito.when(shoppingCartRepository.getOne(shopingCart.getId())).thenReturn(null);

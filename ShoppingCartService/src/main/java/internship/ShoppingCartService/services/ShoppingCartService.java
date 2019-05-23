@@ -16,7 +16,7 @@ public interface ShoppingCartService {
 
 	boolean changeQuantity(Optional<Long> cartId, int quantity, Long itemId);
 
-	boolean emptyCart(Optional<Long> cartId);
+	ShoppingCart emptyCart(Optional<Long> cartId);
 
 	boolean removeItem(Optional<Long> cartId, Long cartItemId);
 

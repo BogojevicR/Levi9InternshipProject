@@ -1,3 +1,31 @@
-<p>
-  shopping-cart works!
-</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Total</th>
+      <th scope="col">Change</th>
+      <th scope="col">Remove</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    <tr *ngFor="let item of cart.itemList;index as i">
+      <th>{{i+1}}</th>
+      <td>{{item.book.title}}</td>
+      <td>{{item.book.author}}</td>
+      <td>{{item.book.category.name}}</td>
+      <td>{{item.book.price}}</td>
+      <td><input #quantityValue type="number" min=1  name='quantityValue' value={{item.quantity}}></td>
+      <td>{{item.total}}</td>
+      <td><button type="button" (click)="changeQuantity(34,quantityValue.value,item.id)"  class="btn btn-info" >Change Quantity</button></td>
+      <td><button type="button"  (click)="removeItem(34,item.id)"class="btn btn-danger" >Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+<button type="button" (click)="emptyCart()" style="float: right; margin-right: 20px; width: 150px"  class="btn btn-danger" >Empty Cart</button>
+<button type="button"   style="float: left; margin-left: 20px; width: 150px "class="btn btn-primary" >Pay</button>

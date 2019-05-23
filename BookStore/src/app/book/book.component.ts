@@ -18,7 +18,6 @@ export class BookComponent implements OnInit {
 
   addItem(quantity: number, bookId: any){
     this.cartService.addItem(quantity,bookId).subscribe(data => {
-      console.log(data)
     })
   }
 
