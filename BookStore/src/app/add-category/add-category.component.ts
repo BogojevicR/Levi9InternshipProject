@@ -29,12 +29,12 @@ export class AddCategoryComponent implements OnInit {
   addCategory(){
     this.submitted = true;
     if (this.categoryForm.invalid) {
-  //    swal("Your input is not valid.")
+     // swal("Your input is not valid.")
     }
     else {
       console.log(this.categoryForm.value.name);
       this.categoryService.addCategory(this.categoryForm.value.name).subscribe(res => {
-     //   swal('Successfully added!')
+      //  swal('Successfully added!')
         this.router.navigate(['category/']);
       },
         err => {
