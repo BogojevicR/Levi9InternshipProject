@@ -15,8 +15,12 @@ export class ShoppingCartService {
   }
 
   addItem(quantity: number, bookId: any) {
-    console.log(quantity,bookId)
     return this.http.post( this.url + "/addItem/34/" + quantity + "/" + bookId, null );
+  }
+
+  emptyCart() : Observable<any>{
+
+    return this.http.delete( this.url + "/emptyCart/34");
   }
 
 

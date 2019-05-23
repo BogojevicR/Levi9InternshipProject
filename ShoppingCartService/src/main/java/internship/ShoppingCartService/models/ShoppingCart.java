@@ -11,12 +11,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * Represents the entity of the users shopping cart.
  * 
  * @author r.bogojevic
  *
  */
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class ShoppingCart implements Serializable {
 	/**

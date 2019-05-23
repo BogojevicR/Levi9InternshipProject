@@ -151,11 +151,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 	 * 
 	 */
 	@Override
-	public boolean emptyCart(Optional<Long> cartId) {
+	public ShoppingCart emptyCart(Optional<Long> cartId) {
 		if (!cartId.isPresent()) {
 			sessionShoppingCart.getItemList().clear();
 
-			return true;
+			return new ShoppingCart(sessionShoppingCart);
 		}
 
 		ShoppingCart cart = cartRep.getOne(cartId.get());
@@ -168,10 +168,10 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 			cart.getItemList().clear();
 			cartRep.save(cart);
 
-			return true;
+			return cart;
 		}
 
-		return false;
+		return null;
 	}
 
 	/**

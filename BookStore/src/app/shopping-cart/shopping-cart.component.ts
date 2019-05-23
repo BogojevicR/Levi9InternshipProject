@@ -7,13 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-
+  cart = []
   constructor(private cartService : ShoppingCartService) { }
 
   ngOnInit() {
       this.cartService.getCart().subscribe(data => {
-        console.log(data)
+        this.cart = data;
       })
   }
 
+  emptyCart(){
+    console.log("USAO")
+    this.cartService.emptyCart().subscribe(data => {
+      this.cart = data;
+    })
+  }
 }
