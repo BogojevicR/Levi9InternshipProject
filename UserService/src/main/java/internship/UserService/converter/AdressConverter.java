@@ -3,7 +3,7 @@ package internship.UserService.converter;
 import internship.UserService.model.Adress;
 import internship.UserService.modelsDTO.AdressDTO;
 
-public class AdressConverter extends AbstractConverter{
+public class AdressConverter extends AbstractConverter {
 
 	public static AdressDTO formEnity(Adress e) {
 		if (e != null) {
@@ -13,14 +13,14 @@ public class AdressConverter extends AbstractConverter{
 			adressDTO.setCountry(e.getCountry());
 			adressDTO.setStreet(e.getStreet());
 			adressDTO.setStreetNumber(e.getStreetNumber());
-			
+
 			return adressDTO;
-		}else {
-			
+		} else {
+
 			return null;
 		}
 	}
-	
+
 	public static Adress toEnity(AdressDTO d) {
 		if (d != null) {
 			Adress adress = new Adress();
@@ -29,14 +29,12 @@ public class AdressConverter extends AbstractConverter{
 			adress.setCountry(d.getCountry());
 			adress.setStreet(d.getStreet());
 			adress.setStreetNumber(d.getStreetNumber());
-			
+
 			return adress;
-		}else {
-			
+		} else {
+
 			return null;
 		}
 	}
-	
-	
-	
+
 }

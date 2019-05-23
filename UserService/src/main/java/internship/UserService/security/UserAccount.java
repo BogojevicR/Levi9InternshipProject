@@ -13,11 +13,11 @@ import internship.UserService.model.User;
 
 public class UserAccount implements org.springframework.security.core.userdetails.UserDetails {
 
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1082120371225245627L;
+
 	private User user;
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder() ;
-	
+	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
 	public UserAccount(User user) {
 		super();
 		this.user = user;

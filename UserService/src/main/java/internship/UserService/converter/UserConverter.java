@@ -7,10 +7,10 @@ import internship.UserService.modelsDTO.ShoppingCartDTO;
 import internship.UserService.modelsDTO.UserDTO;
 import internship.UserService.modelsDTO.UserInfoDTO;
 
-
 public class UserConverter {
-	
+
 	public static UserDTO fromEntity(User e) {
+
 		if (e != null) {
 			UserDTO userDTO = new UserDTO();
 			userDTO.setId(e.getId());
@@ -22,16 +22,15 @@ public class UserConverter {
 			ShoppingCartDTO shoppingCartDTO = ShoppingCartConverter.fromEntity(e.getShoppingCart());
 			userDTO.setShoppingCart(shoppingCartDTO);
 			userDTO.setPurchases(e.getPurchases());
-			
 			return userDTO;
-			
-		}else {
-			
+
+		} else {
 			return null;
 		}
 	}
-	
+
 	public static User toEntity(UserDTO d) {
+
 		if (d != null) {
 			User user = new User();
 			user.setId(d.getId());
@@ -43,16 +42,15 @@ public class UserConverter {
 			ShoppingCart shoppingCart = ShoppingCartConverter.toEntity(d.getShoppingCart());
 			user.setShoppingCart(shoppingCart);
 			user.setPurchases(d.getPurchases());
-			
+
 			return user;
-			
-		}else {
-			
+
+		} else {
 			return null;
 		}
 	}
-	
-	private UserConverter(){
+
+	private UserConverter() {
 	}
 
 }

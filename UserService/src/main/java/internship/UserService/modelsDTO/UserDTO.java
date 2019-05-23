@@ -7,7 +7,6 @@ import internship.UserService.model.User.Role;
 
 public class UserDTO {
 
-	
 	private Long id;
 	private String username;
 	private String password;
@@ -15,13 +14,13 @@ public class UserDTO {
 	private ShoppingCartDTO shoppingCart;
 	private UserInfoDTO userInfo;
 	private List<Purchase> purchases;
-	
-	
+
 	public UserDTO() {
 		super();
 	}
-	
-	public UserDTO(Long id, String username, String password, Role role, ShoppingCartDTO shoppingCart, UserInfoDTO userInfo) {
+
+	public UserDTO(Long id, String username, String password, Role role, ShoppingCartDTO shoppingCart,
+			UserInfoDTO userInfo) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -92,7 +91,5 @@ public class UserDTO {
 		return "UserDTO [id=" + id + ", username=" + username + ", password=" + password + ", role=" + role
 				+ ", shoppingCart=" + shoppingCart + ", userInfo=" + userInfo + ", purchases=" + purchases + "]";
 	}
-	
-	
-	
+
 }

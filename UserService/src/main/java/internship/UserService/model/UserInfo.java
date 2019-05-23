@@ -10,27 +10,26 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity
-public class UserInfo implements Serializable{
-	
-	
-	private static final long serialVersionUID = 1L;
+public class UserInfo implements Serializable {
+
+	private static final long serialVersionUID = -4554832946526877103L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@Column(nullable = false)
 	private String name;
-	
+
 	@Column(nullable = false)
 	private String surname;
-	
+
 	@Column(nullable = false)
 	private String email;
-	
+
 	@Column(nullable = false)
 	private String phone;
-	
+
 	@OneToOne
 	private Adress adress;
 
@@ -56,7 +55,7 @@ public class UserInfo implements Serializable{
 		this.email = email;
 		this.phone = phone;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -165,8 +164,5 @@ public class UserInfo implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
 }

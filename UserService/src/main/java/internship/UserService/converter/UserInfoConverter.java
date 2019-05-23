@@ -8,6 +8,7 @@ import internship.UserService.modelsDTO.UserInfoDTO;
 public class UserInfoConverter {
 
 	public static UserInfoDTO fromEntity(UserInfo e) {
+
 		if (e != null) {
 			UserInfoDTO userInfoDTO = new UserInfoDTO();
 			userInfoDTO.setId(e.getId());
@@ -17,15 +18,15 @@ public class UserInfoConverter {
 			userInfoDTO.setName(e.getName());
 			userInfoDTO.setSurname(e.getSurname());
 			userInfoDTO.setPhone(e.getPhone());
-			
 			return userInfoDTO;
-		}else {
-			
+
+		} else {
 			return null;
 		}
 	}
-	
+
 	public static UserInfo toEntity(UserInfoDTO d) {
+
 		if (d != null) {
 			UserInfo userInfo = new UserInfo();
 			userInfo.setId(d.getId());
@@ -35,16 +36,15 @@ public class UserInfoConverter {
 			userInfo.setName(d.getName());
 			userInfo.setSurname(d.getSurname());
 			userInfo.setPhone(d.getPhone());
-			
 			return userInfo;
-		}else {
-			
+
+		} else {
 			return null;
 		}
 	}
-	
+
 	private UserInfoConverter() {
-		
+
 	}
-	
+
 }
