@@ -23,6 +23,10 @@ export class CategoryServiceService {
       
   }
 
+  getCategory(id){
+    return this.http.get(this.url + "/getCategory/" + id, id);
+  }
+
   
 
 }

@@ -5,12 +5,16 @@ import {CategoryComponent } from 'src/app/category/category.component';
 import { from } from 'rxjs';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { AdminBookComponent } from './admin-book/admin-book.component';
+import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component';
 
 const routes: Routes = [
   
   { path : "category", component: CategoryComponent},
   { path : "admin", component: AdminHomeComponent},
   { path : "category/add", component: AddCategoryComponent},
+  { path : "adminBook", component : AdminBookComponent},
+  { path : "adminBook/add", component : AdminBookAddComponent}
 
 ];
 

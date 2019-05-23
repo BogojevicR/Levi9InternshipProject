@@ -94,5 +94,10 @@ public class BookServiceImpl implements BookService {
 		return  categoryRep.findAll();
 	}
 
+	@Override
+	public Category getCategoryById(Long id) {
+		return categoryRep.getOne(id);
+	}
+
 
 }

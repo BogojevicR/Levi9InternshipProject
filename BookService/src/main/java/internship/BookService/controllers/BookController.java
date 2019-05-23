@@ -134,8 +134,15 @@ public class BookController {
 		return new ResponseEntity<>(bookService.getByCategoryId(id),HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "getAllCategories")
-	public ResponseEntity<List<Category>> getAllCategories( HttpServletRequest request){
+	@GetMapping(value = "/getAllCategories")
+	public ResponseEntity<List<Category>> getAllCategories(){
 		return new ResponseEntity<>(bookService.getAllCategories(),HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/getCategory/{id}")
+	public ResponseEntity<Category> getCategory(@PathVariable Long id){
+		Category category = bookService.getCategoryById(id);
+		System.out.println("Kategorija je **" + category.getId());
+		return new ResponseEntity<>(category,HttpStatus.OK);
 	}
 }

@@ -1,0 +1,17 @@
+<div class="jumbotron">
+  <p class="lead"></p>
+  <div>
+  <h4 class="display-6">Books</h4>
+  <button class="btn btn-outline-info" (click)="addBook()" type="button">New Book</button>
+  <hr class="my-4">
+  </div>
+</div>
+
+<div  class="row" style = "margin-top: 20px" >
+  <div *ngFor="let book of books" style = "margin-right: 20px">
+      <app-admin-book-edit [book]="book"></app-admin-book-edit> 
+      <br>
+  </div>
+</div>
+<div>
+</div>

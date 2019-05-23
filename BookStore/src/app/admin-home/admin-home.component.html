@@ -1,6 +1,11 @@
-<br>
-<h3>Dashboard</h3>
-<br>
+
+<div class="jumbotron">
+  <p class="lead"></p>
+  <div>
+  <h4 class="display-6">Dashboard</h4>
+  <hr class="my-4">
+  </div>
+</div>
 <a *ngFor="let card of cards" class="col-1-4" routerLink="/{{card.url}}">
   <div class="module card" style="width: 150px; height: 60px;">
     <h4>{{card.name}}</h4>
