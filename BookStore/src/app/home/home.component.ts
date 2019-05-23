@@ -10,17 +10,23 @@ import {BookService} from '../services/book.service'
 })
 export class HomeComponent implements OnInit {
   searchValue: any
-  books = {}
-  categories = {}
+  books = []
+  categories = []
+  topTenBooks = []
   constructor(private bookService: BookService ,private categoryService: CategoryServiceService) { }
 
   ngOnInit() {
     this.bookService.getAllBooks().subscribe(data => {
       this.books = data;
     });
-    this.categoryService.getAllCategories().subscribe(data => {
+    this.bookService.getAllCategories().subscribe(data => {
         this.categories = data;
     });
+
+    this.bookService.getTopTen().subscribe(data => {
+      this.topTenBooks = data;
+      console.log(data)
+  });
   }
 
   sort(searchValue : any){
