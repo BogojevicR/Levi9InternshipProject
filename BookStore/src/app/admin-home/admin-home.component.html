@@ -6,8 +6,11 @@
   <hr class="my-4">
   </div>
 </div>
-<a *ngFor="let card of cards" class="col-1-4" routerLink="/{{card.url}}">
-  <div class="module card" style="width: 150px; height: 60px;">
-    <h4>{{card.name}}</h4>
+
+<div style="margin-left: 30px">
+<a *ngFor="let card of cards" style="text-align: center" class="col-1-4" routerLink="/{{card.url}}">
+  <div class="module card" style="width: 150px; height: 60px; margin-top: 20px; background-color: #e9ecef; color: black ">
+    <h4 style= "margin-top: 10px;">{{card.name}}</h4>
   </div>
 </a>
+</div>
