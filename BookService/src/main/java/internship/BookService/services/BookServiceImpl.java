@@ -111,4 +111,9 @@ public class BookServiceImpl implements BookService {
 		return categoryRep.getOne(id);
 	}
 
+	@Override
+	public List<Book> getActiveBooks() {
+		return bookRep.getActiveBooks();
+	}
+
 }

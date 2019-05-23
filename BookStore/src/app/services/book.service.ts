@@ -40,4 +40,12 @@ export class BookService {
     return this.http.post("http://localhost:8081/api/book/save", book);
   }
 
+  disableBook(id){
+    return this.http.put("http://localhost:8081/api/book/disable/" + id, id);
+  }
+
+  getActiveBooks(){
+    return this.http.get("http://localhost:8081/api/book/getActiveBooks");
+  }
+
 }

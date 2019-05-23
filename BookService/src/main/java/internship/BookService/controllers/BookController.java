@@ -100,12 +100,12 @@ public class BookController {
 	 */
 	@PutMapping(value = "disable/{id}")
 	public ResponseEntity<Book> disable(@PathVariable Long id, HttpServletRequest request) {
-		try {
+	/*	try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		} catch (IOException e) {
 
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+		}*/
 
 		return new ResponseEntity<>(bookService.disable(id), HttpStatus.OK);
 	}
@@ -174,7 +174,6 @@ public class BookController {
 	 */
 	@GetMapping(value = "getAllCategories")
 	public ResponseEntity<List<Category>> getAllCategories() {
-
 		return new ResponseEntity<>(bookService.getAllCategories(), HttpStatus.OK);
 	}
 	
@@ -183,5 +182,10 @@ public class BookController {
 		Category category = bookService.getCategoryById(id);
 		System.out.println("Kategorija je **" + category.getId());
 		return new ResponseEntity<>(category,HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "getActiveBooks")
+	public ResponseEntity<List<Book>> getActiveBooks() {
+		return new ResponseEntity<>(bookService.getActiveBooks(), HttpStatus.OK);
 	}
 }
