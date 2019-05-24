@@ -30,7 +30,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 	 * @param input value for sorting.
 	 * @return List of sorted books.
 	 */
-	@Query("SELECT b FROM Book b WHERE b.author LIKE %:input% OR b.title LIKE %:input%")
+	@Query("SELECT b FROM Book b WHERE b.state = 0 AND b.author LIKE %:input% OR b.title LIKE %:input%")
 	ArrayList<Book> findLike(@Param("input") String input);
 
 	/**
