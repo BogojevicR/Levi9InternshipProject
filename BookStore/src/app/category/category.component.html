@@ -14,15 +14,16 @@
   <thead  class="thead-dark">
     <th></th>
     <th style="width: 5px;"> Category name</th>
-    <th>Options<th>
+   <!-- <th>Options<th> -->
+     <th></th>
   </thead>
   <tr *ngFor='let category of categories; index as i '>
     <td style="width: 50px;">{{i + 1}}</td>
     <td style="width: 200px;">{{ category.name }}</td>
-    <td>
-      <button class="btn btn-outline-info" style = "margin-right: 10px" (click)="navigateToUpdate()">Update</button>
+    <!--td>
+     <button class="btn btn-outline-info" style = "margin-right: 10px" (click)="navigateToUpdate()">Update</button>
    
       <button class="btn btn-outline-danger" (click)="deleteCategory()">Delete</button>
-    </td>
+    </td>-->
   </tr>
 </table>
