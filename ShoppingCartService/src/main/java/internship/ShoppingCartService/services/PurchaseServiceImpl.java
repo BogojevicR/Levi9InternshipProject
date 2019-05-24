@@ -43,6 +43,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	ShoppingCart sessionShoppingCart;
 
 	private Purchase purchase;
+
 	@Override
 	public Purchase buyNow(Long userId, int quantity, Long bookId) {
 		User user = userRep.getOne(userId);

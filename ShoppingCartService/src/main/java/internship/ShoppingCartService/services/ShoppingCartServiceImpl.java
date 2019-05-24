@@ -33,7 +33,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
 	@Resource(name = "sessionShoppingCart")
 	ShoppingCart sessionShoppingCart;
-
+	
 	/**
 	 * This method is method to get shopping cart.
 	 * 

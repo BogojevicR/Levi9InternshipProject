@@ -77,8 +77,7 @@ public class PurchaseController {
 	}
 
 	@PostMapping(value = "/buyNow/{quantity}/{bookId}")
-	public ResponseEntity<Purchase> buyNow(@PathVariable int quantity, @PathVariable Long bookId,
-			@RequestBody UserInfoDTO userInfo) {
+	public ResponseEntity<Purchase> buyNow(@PathVariable int quantity, @PathVariable Long bookId, @RequestBody UserInfoDTO userInfo) {
 		Purchase response = purchaseService.buyNowUnauth(quantity, bookId, userInfo);
 		if (response.getId() != null) {
 

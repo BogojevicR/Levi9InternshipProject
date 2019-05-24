@@ -48,7 +48,6 @@ public class BookServiceImpl implements BookService {
 		return b;
 	}
 
-
 	@Override
 	public BookDTO edit(BookDTO book) {
 		Book b = bookRep.getOne(book.getId());

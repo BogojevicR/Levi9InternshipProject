@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -55,6 +56,7 @@ public class TestPurchaseService {
 	@Mock
 	ShoppingCart sessionShoppingCart;
 
+	
 	@Test
 	public void buyNowTest() {
 

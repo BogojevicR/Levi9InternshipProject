@@ -15,9 +15,8 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
 	AuthenticationServiceImpl authService;
 
 	@Override
-	protected void additionalAuthenticationChecks(UserDetails userDetails,
-			UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) {
-		
+	protected void additionalAuthenticationChecks(UserDetails userDetails, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) {
+		//Copied method
 	}
 
 	@Override
