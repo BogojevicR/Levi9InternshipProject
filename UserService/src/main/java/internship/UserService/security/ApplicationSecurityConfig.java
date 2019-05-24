@@ -27,7 +27,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 	    web.ignoring().antMatchers("/user/getUser/**")
-	    			  .antMatchers("/user/getAll");
+	    			  .antMatchers("/user/login")
+	    			  .antMatchers("/user/getAll")
+					  .antMatchers("/user/logout");
 	}
 
 	@Override

@@ -12,7 +12,7 @@ export class BookService {
   url = "http://localhost:8081/api/book"
   getByCategory(id: any) : Observable<any>{
     if(id =="All")
-      return this.http.get(this.url + '/getAll');
+      return this.http.get(this.url + '/getActiveBooks');
     return this.http.get(this.url + '/getByCategory/' + id);
   }
 
@@ -31,7 +31,7 @@ export class BookService {
 
   sort(searchValue: any) : Observable<any>{
     if(searchValue=="")
-      return this.http.get(this.url + '/getAll');
+      return this.http.get(this.url + '/getActiveBooks');
     return this.http.get( this.url + '/sort/' + searchValue);
   }
 
@@ -48,7 +48,8 @@ export class BookService {
     return this.http.put("http://localhost:8081/api/book/activate/" + id, id);
   }
 
-  getActiveBooks(){
+
+  getActiveBooks() : Observable<any>{
     return this.http.get("http://localhost:8081/api/book/getActiveBooks");
   }
 

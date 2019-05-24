@@ -26,7 +26,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.authorizeRequests().antMatchers(HttpMethod.GET, "/api/cart/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/api/cart/**").permitAll().antMatchers(HttpMethod.PUT, "/api/reciept/**")
+				.antMatchers(HttpMethod.POST, "/api/cart/**").permitAll()
+				.antMatchers(HttpMethod.PUT, "/api/reciept/**")
 				.permitAll().and().httpBasic().and().csrf().disable();
 
 	}

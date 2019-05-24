@@ -1,6 +1,5 @@
 package internship.BookService.controllers;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +30,7 @@ import internship.BookService.services.BookServiceImpl;
  */
 
 @CrossOrigin(origins = "http://localhost:4200")
-@RestController
+@RestController	
 @RequestMapping("/api/book")
 public class BookController {
 
@@ -155,7 +154,6 @@ public class BookController {
 	 */
 	@PostMapping(value = "addCategory/{name}")
 	public ResponseEntity<Boolean> addCategory(@PathVariable String name, HttpServletRequest request) {
-		System.out.println("USAOOOO" + name);
 		/*
 		 * try { requestSrvice.makeTokenCheck(requestSrvice.getCookie(request)); } catch
 		 * (IOException e) {

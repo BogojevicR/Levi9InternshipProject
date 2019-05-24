@@ -26,7 +26,7 @@ export class BookComponent implements OnInit {
         })
       } else{
         swal.fire({
-          title: 'Item allready in Cart!',
+          title: 'Item already in Cart!',
           type: 'error'
         })
       }

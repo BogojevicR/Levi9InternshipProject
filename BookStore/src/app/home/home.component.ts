@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   constructor(private bookService: BookService ,private categoryService: CategoryServiceService) { }
 
   ngOnInit() {
-    this.bookService.getAllBooks().subscribe(data => {
+    this.bookService.getActiveBooks().subscribe(data => {
       this.books = data;
     });
     this.bookService.getAllCategories().subscribe(data => {
