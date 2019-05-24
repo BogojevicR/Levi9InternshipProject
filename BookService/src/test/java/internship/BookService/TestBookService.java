@@ -218,5 +218,51 @@ public class TestBookService {
 		verify(bookRep, times(1)).findByCategoryId(c.getId());
 
 	}
+	
+	@Test
+	public void getActiveBooksTest() {
+		List<Book> list = new ArrayList<Book>();
+		Category c = new Category(new Long(1), "name");
+		Book book1 = new Book("title1", "Author1", c, 10, 10);
+		Book book2 = new Book("title2", "Author2", c, 20, 20);
+
+		list.add(book1);
+		list.add(book2);
+
+		when(bookRep.getActiveBooks()).thenReturn((ArrayList<Book>) list);
+
+		assertEquals(2, bookService.getActiveBooks().size());
+		
+		verify(bookRep).getActiveBooks();
+		
+	}
+	
+	@Test 
+	public void activateBookTest() {
+		Category c = new Category(new Long(1), "name");
+		Book book1 = new Book((long) 1, "title1", "Author1", c, 10, 10, 0);
+		
+		when(bookRep.getOne(book1.getId())).thenReturn(book1);
+		
+		Book response =  bookService.activate(book1.getId());
+		
+		assertEquals(book1, response);
+		
+		verify(bookRep).save(book1);
+	}
+	
+	
+	@Test
+	public void getBookByIdTest() {
+		Category c = new Category(new Long(1), "name");
+		Book book1 = new Book("title1", "Author1", c, 10, 10);
+		
+		when(bookRep.getOne(book1.getId())).thenReturn(book1);
+		
+		assertEquals(book1, bookService.activate(book1.getId()));
+		
+		verify(bookRep).getOne(book1.getId());
+	}
+	
 
 }

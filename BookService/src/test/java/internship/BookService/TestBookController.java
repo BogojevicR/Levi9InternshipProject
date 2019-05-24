@@ -299,4 +299,56 @@ public class TestBookController {
 		verify(bookService).getByCategoryId(c.getId());
 	}
 
+	@Test
+	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
+	public void getCategoryTest() throws Exception {
+		Category c = new Category(new Long(1), "name");
+
+		String json = new Gson().toJson(c);
+
+		when(bookService.getCategoryById(c.getId())).thenReturn(c);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/book/getCategory/{id}", c.getId()))
+				.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json(json));
+
+		verify(bookService).getCategoryById(c.getId());
+	}
+
+	@Test
+	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
+	public void getBookTest() throws Exception {
+		Category c = new Category(new Long(1), "name");
+		Book book1 = new Book(new Long(1), "title1", "Author1", c, 10, 10, 10);
+
+		String json = new Gson().toJson(book1);
+
+		when(bookService.getBookById(book1.getId())).thenReturn(book1);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/book/getBook/{id}", book1.getId()))
+				.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json(json));
+
+		verify(bookService).getBookById(book1.getId());
+	}
+	
+	
+	@Test
+	@WithMockUser(username = "admin", password = "123", authorities = "ADMIN")
+	public void getActiveBooksTest() throws Exception {
+		Category c = new Category(new Long(1), "name");
+		Book book1 = new Book(new Long(1), "title1", "Author1", c, 10, 10, 10);
+		List<Book> lista = new ArrayList<>();
+		lista.add(book1);
+
+		String json = new Gson().toJson(lista);
+
+		when(bookService.getActiveBooks()).thenReturn(lista);
+
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/api/book/getActiveBooks"))
+		.andExpect(MockMvcResultMatchers.status().isOk()).andExpect(MockMvcResultMatchers.content().json(json));
+		
+
+		verify(bookService).getActiveBooks();
+	}
+	
+	
 }
