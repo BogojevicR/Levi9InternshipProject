@@ -22,6 +22,9 @@ import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component
 
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { AdminBookUpdateComponent } from './admin-book-update/admin-book-update.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
+
 
 
 
@@ -37,14 +40,14 @@ import { AdminBookUpdateComponent } from './admin-book-update/admin-book-update.
     CategoryComponent,
     AdminHomeComponent,
     AddCategoryComponent,
-
     AdminBookComponent,
     AdminBookEditComponent,
     AdminBookAddComponent,
-
     ShoppingCartComponent,
+    AdminBookUpdateComponent,
+    ProfileComponent,
+    AdminUsersComponent
 
-    AdminBookUpdateComponent
 
 
   ],
@@ -65,6 +68,14 @@ import { AdminBookUpdateComponent } from './admin-book-update/admin-book-update.
       {
         path:'cart',
         component: ShoppingCartComponent
+      },
+      {
+        path:'profile',
+        component: ProfileComponent
+      },
+      {
+        path:'users',
+        component: AdminUsersComponent
       }
     ])
   ],

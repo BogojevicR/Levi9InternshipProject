@@ -2,6 +2,7 @@ package internship.ShoppingCartService;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -177,7 +178,7 @@ public class ShoppingCartServiceApplicationTests {
 
 		Mockito.when(shoppingCartRepository.getOne(shopingCart.getId())).thenReturn(null);
 
-		assertEquals(false, shoppingCartService.emptyCart(Optional.of(shopingCart.getId())));
+		assertNull(shoppingCartService.emptyCart(Optional.of(shopingCart.getId())));
 
 		shoppingCartService.emptyCart(Optional.empty());
 
