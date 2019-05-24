@@ -9,6 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Represents the entity of the users shopping cart.
  * 
@@ -16,6 +21,10 @@ import javax.persistence.Id;
  *
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class ShoppingCart implements Serializable {
 
 	private static final long serialVersionUID = 4119611172148464783L;
@@ -32,9 +41,6 @@ public class ShoppingCart implements Serializable {
 	@ElementCollection
 	private List<CartItem> itemList;
 
-	public ShoppingCart() {
-		super();
-	}
 
 	public ShoppingCart(List<CartItem> itemList) {
 		super();
@@ -53,25 +59,6 @@ public class ShoppingCart implements Serializable {
 		this.id = sc.getId();
 	}
 
-	public ShoppingCart(Long long1) {
-		this.id = long1;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public List<CartItem> getItemList() {
-		return itemList;
-	}
-
-	public void setItemList(List<CartItem> itemList) {
-		this.itemList = itemList;
-	}
 
 	/**
 	 * Checks if there is a certain book in shopping cart.
@@ -115,34 +102,6 @@ public class ShoppingCart implements Serializable {
 
 		}
 
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		result = prime * result + ((itemList == null) ? 0 : itemList.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ShoppingCart other = (ShoppingCart) obj;
-		if (id != other.id)
-			return false;
-		if (itemList == null) {
-			if (other.itemList != null)
-				return false;
-		} else if (!itemList.equals(other.itemList))
-			return false;
-		return true;
 	}
 
 }

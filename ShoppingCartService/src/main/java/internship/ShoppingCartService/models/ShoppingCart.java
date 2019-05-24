@@ -2,7 +2,6 @@ package internship.ShoppingCartService.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.persistence.ElementCollection;
@@ -13,6 +12,10 @@ import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Represents the entity of the users shopping cart.
  * 
@@ -21,6 +24,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
 public class ShoppingCart implements Serializable {
 	/**
 	 * 
@@ -68,22 +74,6 @@ public class ShoppingCart implements Serializable {
 		this.itemList = new ArrayList<>();
 	}
 
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public List<CartItem> getItemList() {
-		return itemList;
-	}
-
-	public void setItemList(List<CartItem> itemList) {
-		this.itemList = itemList;
-	}
-
 	/**
 	 * Checks if there is a certain book in shopping cart.
 	 * 
@@ -126,11 +116,6 @@ public class ShoppingCart implements Serializable {
 
 		}
 
-	}
-
-	@Override
-	public String toString() {
-		return "ShoppingCart [id=" + id + ", itemList=" + itemList + "]";
 	}
 
 }

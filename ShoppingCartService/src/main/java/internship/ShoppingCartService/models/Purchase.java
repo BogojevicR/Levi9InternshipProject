@@ -12,6 +12,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * This class represents entity of receipt.
  * 
@@ -20,6 +24,9 @@ import javax.persistence.ManyToOne;
  */
 
 @Entity
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Purchase implements Serializable {
 
 	/**
@@ -58,57 +65,10 @@ public class Purchase implements Serializable {
 		this.userInfo = userInfo;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public List<CartItem> getItemList() {
-		return itemList;
-	}
-
-	public void setItemList(List<CartItem> itemList) {
-		this.itemList = itemList;
-	}
-
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
 	public void calculateTotalPrice() {
 		for (CartItem i : this.itemList) {
 			totalPrice += i.getTotal();
 		}
-	}
-
-	public UserInfo getUserInfo() {
-		return userInfo;
-	}
-
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
-	}
-
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", itemList=" + itemList + ", totalPrice=" + totalPrice + ", userInfo=" + userInfo
-				+ "]";
-	}
-
-	public boolean hasEmpty() {
-		if (this.id == null || this.userInfo == null || this.totalPrice == 0) {
-
-			return true;
-		}
-
-		return false;
 	}
 
 }

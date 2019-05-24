@@ -10,7 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class UserInfo implements Serializable {
 
 	/**
@@ -33,10 +42,6 @@ public class UserInfo implements Serializable {
 	@OneToOne(cascade = {CascadeType.ALL})
 	private Adress adress;
 
-	
-	public UserInfo() {
-		super();
-	}
 
 	public UserInfo(Long id, String name, String surname, String email, String phone, Adress adress) {
 		super();
@@ -47,53 +52,5 @@ public class UserInfo implements Serializable {
 		this.phone = phone;
 		this.adress = adress;
 	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public Adress getAdress() {
-		return adress;
-	}
-
-	public void setAdress(Adress adress) {
-		this.adress = adress;
-	}
-
+	
 }

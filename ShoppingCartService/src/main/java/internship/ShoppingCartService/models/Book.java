@@ -11,6 +11,11 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Book is main entity in BookService. It is used for representation of the
  * book.
@@ -19,6 +24,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Book implements Serializable {
 
 	/**
@@ -85,10 +94,6 @@ public class Book implements Serializable {
 	@Column(nullable = false)
 	private int soldAmount;
 
-	
-	public Book() {
-		super();
-	}
 
 	public Book(String title, String author, Category category, double price, int quantity) {
 		super();
@@ -113,77 +118,7 @@ public class Book implements Serializable {
 		this.soldAmount = soldAmount;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public int getSoldAmount() {
-		return soldAmount;
-	}
-
-	public void setSoldAmount(int soldAmount) {
-		this.soldAmount = soldAmount;
-	}
-
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", category=" + category.getName()
-				+ ", price=" + price + ", state=" + state + ", quantity=" + quantity + ", soldAmount=" + soldAmount
-				+ "]";
-	}
-
+	
 	/**
 	 * Edits current book by selected one.
 	 * 

@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Represents entity of item in shopping cart.
  * 
@@ -16,6 +21,10 @@ import javax.persistence.ManyToOne;
  *
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class CartItem implements Serializable {
 
 	private static final long serialVersionUID = -9149749877463635726L;
@@ -42,9 +51,6 @@ public class CartItem implements Serializable {
 	@Column(nullable = false)
 	private double total;
 
-	public CartItem() {
-		super();
-	}
 
 	public CartItem(Book book, int quantity) {
 		super();
@@ -57,43 +63,6 @@ public class CartItem implements Serializable {
 		this.id = long1;
 		this.quantity = i;
 		this.book = book1;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Book getBook() {
-		return book;
-	}
-
-	public void setBook(Book book) {
-		this.book = book;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public double getTotal() {
-		return total;
-	}
-
-	public void setTotal(double total) {
-		this.total = total;
-	}
-
-	@Override
-	public String toString() {
-		return "CartItem [id=" + id + ", book=" + book + ", quantity=" + quantity + ", total=" + total + "]";
 	}
 
 }

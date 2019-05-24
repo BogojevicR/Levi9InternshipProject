@@ -1,7 +1,6 @@
 package internship.AuthenticationService.security;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -24,11 +23,8 @@ public class AuthenticationFilter extends AbstractAuthenticationProcessingFilter
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest httpServletRequest,
-			HttpServletResponse httpServletResponse) throws IOException, ServletException {
+		HttpServletResponse httpServletResponse) throws IOException, ServletException {
 
-		Optional<String> tokenParam = Optional.ofNullable(httpServletRequest.getHeader("Authorization")); // Authorization:
-																											// Bearer
-																											// TOKEN
 		String token = httpServletRequest.getHeader("Authorization");
 		token = StringUtils.stripFront(token, "Bearer").trim();
 		Authentication requestAuthentication = new UsernamePasswordAuthenticationToken(token, token);

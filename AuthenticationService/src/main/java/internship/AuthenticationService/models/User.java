@@ -9,6 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import internship.AuthenticationService.DTO.UserDTO;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
  * This class represents entity of user who is buying books.
@@ -17,7 +21,7 @@ import internship.AuthenticationService.DTO.UserDTO;
  *
  */
 
-@Entity
+@Entity @Getter @Setter @ToString @NoArgsConstructor
 public class User implements Serializable {
 
 	public enum Role {
@@ -41,10 +45,6 @@ public class User implements Serializable {
 	@Column
 	private String token = "";
 
-	
-	public User() {
-
-	}
 
 	public User(String username, String password, Role role) {
 		super();
@@ -69,52 +69,6 @@ public class User implements Serializable {
 		this.role = dto.getRole();
 		this.password = dto.getPassword();
 		this.token = dto.getToken();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", role=" + role + ", password=" + password + ", token="
-				+ token + "]";
 	}
 
 }

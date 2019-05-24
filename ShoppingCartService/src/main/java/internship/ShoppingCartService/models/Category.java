@@ -8,6 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Represents enity of book category.
  * 
@@ -15,6 +20,10 @@ import javax.persistence.Id;
  *
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Category implements Serializable {
 	/**
 	 * 
@@ -34,10 +43,6 @@ public class Category implements Serializable {
 	@Column(nullable = false)
 	private String name;
 
-	
-	public Category() {
-		super();
-	}
 
 	public Category(String name) {
 		super();
@@ -48,27 +53,6 @@ public class Category implements Serializable {
 		super();
 		this.id = id;
 		this.name = name;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + "]";
 	}
 
 }

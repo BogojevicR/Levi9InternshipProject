@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.mock.web.MockHttpSession;
 
 import internship.ShoppingCartService.DTO.AdressDTO;
 import internship.ShoppingCartService.DTO.UserInfoDTO;

@@ -9,6 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * Book is main entity in BookService. It is used for representation of the
  * book.
@@ -16,6 +21,10 @@ import javax.persistence.ManyToOne;
  * @author r.bogojevic
  */
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@EqualsAndHashCode
 public class Book implements Serializable {
 
 	private static final long serialVersionUID = 753402533479256954L;
@@ -72,9 +81,6 @@ public class Book implements Serializable {
 	@Column(nullable = false)
 	private int soldAmount;
 
-	public Book() {
-		super();
-	}
 
 	public Book(String title, String author, Category category, double price, State state, int quantity) {
 		super();
@@ -109,77 +115,6 @@ public class Book implements Serializable {
 		this.state = state;
 		this.quantity = quantity;
 		this.soldAmount = 0;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	public int getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public int getSoldAmount() {
-		return soldAmount;
-	}
-
-	public void setSoldAmount(int soldAmount) {
-		this.soldAmount = soldAmount;
-	}
-
-	@Override
-	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", author=" + author + ", category=" + category.getName()
-				+ ", price=" + price + ", state=" + state + ", quantity=" + quantity + ", soldAmount=" + soldAmount
-				+ "]";
 	}
 
 	/**
