@@ -83,5 +83,7 @@ public interface BookService {
 	List<Book> getActiveBooks();
 	
 	Book getBookById(Long id);
+	
+	Book activate(Long id);
 
 }

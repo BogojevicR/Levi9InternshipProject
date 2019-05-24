@@ -19,6 +19,7 @@ export class AdminBookUpdateComponent implements OnInit {
   submitted : any = false;
   categorySelected : any = {};
   updatedBook : any =[];
+  value : any;
 
   constructor(private bookService: BookService, private categoryService : CategoryServiceService, private router: Router, private activeRoute: ActivatedRoute, private formBuilder: FormBuilder) { }
 
@@ -48,7 +49,10 @@ export class AdminBookUpdateComponent implements OnInit {
       soldAmount: ['', Validators.compose([
         Validators.required,
         Validators.pattern("[0-9]*")
-      ])]
+      ])],
+    /*  state: ['', Validators.compose([
+        Validators.required
+      ])]*/
     })
 
     this.categoryService.getAllCategories().subscribe
@@ -61,6 +65,8 @@ export class AdminBookUpdateComponent implements OnInit {
   }
 
   seeCategory(categoryId){
+    //console.log(this.value);
+    //console.log("category id" + categoryId)
     this.categoryService.getCategory(categoryId).subscribe(
       (data)=>{
         this.categorySelected = data;
@@ -71,15 +77,24 @@ export class AdminBookUpdateComponent implements OnInit {
     this.bookService.getBook(this.id).subscribe(res => {
       this.book = res;
       console.log(this.book);
-      this.bookForm.setValue({
+     /* this.bookForm.setValue({
         name : this.book.title,
         author : this.book.author,
-        category : this.book.category.name,
         price : this.book.price,
         soldAmount : this.book.soldAmount,
         quantity : this.book.quantity
-      })
+      })*/
+      console.log(this.book.category.name)
+      this.bookForm.controls['category'].setValue(this.book.category.name);
+      this.bookForm.controls['name'].setValue(this.book.title);
+      this.bookForm.controls['author'].setValue(this.book.author);
+      this.bookForm.controls['price'].setValue(this.book.price);
+      this.bookForm.controls['soldAmount'].setValue(this.book.soldAmount);
+      this.bookForm.controls['quantity'].setValue(this.book.quantity);
+     // this.bookForm.controls['state'].setValue(this.book.state);
+
     });
+
   }
 
   updateBook() {

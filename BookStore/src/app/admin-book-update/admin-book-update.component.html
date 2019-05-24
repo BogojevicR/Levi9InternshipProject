@@ -32,10 +32,10 @@
 
             
               <label>Category:</label>
-              <select class="form-control" style="width: 250px"  (change)="seeCategory($event.target.value)" formControlName="category"
+              <select class="form-control" style="width: 250px"  (change)="seeCategory($event.target.value)"  formControlName="category"
                 required>
                              
-                <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+                <option *ngFor="let category of categories" [value] = "category.id" >{{category.name}}</option>
               </select>
               <div *ngIf="(submitted || bookForm.controls['category'].dirty || bookForm.controls['category'].touched) && bookForm.controls['category'].invalid"
                 class="alert alert-danger">
@@ -80,6 +80,18 @@
                 Invalid quantity pattern, number only available!
               </div>
             </div>
+
+            <!--<label for="state">State:</label>
+            <input formControlName="state" required type="state" class="form-control" name="state">
+            <div *ngIf="(submitted || bookForm.controls['state'].dirty || bookForm.controls['state'].touched) && bookForm.controls['state'].invalid"
+              class="alert alert-danger">
+              <div *ngIf="bookForm.controls['state'].errors.required">
+                state amount input is required.
+              </div>
+              <div *ngIf="bookForm.controls['state'].errors.pattern">
+                Invalid quantity pattern, number only available!
+              </div>
+            </div>-->
 
             
 

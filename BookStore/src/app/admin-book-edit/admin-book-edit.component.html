@@ -7,6 +7,9 @@
       <li class="list-group-item">Quanity: {{book.quantity}} </li>
       <li class="list-group-item">State: {{book.state}} </li>
       <li class="list-group-item"> <button class="btn btn-outline-info" style = "margin-right: 10px" (click)="navigateToUpdate(book.id)">Update</button> </li>
-      <li class="list-group-item" *ngIf = "book.state == 'ACTIVE' " >  <button class="btn btn-outline-danger" (click)="disableBook(book.id)">Disable</button> </li>
+      <li class="list-group-item" *ngIf = "book.state == 'ACTIVE';  else templateMarital" >  <button class="btn btn-outline-danger" (click)="disableBook(book.id)">Disable</button> </li>
+      <ng-template #templateMarital>
+          <li class="list-group-item">  <button class="btn btn-outline-success" (click)="activateBook(book.id)">Activate</button> </li>
+       </ng-template>
     </ul>
 </div>

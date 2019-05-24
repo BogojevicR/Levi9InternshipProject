@@ -28,6 +28,14 @@ export class AdminBookEditComponent implements OnInit {
     window.location.reload();
   }
 
+  activateBook(bookId){
+    console.log(bookId);
+   // this.disabledBott = true;
+    this.bookService.activateBook(bookId).subscribe();
+    swal.fire('Book is activated!');
+    window.location.reload();
+  }
+
   navigateToUpdate(bookId){
     this.router.navigate(['adminBook/update/' + bookId]);
   }

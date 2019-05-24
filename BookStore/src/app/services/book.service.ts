@@ -44,6 +44,10 @@ export class BookService {
     return this.http.put("http://localhost:8081/api/book/disable/" + id, id);
   }
 
+  activateBook(id){
+    return this.http.put("http://localhost:8081/api/book/activate/" + id, id);
+  }
+
   getActiveBooks(){
     return this.http.get("http://localhost:8081/api/book/getActiveBooks");
   }

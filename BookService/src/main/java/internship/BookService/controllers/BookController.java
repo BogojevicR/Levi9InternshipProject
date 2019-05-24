@@ -109,6 +109,18 @@ public class BookController {
 
 		return new ResponseEntity<>(bookService.disable(id), HttpStatus.OK);
 	}
+	
+	@PutMapping(value = "activate/{id}")
+	public ResponseEntity<Book> activateBook(@PathVariable Long id, HttpServletRequest request) {
+	/*	try {
+			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
+		} catch (IOException e) {
+
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}*/
+
+		return new ResponseEntity<>(bookService.activate(id), HttpStatus.OK);
+	}
 
 	/**
 	 * Collects top ten most sold books.

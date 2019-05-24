@@ -48,6 +48,7 @@ public class BookServiceImpl implements BookService {
 		return b;
 	}
 
+
 	@Override
 	public BookDTO edit(BookDTO book) {
 		Book b = bookRep.getOne(book.getId());
@@ -119,6 +120,15 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public Book getBookById(Long id) {
 		return bookRep.getOne(id);
+	}
+
+	@Override
+	public Book activate(Long id) {
+		Book b = bookRep.getOne(id);
+		b.setState(Book.State.ACTIVE);
+		bookRep.save(b);
+
+		return b;
 	}
 
 }
