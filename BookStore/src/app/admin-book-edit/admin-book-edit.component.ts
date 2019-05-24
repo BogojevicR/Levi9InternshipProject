@@ -13,7 +13,7 @@ export class AdminBookEditComponent implements OnInit {
   
   @Input() book: any;
 
- disabled : boolean;
+ //disabledBott : boolean;
 
   constructor(private bookService: BookService, private router: Router, private activeRoute: ActivatedRoute,) { }
 
@@ -22,10 +22,14 @@ export class AdminBookEditComponent implements OnInit {
 
   disableBook(bookId){
     console.log(bookId);
-    this.disabled = true;
+   // this.disabledBott = true;
     this.bookService.disableBook(bookId).subscribe();
     swal.fire('Book is desabled!');
     window.location.reload();
+  }
+
+  navigateToUpdate(bookId){
+    this.router.navigate(['adminBook/update/' + bookId]);
   }
 
   

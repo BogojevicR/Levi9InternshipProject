@@ -70,12 +70,12 @@ public class BookController {
 	 */
 	@PutMapping(value = "edit")
 	public ResponseEntity<BookDTO> edit(@RequestBody BookDTO book, HttpServletRequest request) {
-		try {
+		/*try {
 			requestSrvice.makeTokenCheck(requestSrvice.getCookie(request));
 		} catch (IOException e) {
 
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+		}*/
 
 		return new ResponseEntity<>(bookService.edit(book), HttpStatus.OK);
 	}
@@ -187,5 +187,10 @@ public class BookController {
 	@GetMapping(value = "getActiveBooks")
 	public ResponseEntity<List<Book>> getActiveBooks() {
 		return new ResponseEntity<>(bookService.getActiveBooks(), HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "getBook/{id}")
+	public ResponseEntity<Book> getBook (@PathVariable Long id) {
+		return new ResponseEntity<>(bookService.getBookById(id), HttpStatus.OK);
 	}
 }

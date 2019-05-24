@@ -7,6 +7,8 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AdminBookComponent } from './admin-book/admin-book.component';
 import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component';
+import { AdminBookEditComponent } from './admin-book-edit/admin-book-edit.component';
+import { AdminBookUpdateComponent } from './admin-book-update/admin-book-update.component';
 
 const routes: Routes = [
   
@@ -14,7 +16,8 @@ const routes: Routes = [
   { path : "admin", component: AdminHomeComponent},
   { path : "category/add", component: AddCategoryComponent},
   { path : "adminBook", component : AdminBookComponent},
-  { path : "adminBook/add", component : AdminBookAddComponent}
+  { path : "adminBook/add", component : AdminBookAddComponent},
+  { path : "adminBook/update/:id", component : AdminBookUpdateComponent}
 
 ];
 

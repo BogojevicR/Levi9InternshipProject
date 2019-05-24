@@ -16,7 +16,7 @@ export class AdminBookComponent implements OnInit {
   
   ngOnInit() {
 
-    this.bookService.getActiveBooks().subscribe(data => {
+    this.bookService.getAllBooks().subscribe(data => {
       this.books = data;
     });
   }

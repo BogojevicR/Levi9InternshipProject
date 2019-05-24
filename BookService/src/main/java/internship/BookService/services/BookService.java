@@ -81,5 +81,7 @@ public interface BookService {
 	Category getCategoryById(Long id);
 	
 	List<Book> getActiveBooks();
+	
+	Book getBookById(Long id);
 
 }

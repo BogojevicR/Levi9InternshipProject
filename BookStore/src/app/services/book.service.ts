@@ -48,4 +48,12 @@ export class BookService {
     return this.http.get("http://localhost:8081/api/book/getActiveBooks");
   }
 
+  getBook(id){
+    return this.http.get("http://localhost:8081/api/book/getBook/" + id.id, id.id);
+  }
+
+  editBook(book){
+    return this.http.put("http://localhost:8081/api/book/edit", book);
+  }
+
 }

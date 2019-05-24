@@ -1,0 +1,93 @@
+<div>
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h1>Update book</h1>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="bookForm" (ngSubmit)="updateBook()">
+
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input formControlName="name" required type="text" class="form-control" name="name">
+            <div *ngIf="(submitted || bookForm.controls['name'].dirty || bookForm.controls['name'].touched) && bookForm.controls['name'].invalid"
+              class="alert alert-danger">
+              <div *ngIf="bookForm.controls['name'].errors.required">
+                Name input is required!
+              </div>
+            </div>
+
+            <label for="author">Author:</label>
+            <input formControlName="author" required type="text" class="form-control" name="author">
+            <div *ngIf="(submitted || bookForm.controls['author'].dirty || bookForm.controls['author'].touched) && bookForm.controls['author'].invalid"
+              class="alert alert-danger">
+              <div *ngIf="bookForm.controls['author'].errors.required">
+                Author input is required.
+              </div>
+              <div *ngIf="bookForm.controls['author'].errors.pattern">
+                Invalid name pattern!
+              </div>
+            </div>
+
+
+            
+              <label>Category:</label>
+              <select class="form-control" style="width: 250px"  (change)="seeCategory($event.target.value)" formControlName="category"
+                required>
+                             
+                <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+              </select>
+              <div *ngIf="(submitted || bookForm.controls['category'].dirty || bookForm.controls['category'].touched) && bookForm.controls['category'].invalid"
+                class="alert alert-danger">
+                <div *ngIf="bookForm.controls['category'].errors.required">
+                  Select category is required.
+                </div>
+              </div>
+           
+
+            <label for="price">Price:</label>
+            <input formControlName="price" required type="text" class="form-control" name="price">
+            <div *ngIf="(submitted || bookForm.controls['price'].dirty || bookForm.controls['price'].touched) && bookForm.controls['price'].invalid"
+              class="alert alert-danger">
+              <div *ngIf="bookForm.controls['price'].errors.required">
+                Price input is required.
+              </div>
+              <div *ngIf="bookForm.controls['price'].errors.pattern">
+                Invalid price pattern, number only available!
+              </div>
+            </div>
+
+            <label for="quantity">Quantity:</label>
+            <input formControlName="quantity" required type="quantity" class="form-control" name="quantity">
+            <div *ngIf="(submitted || bookForm.controls['quantity'].dirty || bookForm.controls['quantity'].touched) && bookForm.controls['quantity'].invalid"
+              class="alert alert-danger">
+              <div *ngIf="bookForm.controls['quantity'].errors.required">
+                Quantity input is required.
+              </div>
+              <div *ngIf="bookForm.controls['quantity'].errors.pattern">
+                Invalid quantity pattern, number only available!
+              </div>
+            </div>
+
+            <label for="soldAmount">Sold Amount:</label>
+            <input formControlName="soldAmount" required type="soldAmount" class="form-control" name="soldAmount">
+            <div *ngIf="(submitted || bookForm.controls['soldAmount'].dirty || bookForm.controls['soldAmount'].touched) && bookForm.controls['soldAmount'].invalid"
+              class="alert alert-danger">
+              <div *ngIf="bookForm.controls['soldAmount'].errors.required">
+                Sold amount input is required.
+              </div>
+              <div *ngIf="bookForm.controls['soldAmount'].errors.pattern">
+                Invalid quantity pattern, number only available!
+              </div>
+            </div>
+
+            
+
+
+          </div>
+          <button type="submit" class="btn btn-info btn-block">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

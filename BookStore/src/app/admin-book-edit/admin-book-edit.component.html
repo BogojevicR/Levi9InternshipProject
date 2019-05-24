@@ -5,7 +5,8 @@
       <li class="list-group-item">Category: {{book.category.name}}</li>
       <li class="list-group-item">Price: {{book.price}} RSD</li>
       <li class="list-group-item">Quanity: {{book.quantity}} </li>
-      <li class="list-group-item"> <button class="btn btn-outline-info" style = "margin-right: 10px" (click)="navigateToUpdate()">Update</button> </li>
-      <li class="list-group-item">  <button class="btn btn-outline-danger" (click)="disableBook(book.id)">Disable</button> </li>
-  </ul>
+      <li class="list-group-item">State: {{book.state}} </li>
+      <li class="list-group-item"> <button class="btn btn-outline-info" style = "margin-right: 10px" (click)="navigateToUpdate(book.id)">Update</button> </li>
+      <li class="list-group-item" *ngIf = "book.state == 'ACTIVE' " >  <button class="btn btn-outline-danger" (click)="disableBook(book.id)">Disable</button> </li>
+    </ul>
 </div>

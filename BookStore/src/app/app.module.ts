@@ -21,6 +21,7 @@ import { AdminBookEditComponent } from './admin-book-edit/admin-book-edit.compon
 import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component';
 
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { AdminBookUpdateComponent } from './admin-book-update/admin-book-update.component';
 
 
 
@@ -41,7 +42,9 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     AdminBookEditComponent,
     AdminBookAddComponent,
 
-    ShoppingCartComponent
+    ShoppingCartComponent,
+
+    AdminBookUpdateComponent
 
 
   ],

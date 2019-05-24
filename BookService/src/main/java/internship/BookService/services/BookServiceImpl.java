@@ -116,4 +116,9 @@ public class BookServiceImpl implements BookService {
 		return bookRep.getActiveBooks();
 	}
 
+	@Override
+	public Book getBookById(Long id) {
+		return bookRep.getOne(id);
+	}
+
 }
