@@ -117,5 +117,16 @@ public class ShoppingCart implements Serializable {
 		}
 
 	}
+	
+	public boolean checkStock() {
+		for (CartItem cItem : this.getItemList()) {
+			if (cItem.getBook().getQuantity() < cItem.getQuantity()) {
+
+				return false;
+			}
+		}
+		
+		return true;
+	}
 
 }

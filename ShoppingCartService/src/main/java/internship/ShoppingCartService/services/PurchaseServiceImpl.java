@@ -13,7 +13,6 @@ import internship.ShoppingCartService.models.CartItem;
 import internship.ShoppingCartService.models.Purchase;
 import internship.ShoppingCartService.models.ShoppingCart;
 import internship.ShoppingCartService.models.User;
-import internship.ShoppingCartService.models.User.Role;
 import internship.ShoppingCartService.repositories.AdressRepository;
 import internship.ShoppingCartService.repositories.BookRepository;
 import internship.ShoppingCartService.repositories.CartItemRepository;
@@ -43,11 +42,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Resource(name = "sessionShoppingCart")
 	ShoppingCart sessionShoppingCart;
 
+	private Purchase purchase;
 	@Override
 	public Purchase buyNow(Long userId, int quantity, Long bookId) {
 		User user = userRep.getOne(userId);
 		Book book = bookRep.getOne(bookId);
-		Purchase purchase = null;
+		purchase = new Purchase();
 		if (book.getQuantity() >= quantity) {
 
 			book.payBook(quantity);
@@ -56,16 +56,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 			CartItem item = new CartItem(book, quantity);
 			cartItemRep.save(item);
 
-			purchase = new Purchase();
-			purchase.setUserInfo(user.getUserInfo());
-			purchase.getItemList().add(item);
-			purchase.calculateTotalPrice();
+			purchase.setPurchase(user.getUserInfo(), item);
 			purchaseRep.save(purchase);
 
 			user.getPurchases().add(purchase);
 			userRep.save(user);
-
-			return purchase;
 		}
 
 		return purchase;
@@ -75,72 +70,53 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Purchase buyCart(Long userId) {
 		User user = userRep.getOne(userId);
 		ShoppingCart cart = user.getShoppingCart();
-		Purchase purchase = new Purchase();
-		if (cart.getItemList().isEmpty()) {
+		purchase = new Purchase();
+		if (!cart.getItemList().isEmpty() && cart.checkStock()) {
 
-			return null;
-		}
-		for (CartItem cItem : cart.getItemList()) {
-			if (cItem.getBook().getQuantity() < cItem.getQuantity()) {
-
-				return null;
+			for (CartItem item : cart.getItemList()) {
+				item.getBook().payBook(item.getQuantity());
+				bookRep.save(item.getBook());
+				purchase.getItemList().add(item);
 			}
+
+			cart.getItemList().clear();
+			shoppingCartRep.save(cart);
+
+			purchase.calculateTotalPrice();
+			purchase.setUserInfo(user.getUserInfo());
+			purchaseRep.save(purchase);
+
+			user.getPurchases().add(purchase);
+			userRep.save(user);
 		}
-
-		for (CartItem item : cart.getItemList()) {
-			item.getBook().payBook(item.getQuantity());
-			bookRep.save(item.getBook());
-			purchase.getItemList().add(item);
-		}
-
-		cart.getItemList().clear();
-		shoppingCartRep.save(cart);
-
-		purchase.calculateTotalPrice();
-		purchase.setUserInfo(user.getUserInfo());
-		purchaseRep.save(purchase);
-
-		user.getPurchases().add(purchase);
-		userRep.save(user);
-
 		return purchase;
 	}
 
 	public Purchase buyCartUnauth(UserInfoDTO userInfo) {
-		if (sessionShoppingCart.getItemList().isEmpty()) {
+		purchase = new Purchase();
+		if (!sessionShoppingCart.getItemList().isEmpty() && sessionShoppingCart.checkStock()) {
 
-			return null;
-		}
+			adressRep.save(AdressConverter.toEnity(userInfo.getAdress()));
+			userInfoRep.save(UserInfoConverter.toEntity(userInfo));
 
-		for (CartItem item : sessionShoppingCart.getItemList()) {
-			if (item.getBook().getQuantity() < item.getQuantity()) {
+			for (CartItem cItem : sessionShoppingCart.getItemList()) {
+				cItem.getBook().payBook(cItem.getQuantity());
+				bookRep.save(cItem.getBook());
 
-				return null;
+				purchase.getItemList().add(cItem);
+				CartItem item = cartItemRep.save(cItem);
+				cItem.setId(item.getId());
 			}
+			sessionShoppingCart.getItemList().clear();
+			purchase.calculateTotalPrice();
+			purchase.setUserInfo(UserInfoConverter.toEntity(userInfo));
+			purchaseRep.save(purchase);
 		}
-
-		Purchase purchase = new Purchase();
-		adressRep.save(AdressConverter.toEnity(userInfo.getAdress()));
-		userInfoRep.save(UserInfoConverter.toEntity(userInfo));
-
-		for (CartItem cItem : sessionShoppingCart.getItemList()) {
-			cItem.getBook().payBook(cItem.getQuantity());
-			bookRep.save(cItem.getBook());
-
-			purchase.getItemList().add(cItem);
-			CartItem item = cartItemRep.save(cItem);
-			cItem.setId(item.getId());
-		}
-		sessionShoppingCart.getItemList().clear();
-		purchase.calculateTotalPrice();
-		purchase.setUserInfo(UserInfoConverter.toEntity(userInfo));
-		purchaseRep.save(purchase);
-
 		return purchase;
 	}
 
 	public Purchase buyNowUnauth(int quantity, Long bookId, UserInfoDTO userInfo) {
-
+		purchase = new Purchase();
 		Book b = bookRep.getOne(bookId);
 		if (b.getQuantity() >= quantity) {
 			b.payBook(quantity);
@@ -152,16 +128,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 			adressRep.save(AdressConverter.toEnity(userInfo.getAdress()));
 			userInfoRep.save(UserInfoConverter.toEntity(userInfo));
 
-			Purchase purchase = new Purchase();
-			purchase.setUserInfo(UserInfoConverter.toEntity(userInfo));
-			purchase.getItemList().add(item);
-			purchase.calculateTotalPrice();
+			purchase.setPurchase(UserInfoConverter.toEntity(userInfo), item);
 			purchaseRep.save(purchase);
 
-			return purchase;
 		}
 
-		return null;
+		return purchase;
 	}
 
 }

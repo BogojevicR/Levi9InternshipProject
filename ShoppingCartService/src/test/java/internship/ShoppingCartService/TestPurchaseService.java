@@ -67,12 +67,7 @@ public class TestPurchaseService {
 
 		assertNotNull(purchaseService.buyNow(u.getId(), 20, b.getId()));
 
-		assertNull(purchaseService.buyNow(u.getId(), 30, b.getId()));
-
-		u = new User(new Long(2), "rale", Role.ADMIN, "rale", null);
-		when(userRep.getOne(new Long(2))).thenReturn(u);
-
-		assertNull(purchaseService.buyNow(u.getId(), 20, b.getId()));
+		assertNull(purchaseService.buyNow(u.getId(), 30, b.getId()).getId());
 
 	}
 
@@ -85,7 +80,7 @@ public class TestPurchaseService {
 		u.setPurchases(new ArrayList<Purchase>());
 
 		when(userRep.getOne(new Long(2))).thenReturn(u);
-		assertNull(purchaseService.buyCart(u.getId()));
+		assertNull(purchaseService.buyCart(u.getId()).getId());
 
 		cart.getItemList().add(ci);
 		u = new User(new Long(2), "rale", Role.CUSTOMER, "rale", cart);
@@ -98,11 +93,8 @@ public class TestPurchaseService {
 		u = new User(new Long(2), "rale", Role.CUSTOMER, "rale", cart);
 		u.setPurchases(new ArrayList<Purchase>());
 		when(userRep.getOne(new Long(2))).thenReturn(u);
-		assertNull(purchaseService.buyCart(u.getId()));
+		assertNull(purchaseService.buyCart(u.getId()).getId());
 
-		u = new User(new Long(2), "rale", Role.ADMIN, "rale", cart);
-		when(userRep.getOne(new Long(2))).thenReturn(u);
-		assertNull(purchaseService.buyCart(u.getId()));
 	}
 
 	@Test
@@ -112,13 +104,14 @@ public class TestPurchaseService {
 
 		List<CartItem> listOfItems = new ArrayList<CartItem>();
 		when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
-		assertNull(purchaseService.buyCartUnauth(info));
+		assertNull(purchaseService.buyCartUnauth(info).getId());
 
 		Book book1 = new Book(new Long(3), "title1", "Author1", new Category("category1"), 10, 10, 10);
 		CartItem cI1 = new CartItem(new Long(2), book1, 2);
 		listOfItems.add(cI1);
 
 		when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
+		when(sessionShoppingCart.checkStock()).thenReturn(true);
 		when(cartItemRep.save(cI1)).thenReturn(cI1);
 		when(bookRep.getOne(new Long(3))).thenReturn(book1);
 
@@ -127,13 +120,14 @@ public class TestPurchaseService {
 		listOfItems = new ArrayList<CartItem>();
 		cI1 = new CartItem(new Long(2), book1, 22222);
 		listOfItems.add(cI1);
+		when(sessionShoppingCart.checkStock()).thenReturn(false);
 		Mockito.when(sessionShoppingCart.getItemList()).thenReturn(listOfItems);
 		when(cartItemRep.save(cI1)).thenReturn(cI1);
 
 		when(bookRep.getOne(new Long(3))).thenReturn(book1);
 
 		purchaseService.buyCartUnauth(info);
-		assertNull(purchaseService.buyCartUnauth(info));
+		assertNull(purchaseService.buyCartUnauth(info).getId());
 
 	}
 
@@ -149,7 +143,7 @@ public class TestPurchaseService {
 
 		purchaseService.buyNowUnauth(5, book1.getId(), info);
 
-		assertNull(purchaseService.buyNowUnauth(55555, book1.getId(), info));
+		assertNull(purchaseService.buyNowUnauth(55555, book1.getId(), info).getId());
 
 	}
 

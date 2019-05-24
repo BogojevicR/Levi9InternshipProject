@@ -57,6 +57,12 @@ public class Purchase implements Serializable {
 		super();
 		this.totalPrice = 0;
 	}
+	
+	public Purchase(Long id) {
+		super();
+		this.id = id;
+		this.totalPrice = 0;
+	}
 
 	public Purchase(List<CartItem> itemList, UserInfo userInfo) {
 		super();
@@ -69,6 +75,12 @@ public class Purchase implements Serializable {
 		for (CartItem i : this.itemList) {
 			totalPrice += i.getTotal();
 		}
+	}
+	
+	public void setPurchase(UserInfo userInfo2, CartItem item) {
+		this.setUserInfo(userInfo2);
+		this.getItemList().add(item);
+		this.calculateTotalPrice();
 	}
 
 }

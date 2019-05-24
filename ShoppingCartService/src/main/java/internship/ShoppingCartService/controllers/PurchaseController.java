@@ -37,10 +37,10 @@ public class PurchaseController {
 	 * @return receipt that is created, together with HTTP status.
 	 */
 	@PostMapping(value = "/buyNow/{userId}/{quantity}/{bookId}")
-	public ResponseEntity<Purchase> buyNow(@PathVariable Long userId, @PathVariable int quantity,
-			@PathVariable Long bookId) {
+	public ResponseEntity<Purchase> buyNow(@PathVariable Long userId, @PathVariable int quantity, @PathVariable Long bookId) {
 		Purchase response = purchaseService.buyNow(userId, quantity, bookId);
-		if (response != null) {
+		if (response.getId() != null) {
+			
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
 
@@ -56,7 +56,7 @@ public class PurchaseController {
 	@PostMapping(value = "/buyCart/{userId}")
 	public ResponseEntity<Purchase> buyCart(@PathVariable Long userId) {
 		Purchase response = purchaseService.buyCart(userId);
-		if (response != null) {
+		if (response.getId() != null) {
 
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
@@ -67,7 +67,7 @@ public class PurchaseController {
 	@PostMapping(value = "/buyCart")
 	public ResponseEntity<Purchase> buyCart(@RequestBody UserInfoDTO userInfo) {
 		Purchase response = purchaseService.buyCartUnauth(userInfo);
-		if (response != null) {
+		if (response.getId() != null) {
 
 			return new ResponseEntity<>(response, HttpStatus.OK);
 
@@ -80,7 +80,7 @@ public class PurchaseController {
 	public ResponseEntity<Purchase> buyNow(@PathVariable int quantity, @PathVariable Long bookId,
 			@RequestBody UserInfoDTO userInfo) {
 		Purchase response = purchaseService.buyNowUnauth(quantity, bookId, userInfo);
-		if (response != null) {
+		if (response.getId() != null) {
 
 			return new ResponseEntity<>(response, HttpStatus.OK);
 

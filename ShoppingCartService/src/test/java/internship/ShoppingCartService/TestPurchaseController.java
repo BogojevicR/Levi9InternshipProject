@@ -54,7 +54,7 @@ public class TestPurchaseController {
 		Book b = new Book(new Long(1), "title1", "Author1", new Category("category1"), 10, 10, 10);
 		u.setPurchases(new ArrayList<Purchase>());
 		CartItem ci = new CartItem(b, 5);
-		Purchase purchase = new Purchase();
+		Purchase purchase = new Purchase((long) 1);
 		purchase.getItemList().add(ci);
 		purchase.calculateTotalPrice();
 
@@ -78,11 +78,11 @@ public class TestPurchaseController {
 		Book b = new Book(new Long(1), "title1", "Author1", new Category("category1"), 10, 10, 10);
 		u.setPurchases(new ArrayList<Purchase>());
 		CartItem ci = new CartItem(b, 5);
-		Purchase Purchase = new Purchase();
-		Purchase.getItemList().add(ci);
-		Purchase.calculateTotalPrice();
+		Purchase purchase = new Purchase((long) 1);
+		purchase.getItemList().add(ci);
+		purchase.calculateTotalPrice();
 
-		Mockito.when(purchaseService.buyNow(u.getId(), 5, b.getId())).thenReturn(null);
+		Mockito.when(purchaseService.buyNow(u.getId(), 5, b.getId())).thenReturn(new Purchase());
 
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/api/purchase/buyNow/{userId}/{quantity}/{bookId}", u.getId(),
 				5, b.getId())).andExpect(MockMvcResultMatchers.status().isBadRequest());
@@ -98,7 +98,7 @@ public class TestPurchaseController {
 		Book b = new Book(new Long(1), "title1", "Author1", new Category("category1"), 10, 10, 10);
 		u.setPurchases(new ArrayList<Purchase>());
 		CartItem ci = new CartItem(b, 5);
-		Purchase purchase = new Purchase();
+		Purchase purchase = new Purchase((long) 1);
 		purchase.getItemList().add(ci);
 		purchase.calculateTotalPrice();
 
@@ -121,11 +121,11 @@ public class TestPurchaseController {
 		Book b = new Book(new Long(1), "title1", "Author1", new Category("category1"), 10, 10, 10);
 		u.setPurchases(new ArrayList<Purchase>());
 		CartItem ci = new CartItem(b, 5);
-		Purchase purchase = new Purchase();
+		Purchase purchase = new Purchase((long) 1);
 		purchase.getItemList().add(ci);
 		purchase.calculateTotalPrice();
 
-		Mockito.when(purchaseService.buyCart(u.getId())).thenReturn(null);
+		Mockito.when(purchaseService.buyCart(u.getId())).thenReturn(new Purchase());
 
 		this.mockMvc
 				.perform(MockMvcRequestBuilders.post("/api/purchase/buyCart/{userId}", u.getId())
@@ -140,7 +140,7 @@ public class TestPurchaseController {
 	public void buyNowUnauthShouldReturnRecipt() throws Exception {
 		Book b = new Book(new Long(1), "title1", "Author1", new Category("category1"), 10, 10, 10);
 		CartItem ci = new CartItem(b, 5);
-		Purchase purchase = new Purchase();
+		Purchase purchase = new Purchase((long) 1);
 		purchase.getItemList().add(ci);
 		purchase.calculateTotalPrice();
 		UserInfoDTO info = new UserInfoDTO(new Long(1), "Rale", "Bogojevic", "rale@gmail.com", "064",
@@ -160,12 +160,12 @@ public class TestPurchaseController {
 
 		Book b = new Book(new Long(1), "title1", "Author1", new Category("category1"), 10, 10, 10);
 		CartItem ci = new CartItem(b, 5);
-		Purchase Purchase = new Purchase();
-		Purchase.getItemList().add(ci);
-		Purchase.calculateTotalPrice();
+		Purchase purchase = new Purchase((long) 1);
+		purchase.getItemList().add(ci);
+		purchase.calculateTotalPrice();
 		UserInfoDTO info = new UserInfoDTO(new Long(1), "Rale", "Bogojevic", "rale@gmail.com", "064",
 				new AdressDTO(new Long(2), "Novi Sad", "Serbia", "Street", "22"));
-		Mockito.when(purchaseService.buyNowUnauth(5, b.getId(), info)).thenReturn(null);
+		Mockito.when(purchaseService.buyNowUnauth(5, b.getId(), info)).thenReturn(new Purchase());
 
 		this.mockMvc
 				.perform(MockMvcRequestBuilders.post("/api/purchase/buyNow/{quantity}/{bookId}", 5, b.getId())
@@ -182,7 +182,7 @@ public class TestPurchaseController {
 				new AdressDTO(new Long(2), "Novi Sad", "Serbia", "Street", "22"));
 		Book b = new Book(new Long(1), "title1", "Author1", new Category("category1"), 10, 10, 10);
 		CartItem ci = new CartItem(b, 5);
-		Purchase purchase = new Purchase();
+		Purchase purchase = new Purchase((long) 1);
 		purchase.getItemList().add(ci);
 		purchase.calculateTotalPrice();
 
@@ -203,7 +203,7 @@ public class TestPurchaseController {
 		UserInfoDTO info = new UserInfoDTO(new Long(1), "Rale", "Bogojevic", "rale@gmail.com", "064",
 				new AdressDTO(new Long(2), "Novi Sad", "Serbia", "Street", "22"));
 
-		Mockito.when(purchaseService.buyCartUnauth(info)).thenReturn(null);
+		Mockito.when(purchaseService.buyCartUnauth(info)).thenReturn(new Purchase());
 
 		this.mockMvc
 				.perform(MockMvcRequestBuilders.post("/api/purchase/buyCart/")
