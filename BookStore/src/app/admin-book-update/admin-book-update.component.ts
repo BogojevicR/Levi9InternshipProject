@@ -85,7 +85,7 @@ export class AdminBookUpdateComponent implements OnInit {
         quantity : this.book.quantity
       })*/
       console.log(this.book.category.name)
-      this.bookForm.controls['category'].setValue(this.book.category.name);
+      this.bookForm.controls['category'].setValue(this.book.category.id);
       this.bookForm.controls['name'].setValue(this.book.title);
       this.bookForm.controls['author'].setValue(this.book.author);
       this.bookForm.controls['price'].setValue(this.book.price);
