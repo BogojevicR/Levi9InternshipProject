@@ -11,7 +11,13 @@ export class UserService {
   url = "http://localhost:8080/user"
 
   getUser(id : any) : Observable<any> {
+
       return this.http.get(this.url + "/getUser/" + id);
+  }
+
+  getAllUsers() : Observable<any> {
+
+    return this.http.get(this.url + "/getAll")
   }
 
 }

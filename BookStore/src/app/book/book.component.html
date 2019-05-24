@@ -4,6 +4,7 @@
         <li class="list-group-item">Author: {{book.author}}</li>
         <li class="list-group-item">Category: {{book.category.name}}</li>
         <li class="list-group-item">Price: {{book.price}} RSD</li>
+        <li class="list-group-item">Sold Amount: {{book.soldAmount}} </li>
         <li class="list-group-item">Quanity: {{book.quantity}} </li>
         <li class="list-group-item"><input #quantity type="number" min=1 value = 1></li>
         <li class="list-group-item"> <button type="button" (click)="addItem(quantity.value, book.id)" class="btn btn-primary" >Add to cart</button>  </li>

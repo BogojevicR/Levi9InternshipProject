@@ -41,6 +41,7 @@ export class BookComponent implements OnInit {
           title: 'Purchase Successful!',
           text: this.purchaseString
           })
+
       }, err => {
          swal.fire({
           type: 'error',

@@ -22,6 +22,7 @@ import { AdminBookAddComponent } from './admin-book-add/admin-book-add.component
 
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 
 
@@ -41,7 +42,8 @@ import { ProfileComponent } from './profile/profile.component';
     AdminBookEditComponent,
     AdminBookAddComponent,
     ShoppingCartComponent,
-    ProfileComponent
+    ProfileComponent,
+    AdminUsersComponent
 
 
   ],
@@ -66,6 +68,10 @@ import { ProfileComponent } from './profile/profile.component';
       {
         path:'profile',
         component: ProfileComponent
+      },
+      {
+        path:'users',
+        component: AdminUsersComponent
       }
     ])
   ],

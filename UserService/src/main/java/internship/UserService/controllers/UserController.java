@@ -80,11 +80,11 @@ public class UserController {
 	 */
 	@GetMapping(value = "/getAll")
 	public ResponseEntity<List<User>> getAll(HttpServletRequest request) throws IOException {
-		try {
+	/*	try {
 			requestService.makeTokenCheck(requestService.getCookie(request));
 		} catch (IOException e) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+		} */
 		return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
 	}
 

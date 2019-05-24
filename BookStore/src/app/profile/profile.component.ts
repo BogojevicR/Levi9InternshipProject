@@ -16,7 +16,6 @@ export class ProfileComponent implements OnInit {
 
   getUser(id : any){
     this.userService.getUser(id).subscribe( data =>{
-      console.log(data)
       this.user = data;
     })
   }

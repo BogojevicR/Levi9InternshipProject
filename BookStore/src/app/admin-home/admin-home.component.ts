@@ -9,7 +9,8 @@ export class AdminHomeComponent implements OnInit {
 
   cards = [
     { "name": "Catrgory", "url": "category" },
-    { "name": "Book", "url" : "adminBook"},   
+    { "name": "Book", "url" : "adminBook"},
+    { "name": "Users", "url" : "users"},   
   ];
 
 

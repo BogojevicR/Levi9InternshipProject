@@ -12,10 +12,12 @@ export class ShoppingCartService {
   constructor(private http: HttpClient) { }
 
   getCart() : Observable<any>{
+
       return this.http.get(this.url + '/getCart/34');
   }
 
   addItem(quantity: number, bookId: any) {
+    
     return this.http.post( this.url + "/addItem/34/" + quantity + "/" + bookId, null );
   }
 
