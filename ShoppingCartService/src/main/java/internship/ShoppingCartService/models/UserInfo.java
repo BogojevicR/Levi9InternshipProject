@@ -2,6 +2,7 @@ package internship.ShoppingCartService.models;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,8 @@ public class UserInfo implements Serializable {
 	private String email;
 	@Column(nullable = false)
 	private String phone;
-	@OneToOne
+	
+	@OneToOne(cascade = {CascadeType.ALL})
 	private Adress adress;
 
 	

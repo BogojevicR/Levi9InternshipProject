@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,7 +41,8 @@ public class Purchase implements Serializable {
 	@ElementCollection
 	private List<CartItem> itemList = new ArrayList<>();
 	private double totalPrice;
-	@ManyToOne
+	
+	@ManyToOne(cascade = {CascadeType.ALL})
 	private UserInfo userInfo;
 
 	

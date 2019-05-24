@@ -153,7 +153,6 @@ public class UserController {
 		cookie.setMaxAge(0);
 		cookie.setHttpOnly(true);
 		resp.addCookie(cookie);
-
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
