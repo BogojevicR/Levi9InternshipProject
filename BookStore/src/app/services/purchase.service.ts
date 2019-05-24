@@ -14,5 +14,9 @@ export class PurchaseService {
     
     return this.http.post(this.url + "/buyCart/"+ userId , null);
   }
+  
+  buyNow(userId : any, quantity: number, bookId: any) : Observable<any>{
+    return this.http.post(this.url + "/buyNow/" + userId + "/" + quantity + "/" +  bookId, null);
+  }
 }
 

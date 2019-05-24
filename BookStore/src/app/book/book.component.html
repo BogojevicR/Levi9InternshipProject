@@ -6,7 +6,7 @@
         <li class="list-group-item">Price: {{book.price}} RSD</li>
         <li class="list-group-item">Quanity: {{book.quantity}} </li>
         <li class="list-group-item"><input #quantity type="number" min=1 value = 1></li>
-        <li class="list-group-item"> <button type="button" (click)="addItem(quantity.value,book.id)" class="btn btn-primary" >Add to cart</button>  </li>
-        <li class="list-group-item"> <button type="button" class="btn btn-success">Buy Now</button> </li>
+        <li class="list-group-item"> <button type="button" (click)="addItem(quantity.value, book.id)" class="btn btn-primary" >Add to cart</button>  </li>
+        <li class="list-group-item"> <button type="button" (click)="buyNow(37, quantity.value, book.id)" class="btn btn-success">Buy Now</button> </li>
     </ul>
 </div>

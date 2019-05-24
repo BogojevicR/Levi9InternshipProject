@@ -1,3 +1,4 @@
+import { PurchaseService } from './../services/purchase.service';
 import { ShoppingCartService } from './../services/shopping-cart.service';
 import { Component, OnInit, Input } from '@angular/core';
 import swal from 'sweetalert2';
@@ -11,8 +12,8 @@ import swal from 'sweetalert2';
 export class BookComponent implements OnInit {
 
   @Input() book: any;
-  constructor(private cartService: ShoppingCartService) { }
-
+  constructor(private cartService: ShoppingCartService, private purchaseService: PurchaseService) { }
+  purchaseString : string
   ngOnInit() {
   }
 
@@ -29,10 +30,22 @@ export class BookComponent implements OnInit {
           type: 'error'
         })
       }
-      
     })
-      
-    
   }
 
+  buyNow(userId : any, quantity: number, bookId: any){
+    this.purchaseService.buyNow(userId,quantity,bookId).subscribe(data => {
+        this.purchaseString = JSON.stringify(data);
+        swal.fire({
+          type: 'success',
+          title: 'Purchase Successful!',
+          text: this.purchaseString
+          })
+      }, err => {
+         swal.fire({
+          type: 'error',
+          text: 'Something went wrong!'
+          })
+      })
+  }
 }

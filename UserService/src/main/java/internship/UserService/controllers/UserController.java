@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +34,7 @@ import internship.UserService.services.UserService;
  * @author s.krasic
  *
  */
-
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -56,14 +57,16 @@ public class UserController {
 	@PostMapping(value = "/save")
 	public ResponseEntity<UserDTO> save(@RequestBody UserDTO userDTO) throws IOException {
 		User u = UserConverter.toEntity(userDTO);
-		/*
-		 * if(userService.save(u)) { Map<String, String> map= new HashMap<>();
-		 * map.put(USERNAME, userDTO.getUsername()); map.put("password",
-		 * userDTO.getPassword()); map.put("role", userDTO.getRole().toString());
-		 * 
-		 * requestService.makePostRequest("http://localhost:8085/auth/save",map);
-		 * 
-		 * return new ResponseEntity<>(userDTO, HttpStatus.OK); }
+		
+	/*	if (userService.save(u)) {
+			Map<String, String> map= new HashMap<>();
+			map.put(USERNAME, userDTO.getUsername()); map.put("password",
+			userDTO.getPassword()); map.put("role", userDTO.getRole().toString());
+		  
+			requestService.makePostRequest("http://localhost:8085/auth/save",map);
+		  
+			return new ResponseEntity<>(userDTO, HttpStatus.OK); 
+			}
 		 */
 		userService.save(u);
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);
@@ -106,11 +109,11 @@ public class UserController {
 
 	@GetMapping(value = "/getUser/{id}")
 	public ResponseEntity<UserDTO> getUser(@PathVariable Long id, HttpServletRequest request) {
-		try {
+	/*	try {
 			requestService.makeTokenCheck(requestService.getCookie(request));
 		} catch (IOException e) {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
+		}  */
 		User user = userService.getById(id);
 		UserDTO userDTO = UserConverter.fromEntity(user);
 		return new ResponseEntity<>(userDTO, HttpStatus.OK);

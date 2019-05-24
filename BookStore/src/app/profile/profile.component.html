@@ -1,0 +1,68 @@
+<h1 style="text-align: center">User Profile:</h1>
+<div class="card-body">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="card">
+        <h4 class="card-title" style="text-align: center">Info:</h4>
+        <div class="card-body">
+            <p class="card-text">Username: {{user.username}} </p>
+            <p class="card-text">Role: {{user.role}} </p>
+            <p class="card-text">First Name: {{user.userInfo.name}} </p>
+            <p class="card-text">Last Name: {{user.userInfo.surname}} </p>
+            <p class="card-text">Email: {{user.userInfo.email}} </p>
+            <p class="card-text">Phone: {{user.userInfo.phone}} </p>
+            <p class="card-text">City: {{user.userInfo.adress.city}} </p>
+            <p class="card-text">Country: {{user.userInfo.adress.country}} </p>
+            <p class="card-text">Street: {{user.userInfo.adress.street}} </p>
+            <p class="card-text">Street Number: {{user.userInfo.adress.streetNumber}} </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-9">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title" style="text-align: center">Purchases:</h4>              
+          <table class="table">
+            <thead>
+              <tr>
+                <th style="width: 80px; text-align: center" scope="col">Id</th>
+                <th style="width: auto; text-align: center" scope="col">Item List:</th>
+                <th style="width: 150px; text-align: center" scope="col">Total Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let purchase of user.purchases"> 
+                <th  style="width: 80px;text-align: center; vertical-align: middle">{{purchase.id}}</th>
+                <td>
+                  <table class="table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 50px; text-align: center" scope="col">Item Id</th>
+                        <th style="width: 500px; text-align: center" scope="col">Book Title</th>
+                        <th style="width: 500px; text-align: center" scope="col">Book Author</th>
+                        <th style="width: 200px; text-align: center" scope="col">Book Price</th>
+                        <th style="width: 100px; text-align: center" scope="col">Quantity</th>
+                        <th style="width: 100px; text-align: center" scope="col">Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of purchase.itemList"> 
+                        <th style="width: 50px; text-align: center" > {{item.id}} </th>
+                        <td style="width: 500px; text-align: center" > {{item.book.title}} </td>
+                        <td style="width: 500px; text-align: center" > {{item.book.author}} </td>
+                        <td style="width: 200px; text-align: center"> {{item.book.price}} </td>
+                        <td style="width: 200px; text-align: center"> {{item.quantity}} </td>
+                        <th style="width: 100px; text-align: center"> {{item.total}} </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                <th style="text-align: center; vertical-align: middle">{{purchase.totalPrice}}</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
